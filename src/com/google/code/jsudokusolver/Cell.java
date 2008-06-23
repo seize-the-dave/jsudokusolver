@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -94,5 +95,13 @@ public class Cell {
             return candidates.toString();
         }
         return digit.toString();
+    }
+    
+    public static Set<Integer> generateCandidateSet(Integer... candidates) {
+        Set<Integer> candidateSet = new HashSet<Integer>();
+        for (Integer candidate : candidates) {
+            candidateSet.add(candidate);
+        }
+        return candidateSet;
     }
 }

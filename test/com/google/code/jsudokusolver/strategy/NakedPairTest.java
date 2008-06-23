@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver.strategy;
 
+import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,17 +29,9 @@ public class NakedPairTest {
         grid.fill(puzzle);
         grid.registerStrategy(new NakedPair());
         assertTrue(grid.solve());
-        assertEquals(makeCandidateSet(3, 9), grid.getCandidates(0, 8));
-        assertEquals(makeCandidateSet(3, 9), grid.getCandidates(2, 7));
-        assertEquals(makeCandidateSet(1, 4, 7), grid.getCandidates(5, 6));
-        assertEquals(makeCandidateSet(4), grid.getCandidates(6, 6));
-    }
-    
-    private Set<Integer> makeCandidateSet(Integer... candidates) {
-        Set<Integer> candidateSet = new HashSet<Integer>();
-        for (Integer candidate : candidates) {
-            candidateSet.add(candidate);
-        }
-        return candidateSet;
+        assertEquals(Cell.generateCandidateSet(3, 9), grid.getCandidates(8, 0));
+        assertEquals(Cell.generateCandidateSet(3, 9), grid.getCandidates(7, 2));
+        assertEquals(Cell.generateCandidateSet(1, 4, 7), grid.getCandidates(6, 5));
+        assertEquals(Cell.generateCandidateSet(4), grid.getCandidates(6, 6));
     }
 }

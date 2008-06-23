@@ -23,8 +23,7 @@ public class HiddenSingle implements SolvingStrategy {
         return changed;
     }
     
-    private boolean solveHouses(List<House> houses)
-    {
+    private boolean solveHouses(List<House> houses) {
         boolean changed = false;
         for (int i = 0; i < grid.getSize(); i++) {
             for (House house : houses) {

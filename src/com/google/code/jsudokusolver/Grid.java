@@ -198,6 +198,6 @@ public class Grid {
      * @return
      */
     public Set<Integer> getCandidates(int rowIndex, int columnIndex) {
-        return rows.get(rowIndex).getCells().get(columnIndex).getCandidates();
+        return rows.get(columnIndex).getCells().get(rowIndex).getCandidates();
     }
 }
