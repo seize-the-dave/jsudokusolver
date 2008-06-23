@@ -33,12 +33,20 @@ public class HiddenPair implements SolvingStrategy {
                 if (j <= i) {
                     continue;
                 }
-                Set<Integer> candidates = Cell.generateCandidateSet(j + 1, i + 1);
+                final Set<Integer> candidates 
+                        = Cell.generateCandidateSet(j + 1, i + 1);
                 for (House house : houses) {
-                    Set<Cell> matchingCells = new HashSet<Cell>();
+                    final Set<Cell> matchingCells = new HashSet<Cell>();
                     for (Cell cell : house.getCells()) {
-                        // Not correct!
-                        if (cell.getCandidates().containsAll(candidates)) {
+                        if (cell.isSolved()) {
+                            continue;
+                        }
+                        Set<Integer> candidateCells 
+                                = new HashSet<Integer>(cell.getCandidates());
+                        if (candidateCells.retainAll(candidates) == false) {
+                            continue;
+                        }
+                        if (candidateCells.size() == 2) {
                             matchingCells.add(cell);
                         }
                     }
@@ -50,6 +58,6 @@ public class HiddenPair implements SolvingStrategy {
                 }
             }
         }
-        return true;
+        return changed;
     }
 }
