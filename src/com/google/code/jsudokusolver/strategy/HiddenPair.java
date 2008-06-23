@@ -21,8 +21,8 @@ public class HiddenPair implements SolvingStrategy {
     public boolean solve() {
          boolean changed = false;
         changed |= solveHouses(grid.getRows());
-//        changed |= solveHouses(grid.getColumns());
-//        changed |= solveHouses(grid.getBoxes());
+        changed |= solveHouses(grid.getColumns());
+        changed |= solveHouses(grid.getBoxes());
         return changed;
     }
     
