@@ -54,7 +54,7 @@ public class Cell {
     }
     
     public boolean removeCandidates(Set<Integer> candidates) {
-        return candidates.removeAll(candidates);
+        return this.candidates.removeAll(candidates);
     }
     
     public House getRow()
@@ -91,7 +91,7 @@ public class Cell {
     {
         if (digit == null)
         {
-            return "?"; // candidates.toString();
+            return candidates.toString();
         }
         return digit.toString();
     }

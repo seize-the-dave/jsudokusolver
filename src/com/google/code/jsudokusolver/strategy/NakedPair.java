@@ -25,20 +25,18 @@ public class NakedPair implements SolvingStrategy {
     {
         boolean changed = false;
         for (House house : houses) {
-            for (Cell cell : house.getCells())
-            {
+            for (Cell cell : house.getCells()) {
                 if (cell.isSolved()) {
                     continue;
                 }
-                if (cell.getCandidates().size() != 2)
-                {
+                if (cell.getCandidates().size() != 2) {
                     continue;
                 }
                 for (Cell pairCell : house.getCells()) {
                     if (cell == pairCell) {
                         continue;
                     }
-                    if (cell.getCandidates().equals(pairCell.getCandidates())) {
+                    if (pairCell.getCandidates().equals(cell.getCandidates())) {
                         for (Cell notCell : house.getCells()) {
                             if (notCell.equals(pairCell)) {
                                 continue;
@@ -53,6 +51,7 @@ public class NakedPair implements SolvingStrategy {
                                 changed = true;
                             }
                         }
+                        break;
                     }
                 }
             }

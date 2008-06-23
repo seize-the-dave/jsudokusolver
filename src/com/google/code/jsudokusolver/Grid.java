@@ -171,4 +171,33 @@ public class Grid {
         }
         return changed;
     }
+    
+    public Integer[][] toArray()
+    {
+        Integer[][] puzzle = new Integer[9][9];
+        int i = 0;
+        for (House row : rows) {
+            int j = 0;
+            for (Cell cell : row.getCells()) {
+                if (cell.isSolved()) {
+                    puzzle[i][j] = cell.getDigit();
+                } else {
+                    puzzle[i][j] = 0;
+                }
+                j++;
+            }
+            i++;
+        }
+        return puzzle;
+    }
+    
+    /**
+     * 
+     * @param rowIndex zero-based row number
+     * @param columnIndex zero-based column number
+     * @return
+     */
+    public Set<Integer> getCandidates(int rowIndex, int columnIndex) {
+        return rows.get(rowIndex).getCells().get(columnIndex).getCandidates();
+    }
 }
