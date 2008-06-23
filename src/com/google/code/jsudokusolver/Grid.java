@@ -1,0 +1,174 @@
+package com.google.code.jsudokusolver;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class Grid {
+    private final int size;
+    private final List<House> rows;
+    private final List<House> columns;
+    private final List<House> boxes;
+    private final Set<SolvingStrategy> strategies = new HashSet<SolvingStrategy>();
+    
+    public Grid(int size)
+    {
+        this.size = size;
+        
+        House house = new House(size);
+        
+        rows = generateHouses();
+        columns = generateHouses();
+        boxes = generateHouses();
+    }
+    
+    private List<House> generateHouses()
+    {
+        List<House> houses = new ArrayList<House>(size);
+        for (int i = 0; i < size; i++) {
+            houses.add(new House(size));
+        }
+        return houses;
+    }
+    
+    public Grid()
+    {
+        this(9);
+    }
+    
+    /**
+     * Fills in the puzzle.
+     * 
+     * This method expects a String of numbers equal to the square of the
+     * puzzle size.  For example, a puzzle size of 9 would take a String length
+     * of 81.  Numbers that are not filled in should use a zero, e.g.
+     * 
+     * 1302465798...
+     * 
+     * @param puzzle
+     * @throws InvalidSudokuException if the puzzle String is invalid
+     */
+    public void fill(String puzzle) throws InvalidSudokuException
+    {
+        if (puzzle.length() != (size * size)) {
+            throw new InvalidSudokuException("Wrong Length");
+        }
+        Set<Cell> cells = new HashSet<Cell>();
+        for (int i = 0; i < puzzle.length(); i++) {
+            House row = getRow(i);
+            House column = getColumn(i);
+            House box = getBox(i);
+            
+            Cell cell = new Cell(row, column, box, generateCandidates());
+            cells.add(cell);
+            Integer digit = Integer.valueOf(String.valueOf(puzzle.charAt(i)));
+            if (digit != 0)
+            {
+                cell.setDigit(digit);
+            }
+        }
+        // Flush Cells
+        for (Cell cell : cells)
+        {
+            if (cell.isSolved())
+            {
+                cell.setDigit(cell.getDigit());
+            }
+        }
+    }
+    
+    private House getRow(int offset)
+    {
+        int row = offset / size;
+        return rows.get(row);
+    }
+    
+    private House getColumn(int offset)
+    {
+        int column = offset % size;
+        return columns.get(column);
+    }
+    
+    private House getBox(int offset)
+    {
+        int row = offset / size;
+        int column = offset % size;
+        int sqrt = (int) Math.sqrt((double) size);
+        
+        int rowOffset = (row / sqrt);
+        int columnOffset = (column / sqrt);
+        int box = (rowOffset * sqrt) + columnOffset;
+        return boxes.get(box);
+    }
+    
+    private Set<Integer> generateCandidates()
+    {
+        Set<Integer> candidates = new HashSet<Integer>(size);
+        for (int i = 0; i < size; i++) {
+            candidates.add(i + 1);
+        }
+        return candidates;
+    }
+    
+    public List<House> getRows()
+    {
+        return rows;
+    }
+    
+    public List<House> getColumns()
+    {
+        return columns;
+    }
+    
+    public List<House> getBoxes()
+    {
+        return boxes;
+    }
+    
+    public int getSize()
+    {
+        return size;
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (House row : rows)
+        {
+            sb.append(row.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+    
+    /**
+     * Registers a SolvingStrategy to use for solving this Sudoku.
+     * 
+     * @param strategy the SolvingStrategy to register
+     */
+    public void registerStrategy(SolvingStrategy strategy) {
+        strategy.setGrid(this);
+        strategies.add(strategy);
+    }
+    
+    /**
+     * Attempts to solve this puzzle by invoking SolvingStrategy.solve() on each
+     * registered SolvingStrategy.  This method continues to invoke each 
+     * strategy until all strategies fail to change the puzzle.
+     * 
+     * @return true if the puzzle was changed; false otherwise
+     */
+    public boolean solve() {
+        boolean changed = false;
+        for (SolvingStrategy strategy : strategies) {
+            changed |= strategy.solve();
+        }
+        if (changed) {
+            changed |= solve();
+        }
+        return changed;
+    }
+}
