@@ -2,7 +2,9 @@
 <project name="JSudokuSolver" default="default" basedir=".">
 	<description>Builds, tests, and runs the project JSudokuSolver.</description>
 	<property name="src" location="src"/>
+        <property name="src.tests" location="test"/>
 	<property name="output" location="bin"/>
+        <property name="lib" location="lib"/>
 	<target name="clean">
 		<delete dir="${output}"/>
 	</target>
@@ -13,6 +15,14 @@
 	<target name="compile" depends="init">
 		<javac srcdir="${src}" destdir="${output}/classes"/>
 	</target>
+        <target name="-test-compile" depends="init">
+            <javac srcdir="${src.tests}" destdir="${output}/classes">
+                <classpath>
+                    <pathelement location="${java.class.path}"/>
+                    <pathelement location="${lib}/junit-4.4.jar"/>
+                </classpath>
+            </javac>
+        </target>
 	<target name="build" depends="compile">
 		<jar destfile="${output}/jsudokusolver.jar" basedir="${output}/classes/">
 			<manifest>
@@ -21,7 +31,22 @@
 			</manifest>
 		</jar>
 	</target>
-	<target name="run" depends="build">
+	<target name="run" depends="build, test">
 		<java jar="${output}/jsudokusolver.jar" fork="true"/>
 	</target>
+        <target name="test" depends="build, -test-compile">
+            <junit fork="yes" printsummary="on">
+                <formatter type="plain" usefile="false"/>
+                <classpath>
+                    <pathelement location="${output}/classes"/>
+                    <pathelement location="${java.class.path}"/>
+                    <pathelement location="${lib}/junit-4.4.jar"/>
+                </classpath>
+                <batchtest fork="yes">
+                    <fileset dir="${src.tests}">
+                        <include name="**/*Test.java"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+        </target>
 </project>

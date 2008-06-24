@@ -16,9 +16,9 @@ public class CellTest {
 
     @Before
     public void setUp() {
-        row = new House(1);
-        column = new House(1);
-        box = new House(1);
+        row = new House(1, 0);
+        column = new House(1, 0);
+        box = new House(1, 0);
         candidates = new HashSet<Integer>();
         candidates.add(1);
         candidates.add(2);
@@ -50,7 +50,7 @@ public class CellTest {
      */
     @Test
     public void testHasCandidate() {
-        assertTrue(cell.hasCandidate(1));
+        assertTrue(cell.contains(1));
     }
 
     /**
@@ -58,8 +58,8 @@ public class CellTest {
      */
     @Test
     public void testRemoveCandidate() {
-        assertFalse(cell.removeCandidate(3));
-        assertTrue(cell.removeCandidate(1));
+        assertFalse(cell.remove(3));
+        assertTrue(cell.remove(1));
     }
 
     /**
@@ -67,8 +67,8 @@ public class CellTest {
      */
     @Test
     public void testRemoveCandidates() {
-        assertFalse(cell.removeCandidates(new HashSet<Integer>()));
-        assertTrue(cell.removeCandidates(candidates));
+        assertFalse(cell.removeAll(new HashSet<Integer>()));
+        assertTrue(cell.removeAll(candidates));
     }
 
     /**
@@ -109,7 +109,7 @@ public class CellTest {
     @Test
     public void testSetDigit() {
         cell.setDigit(1);
-        assertEquals(1, cell.getDigit());
+        assertEquals(new Integer(1), cell.getDigit());
     }
 
     /**
@@ -117,7 +117,7 @@ public class CellTest {
      */
     @Test
     public void testToString() {
-        assertEquals("?", cell.toString());
+        assertEquals("[1, 2]", cell.toString());
         cell.setDigit(1);
         assertEquals("1", cell.toString());
     }

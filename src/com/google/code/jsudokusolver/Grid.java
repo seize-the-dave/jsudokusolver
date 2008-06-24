@@ -1,7 +1,6 @@
 package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,24 +16,20 @@ public class Grid {
     {
         this.size = size;
         
-        House house = new House(size);
-        
         rows = generateHouses();
         columns = generateHouses();
         boxes = generateHouses();
     }
     
-    private List<House> generateHouses()
-    {
+    private List<House> generateHouses() {
         List<House> houses = new ArrayList<House>(size);
         for (int i = 0; i < size; i++) {
-            houses.add(new House(size));
+            houses.add(new House(size, i + 1));
         }
         return houses;
     }
     
-    public Grid()
-    {
+    public Grid() {
         this(9);
     }
     
@@ -50,8 +45,7 @@ public class Grid {
      * @param puzzle
      * @throws InvalidSudokuException if the puzzle String is invalid
      */
-    public void fill(String puzzle) throws InvalidSudokuException
-    {
+    public void fill(String puzzle) throws InvalidSudokuException {
         if (puzzle.length() != (size * size)) {
             throw new InvalidSudokuException("Wrong Length");
         }
@@ -70,29 +64,24 @@ public class Grid {
             }
         }
         // Flush Cells
-        for (Cell cell : cells)
-        {
-            if (cell.isSolved())
-            {
+        for (Cell cell : cells) {
+            if (cell.isSolved()) {
                 cell.setDigit(cell.getDigit());
             }
         }
     }
     
-    private House getRow(int offset)
-    {
+    private House getRow(int offset) {
         int row = offset / size;
         return rows.get(row);
     }
     
-    private House getColumn(int offset)
-    {
+    private House getColumn(int offset) {
         int column = offset % size;
         return columns.get(column);
     }
     
-    private House getBox(int offset)
-    {
+    private House getBox(int offset) {
         int row = offset / size;
         int column = offset % size;
         int sqrt = (int) Math.sqrt((double) size);
@@ -103,8 +92,7 @@ public class Grid {
         return boxes.get(box);
     }
     
-    private Set<Integer> generateCandidates()
-    {
+    private Set<Integer> generateCandidates() {
         Set<Integer> candidates = new HashSet<Integer>(size);
         for (int i = 0; i < size; i++) {
             candidates.add(i + 1);
@@ -112,29 +100,24 @@ public class Grid {
         return candidates;
     }
     
-    public List<House> getRows()
-    {
+    public List<House> getRows() {
         return rows;
     }
     
-    public List<House> getColumns()
-    {
+    public List<House> getColumns() {
         return columns;
     }
     
-    public List<House> getBoxes()
-    {
+    public List<House> getBoxes() {
         return boxes;
     }
     
-    public int getSize()
-    {
+    public int getSize() {
         return size;
     }
     
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         for (House row : rows)
         {
@@ -163,11 +146,16 @@ public class Grid {
      */
     public boolean solve() {
         boolean changed = false;
+        while (step()) {
+            changed = true;
+        }
+        return changed;
+    }
+    
+    public boolean step() {
+        boolean changed = false;
         for (SolvingStrategy strategy : strategies) {
             changed |= strategy.solve();
-        }
-        if (changed) {
-            changed |= solve();
         }
         return changed;
     }
@@ -199,5 +187,29 @@ public class Grid {
      */
     public Set<Integer> getCandidates(int rowIndex, int columnIndex) {
         return rows.get(columnIndex).getCells().get(rowIndex).getCandidates();
+    }
+    
+    public void addCellChangeListener(CellChangeListener listener) {
+        for (House house : getBoxes()) {
+            house.addCellChangeListener(listener);
+        }
+        for (House house : getColumns()) {
+            house.addCellChangeListener(listener);
+        }
+        for (House house : getRows()) {
+            house.addCellChangeListener(listener);
+        }
+    }
+    
+    public void removeCellChangeListener(CellChangeListener listener) {
+        for (House house : getBoxes()) {
+            house.removeCellChangeListener(listener);
+        }
+        for (House house : getColumns()) {
+            house.removeCellChangeListener(listener);
+        }
+        for (House house : getRows()) {
+            house.removeCellChangeListener(listener);
+        }
     }
 }

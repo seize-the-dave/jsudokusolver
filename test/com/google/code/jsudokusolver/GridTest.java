@@ -75,6 +75,10 @@ public class GridTest {
     @Test
     public void testRegisterStrategy() {
         SolvingStrategy testStrategy = new SolvingStrategy() {
+            public String getName(){
+                return "Anonymous Strategy";
+            }
+            
             public void setGrid(Grid grid) {
             }
 
@@ -85,19 +89,4 @@ public class GridTest {
         grid.registerStrategy(testStrategy);
         assertFalse(grid.solve());
     }
-
-    /**
-     * Test of solve method, of class Grid.
-     */
-    @Test
-    public void testSolve() {
-        System.out.println("solve");
-        Grid instance = new Grid();
-        boolean expResult = false;
-        boolean result = instance.solve();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }

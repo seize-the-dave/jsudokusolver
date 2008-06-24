@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class Cell {
     private final House column;
     private final House box;
     private Integer digit;
+    private Set<CellChangeListener> listeners = new HashSet<CellChangeListener>();
     
     public Cell(House row, House column, House box, Set<Integer> candidates)
     {
@@ -28,10 +30,12 @@ public class Cell {
     }
     
     /**
+     * Returns an unmodifiable set.
+     * 
      * @return the candidates for this cell
      */
     public Set<Integer> getCandidates() {
-        return candidates;
+        return Collections.unmodifiableSet(candidates);
     }
     
     /**
@@ -46,16 +50,38 @@ public class Cell {
      * @param digit
      * @return true if this 
      */
-    public boolean hasCandidate(Integer digit) {
+    public boolean contains(Integer digit) {
         return candidates.contains(digit);
     }
     
-    public boolean removeCandidate(Integer candidate) {
-        return candidates.remove(candidate);
+    public boolean remove(Integer candidate) {
+        final Set<Integer> before = getCandidates();
+        if (candidates.remove(candidate)) {
+            final Set<Integer> after = getCandidates();
+            fireCandidateChangeEvent(before, after);
+            return true;
+        }
+        return false;
     }
     
-    public boolean removeCandidates(Set<Integer> candidates) {
-        return this.candidates.removeAll(candidates);
+    public boolean removeAll(Set<Integer> candidates) {
+        final Set<Integer> before = getCandidates();
+        if (this.candidates.removeAll(candidates)) {
+            final Set<Integer> after = getCandidates();
+            fireCandidateChangeEvent(before, after);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean retainAll(Set<Integer> candidates) {
+        final Set<Integer> before = getCandidates();
+        if (this.candidates.retainAll(candidates)) {
+            Set<Integer> after = getCandidates();
+            fireCandidateChangeEvent(before, after);
+            return true;
+        }
+        return false;
     }
     
     public House getRow()
@@ -81,10 +107,13 @@ public class Cell {
     public void setDigit(Integer digit)
     {
         this.digit = digit;
+        candidates.clear();
         
         row.removeCandidate(digit);
         column.removeCandidate(digit);
         box.removeCandidate(digit);
+        
+        fireDigitChangeEvent();
     }
  
     @Override
@@ -103,5 +132,48 @@ public class Cell {
             candidateSet.add(candidate);
         }
         return candidateSet;
+    }
+    
+    public String getPosition() {
+        return "(" + column.getOffset() + ", " + row.getOffset() + ")";
+    }
+    
+    
+    public void addCellChangeListener(CellChangeListener listener) {
+        listeners.add(listener);
+    }
+    
+    public void removeCellChangeListener(CellChangeListener listener) {
+        listeners.remove(listener);
+    }
+    
+    private void fireDigitChangeEvent() {
+        DigitChangeEvent event = new DigitChangeEvent() {
+            public Cell getCell() {
+                return Cell.this;
+            }
+        };
+        for (CellChangeListener listener : listeners) {
+            listener.digitChanged(event);
+        }
+    }
+    
+    private void fireCandidateChangeEvent(final Set<Integer> before, final Set<Integer> after) {
+        CandidateChangeEvent event = new CandidateChangeEvent() {
+            public Set<Integer> getPreChangeCandidates() {
+                return before;
+            }
+
+            public Set<Integer> getPostChangeCandidates() {
+                return after;
+            }
+
+            public Cell getCell() {
+                return Cell.this;
+            }
+        };
+        for (CellChangeListener listener : listeners) {
+            listener.candidatesChanged(event);
+        }
     }
 }

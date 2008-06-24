@@ -7,42 +7,65 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class HiddenSingle implements SolvingStrategy {
+    private static final String NAME = "Hidden Single";
+    private static final Logger LOGGER = Logger.getLogger(HiddenPair.class.getCanonicalName());
     private Grid grid;
+    
+    public String getName() {
+        return NAME;
+    }
 
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
 
     public boolean solve() {
-        boolean changed = false;
-        changed |= solveHouses(grid.getRows());
-        changed |= solveHouses(grid.getColumns());
-        changed |= solveHouses(grid.getBoxes());
-        return changed;
+        if (solveHouses(grid.getRows())) {
+            return true;
+        }
+        if (solveHouses(grid.getColumns())) {
+            return true;
+        }
+        if (solveHouses(grid.getBoxes())) {
+            return true;
+        }
+        return false;
     }
     
     private boolean solveHouses(List<House> houses) {
-        boolean changed = false;
-        for (int i = 0; i < grid.getSize(); i++) {
+        for (int i = 1; i <= grid.getSize(); i++) {
             for (House house : houses) {
-                Set<Cell> candidates = new HashSet<Cell>();
-                for (Cell cell : house.getCells()) {
-                    if (cell.isSolved()) {
-                        continue;
-                    }
-                    if (cell.hasCandidate(i + 1)) {
-                        candidates.add(cell);
-                    }
-                }
-                if (candidates.size() == 1)
-                {
-                    ((Cell) candidates.toArray()[0]).setDigit(i + 1);
-                    changed = true;
+                if (solveHouse(house, i)) {
+                    return true;
                 }
             }
         }
-        return changed;
+        return false;
+    }
+    
+    private boolean solveHouse(House house, int candidate) {
+        Set<Cell> candidates = new HashSet<Cell>();
+        for (Cell cell : house.getCells()) {
+            if (cell.isSolved()) {
+                if (cell.getDigit() == candidate) {
+                    return false;
+                }
+                continue;
+            }
+            if (cell.contains(candidate)) {
+                candidates.add(cell);
+            }
+        }
+        if (candidates.size() == 1)
+        {
+            Cell cell = candidates.toArray(new Cell[]{})[0];
+            cell.setDigit(candidate);
+            LOGGER.info(NAME + ": " + cell.getPosition() + " contains a hidden single: " + candidate);
+            return true;
+        }
+        return false;
     }
 }
