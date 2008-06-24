@@ -4,6 +4,7 @@ import com.google.code.jsudokusolver.strategy.HiddenPair;
 import com.google.code.jsudokusolver.strategy.HiddenSingle;
 import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
+import com.google.code.jsudokusolver.strategy.NakedTriple;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -24,6 +25,7 @@ public class Main {
         grid.registerStrategy(new HiddenPair());
         grid.registerStrategy(new NakedSingle());
         grid.registerStrategy(new NakedPair());
+        grid.registerStrategy(new NakedTriple());
         grid.solve();
         System.out.print(grid);
     }

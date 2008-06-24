@@ -12,6 +12,7 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.util.Set;
  */
 public class NakedTriple implements SolvingStrategy {
     private static String NAME = "Naked Triple";
+    private static final Logger LOGGER = Logger.getLogger(HiddenPair.class.getCanonicalName());
     private Grid grid;
 
     public String getName() {
@@ -33,17 +35,16 @@ public class NakedTriple implements SolvingStrategy {
         for (int i = 1; i <= grid.getSize(); i++) {
             for (int j = i + 1; j <= grid.getSize(); j++) {
                 for (int k = j + 1; k <= grid.getSize(); k++) {
-//                    Set<Integer> triple = Cell.generateCandidateSet(i, j, k);
-                    Set<Integer> triple = Cell.generateCandidateSet(1, 3, 8);
-//                    if (solveHouses(grid.getBoxes(), triple)) {
-//                        return true;
-//                    }
+                    Set<Integer> triple = Cell.generateCandidateSet(i, j, k);
+                    if (solveHouses(grid.getBoxes(), triple)) {
+                        return true;
+                    }
                     if (solveHouses(grid.getColumns(), triple)) {
                         return true;
                     }
-//                    if (solveHouses(grid.getRows(), triple)) {
-//                        return true;
-//                    }
+                    if (solveHouses(grid.getRows(), triple)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -84,10 +85,15 @@ public class NakedTriple implements SolvingStrategy {
         if (selectedCells.size() == 3) {
             Set<Cell> houseCells = new HashSet<Cell>(house.getCells());
             houseCells.removeAll(selectedCells);
+            boolean changed = false;
             for (Cell cell : houseCells) {
-                cell.removeAll(triple);
+                if (cell.removeAll(triple)) {
+                    Cell[] cells = selectedCells.toArray(new Cell[]{});
+                    LOGGER.info(NAME + ": " + cell.getPosition() + " cannot contain " + triple + " due to naked triple in " + cells[0].getPosition() + ", " + cells[1].getPosition() + " and " + cells[2].getPosition());
+                    changed = true;
+                }
             }
-            return true;
+            return changed;
         }
         return false;
     }
