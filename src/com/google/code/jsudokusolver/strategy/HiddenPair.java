@@ -36,10 +36,7 @@ public class HiddenPair implements SolvingStrategy {
     private boolean solveHouses(List<House> houses) {
         boolean changed = false;
         for (int i = 1; i <= grid.getSize(); i++) {
-            for (int j = 1; j <= grid.getSize(); j++) {
-                if (j <= i) {
-                    continue;
-                }
+            for (int j = i + 1; j <= grid.getSize(); j++) {
                 // Generate pair to search for
                 Set<Integer> pair = Cell.generateCandidateSet(j, i);
                 for (House house : houses) {
