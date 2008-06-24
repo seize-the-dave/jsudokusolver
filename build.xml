@@ -4,7 +4,7 @@
 	<property name="src" location="src"/>
 	<property name="output" location="bin"/>
 	<target name="clean">
-		<delete name="${output}"/>
+		<delete dir="${output}"/>
 	</target>
 	<target name="init">
 		<mkdir dir="${output}"/>
