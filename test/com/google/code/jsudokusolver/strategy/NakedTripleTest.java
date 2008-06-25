@@ -34,7 +34,6 @@ public class NakedTripleTest {
                         "067240300" +
                         "920738406";
         grid.fill(puzzle);
-        System.out.println(grid);
         grid.registerStrategy(new NakedTriple());
         grid.addCellChangeListener(new CellChangeListener() {
             public void candidatesChanged(CandidateChangeEvent event) {

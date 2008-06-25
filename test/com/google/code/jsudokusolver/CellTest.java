@@ -111,15 +111,4 @@ public class CellTest {
         cell.setDigit(1);
         assertEquals(new Integer(1), cell.getDigit());
     }
-
-    /**
-     * Test of toString method, of class Cell.
-     */
-    @Test
-    public void testToString() {
-        assertEquals("[1, 2]", cell.toString());
-        cell.setDigit(1);
-        assertEquals("1", cell.toString());
-    }
-
 }

@@ -3,19 +3,19 @@
 	<description>Builds, tests, and runs the project JSudokuSolver.</description>
 	<property name="src" location="src"/>
         <property name="src.tests" location="test"/>
-	<property name="output" location="bin"/>
+	<property name="output" location="target"/>
         <property name="lib" location="lib"/>
-	<target name="clean">
+	<target name="clean" description="Cleans up all target directories">
 		<delete dir="${output}"/>
 	</target>
-	<target name="init">
+	<target name="-init">
 		<mkdir dir="${output}"/>
 		<mkdir dir="${output}/classes"/>
 	</target>
-	<target name="compile" depends="init">
+	<target name="compile" depends="-init" description="Compiles all *.java files">
 		<javac srcdir="${src}" destdir="${output}/classes"/>
 	</target>
-        <target name="-test-compile" depends="init">
+        <target name="-test-compile" depends="-init">
             <javac srcdir="${src.tests}" destdir="${output}/classes">
                 <classpath>
                     <pathelement location="${java.class.path}"/>
@@ -23,7 +23,7 @@
                 </classpath>
             </javac>
         </target>
-	<target name="build" depends="compile">
+	<target name="build" depends="compile, test" description="Builds a distributable JAR file for this application">
 		<jar destfile="${output}/jsudokusolver.jar" basedir="${output}/classes/">
 			<manifest>
 				<attribute name="Author" value="${user.name}"/>
@@ -31,12 +31,12 @@
 			</manifest>
 		</jar>
 	</target>
-	<target name="run" depends="build, test">
+	<target name="run" depends="build" description="Runs the application">
 		<java jar="${output}/jsudokusolver.jar" fork="true"/>
 	</target>
-        <target name="test" depends="build, -test-compile">
-            <junit fork="yes" printsummary="on">
-                <formatter type="plain" usefile="false"/>
+        <target name="test" depends="-test-compile" description="Runs all JUnit tests for this application">
+    	    <junit fork="yes" printsummary="off" haltonfailure="on">
+		<formatter type="plain" usefile="off"/>			
                 <classpath>
                     <pathelement location="${output}/classes"/>
                     <pathelement location="${java.class.path}"/>
