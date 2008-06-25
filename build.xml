@@ -4,13 +4,21 @@
 	<property name="src" location="src"/>
         <property name="src.tests" location="test"/>
 	<property name="output" location="target"/>
-        <property name="lib" location="lib"/>
+	<property name="lib" location="lib"/>
+
 	<target name="clean" description="Cleans up all target directories">
 		<delete dir="${output}"/>
 	</target>
 	<target name="-init">
 		<mkdir dir="${output}"/>
 		<mkdir dir="${output}/classes"/>
+		<exec executable="svn" outputproperty="svnlog.out">  
+			<arg line="info -r HEAD"/>  
+		</exec>
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+		<propertyregex property="build.version" input="${svnlog.out}" select="\1">  
+			<regexp pattern="Last Changed Rev: ([0-9]*)"/>  
+		</propertyregex>  
 	</target>
 	<target name="compile" depends="-init" description="Compiles all *.java files">
 		<javac srcdir="${src}" destdir="${output}/classes"/>
@@ -24,15 +32,18 @@
             </javac>
         </target>
 	<target name="build" depends="compile, test" description="Builds a distributable JAR file for this application">
-		<jar destfile="${output}/jsudokusolver.jar" basedir="${output}/classes/">
+		<jar destfile="${output}/jsudokusolver-r${build.version}.jar" basedir="${output}/classes/">
 			<manifest>
-				<attribute name="Author" value="${user.name}"/>
 				<attribute name="Main-Class" value="com.google.code.jsudokusolver.Main"/>
+				<section name="Build">
+					<attribute name="Author" value="${user.name}"/>
+					<attribute name="Revision" value="${build.version}"/>
+				</section>
 			</manifest>
 		</jar>
 	</target>
 	<target name="run" depends="build" description="Runs the application">
-		<java jar="${output}/jsudokusolver.jar" fork="true"/>
+		<java jar="${output}/jsudokusolver-r${build.version}.jar" fork="true"/>
 	</target>
         <target name="test" depends="-test-compile" description="Runs all JUnit tests for this application">
     	    <junit fork="yes" printsummary="off" haltonfailure="on">
