@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.google.code.jsudokusolver.strategy;
 
 import com.google.code.jsudokusolver.CandidateChangeEvent;
@@ -15,7 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Dave
+ * @author David Grant
  */
 public class NakedTripleTest {
     /**

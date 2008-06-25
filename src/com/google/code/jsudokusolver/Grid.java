@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Grid {
     private final int size;
@@ -12,8 +13,7 @@ public class Grid {
     private final List<House> boxes;
     private final Set<SolvingStrategy> strategies = new HashSet<SolvingStrategy>();
     
-    public Grid(int size)
-    {
+    public Grid(int size) {
         this.size = size;
         
         rows = generateHouses();
@@ -93,7 +93,7 @@ public class Grid {
     }
     
     private Set<Integer> generateCandidates() {
-        Set<Integer> candidates = new HashSet<Integer>(size);
+        Set<Integer> candidates = new TreeSet<Integer>();
         for (int i = 0; i < size; i++) {
             candidates.add(i + 1);
         }

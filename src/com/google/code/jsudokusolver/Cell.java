@@ -3,6 +3,7 @@ package com.google.code.jsudokusolver;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Representation of the smallest element of a Sudoku grid
@@ -17,8 +18,7 @@ public class Cell {
     private Integer digit;
     private Set<CellChangeListener> listeners = new HashSet<CellChangeListener>();
     
-    public Cell(House row, House column, House box, Set<Integer> candidates)
-    {
+    public Cell(House row, House column, House box, Set<Integer> candidates) {
         this.candidates = candidates;
         this.row = row;
         this.column = column;
@@ -127,7 +127,7 @@ public class Cell {
     }
     
     public static Set<Integer> generateCandidateSet(Integer... candidates) {
-        Set<Integer> candidateSet = new HashSet<Integer>();
+        Set<Integer> candidateSet = new TreeSet<Integer>();
         for (Integer candidate : candidates) {
             candidateSet.add(candidate);
         }

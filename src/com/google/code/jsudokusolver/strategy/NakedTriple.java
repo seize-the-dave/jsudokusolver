@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Dave
+ * @author David Grant
  */
 public class NakedTriple implements SolvingStrategy {
     private static String NAME = "Naked Triple";
-    private static final Logger LOGGER = Logger.getLogger(HiddenPair.class.getCanonicalName());
+    private static final Logger LOGGER = Logger.getLogger(NakedTriple.class.getCanonicalName());
     private Grid grid;
 
     public String getName() {
