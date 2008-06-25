@@ -68,7 +68,7 @@ public class HiddenPair implements SolvingStrategy {
                 changed |= cell.retainAll(pair);
             }
             Cell[] cells = matchingCells.toArray(new Cell[]{});
-            LOGGER.info(NAME + ": " + cells[0].getPosition() + " and " + cells[1].getPosition() + " contain a hidden pair: " + pair + ".");
+            LOGGER.info(NAME + ": " + cells[0].getPosition() + " and " + cells[1].getPosition() + " can only contain " + pair + ".");
         }
         return changed;
     }

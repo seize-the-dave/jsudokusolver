@@ -18,6 +18,9 @@ public class Main {
                         "083620915" +
                         "065198000" +
                         "219500008";
+	if (args.length == 1) {
+		puzzle = args[0];
+	}
         grid.fill(puzzle);
         
         System.out.print(grid);
