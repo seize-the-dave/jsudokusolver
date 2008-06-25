@@ -119,10 +119,23 @@ public class Grid {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (House row : rows)
-        {
+        for (House row : rows) {
             sb.append(row.toString());
             sb.append("\n");
+        }
+        return sb.toString();
+    }
+    
+    public String getPuzzle() {
+        StringBuilder sb = new StringBuilder();
+        for (House row : rows) {
+            for (Cell cell : row.getCells()) {
+                if (cell.isSolved()) {
+                    sb.append(cell.getDigit());
+                } else {
+                    sb.append("0");
+                }
+            }
         }
         return sb.toString();
     }

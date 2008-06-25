@@ -29,7 +29,7 @@ public class HiddenPairTest {
         grid.registerStrategy(new HiddenPair());
         assertEquals(Cell.generateCandidateSet(1, 2, 3),
                      grid.getCandidates(8, 2));
-        assertTrue(grid.solve());
+        assertTrue(grid.step());
         assertEquals(Cell.generateCandidateSet(1, 3),
                      grid.getCandidates(8, 2));
     }

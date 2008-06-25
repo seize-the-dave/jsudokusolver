@@ -43,6 +43,16 @@ public class House {
         return Collections.unmodifiableList(cells);
     }
     
+    public List<Cell> getUnsolvedCells() {
+        List<Cell> unsolvedCells = new ArrayList<Cell>();
+        for (Cell cell : cells) {
+            if (cell.isSolved() == false) {
+                unsolvedCells.add(cell);
+            }
+        }
+        return unsolvedCells;
+    }
+    
     /**
      * Remove a candidate from each of the cells in this house
      * 

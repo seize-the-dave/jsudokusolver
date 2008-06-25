@@ -26,31 +26,40 @@ public class HiddenPair implements SolvingStrategy {
     }
 
     public boolean solve() {
-         boolean changed = false;
-        changed |= solveHouses(grid.getRows());
-        changed |= solveHouses(grid.getColumns());
-        changed |= solveHouses(grid.getBoxes());
-        return changed;
+        if (solveHouses(grid.getRows())) {
+            return true;
+        }
+        if (solveHouses(grid.getColumns())) {
+            return true;
+        }
+        if (solveHouses(grid.getBoxes())) {
+            return true;
+        }
+        return false;
     }
     
     private boolean solveHouses(List<House> houses) {
-        boolean changed = false;
         for (int i = 1; i <= grid.getSize(); i++) {
             for (int j = i + 1; j <= grid.getSize(); j++) {
                 // Generate pair to search for
                 Set<Integer> pair = Cell.generateCandidateSet(j, i);
                 for (House house : houses) {
-                    changed |= searchHouse(house, pair);
+                    if (house.getUnsolvedCells().size() < 3) {
+                        continue;
+                    }
+                    if (searchHouse(house, pair)) {
+                        return true;
+                    }
                 }
             }
         }
-        return changed;
+        return false;
     }
     
     private boolean searchHouse(House house, Set<Integer> pair) {
         boolean changed = false;
         final Set<Cell> matchingCells = new HashSet<Cell>();
-        for (Cell cell : house.getCells()) {
+        for (Cell cell : house.getUnsolvedCells()) {
             if (cell.isSolved()) {
                 continue;
             }
@@ -67,8 +76,10 @@ public class HiddenPair implements SolvingStrategy {
             for (Cell cell : matchingCells) {
                 changed |= cell.retainAll(pair);
             }
-            Cell[] cells = matchingCells.toArray(new Cell[]{});
-            LOGGER.info(NAME + ": " + cells[0].getPosition() + " and " + cells[1].getPosition() + " can only contain " + pair + ".");
+            if (changed) {
+                Cell[] cells = matchingCells.toArray(new Cell[]{});
+                LOGGER.info(NAME + ": " + cells[0].getPosition() + " and " + cells[1].getPosition() + " can only contain " + pair + ".");
+            }
         }
         return changed;
     }

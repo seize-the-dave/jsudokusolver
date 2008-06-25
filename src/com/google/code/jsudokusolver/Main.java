@@ -1,9 +1,10 @@
 package com.google.code.jsudokusolver;
 
-import java.lang.instrument.Instrumentation;
 
 import com.google.code.jsudokusolver.strategy.HiddenPair;
+import com.google.code.jsudokusolver.strategy.HiddenQuad;
 import com.google.code.jsudokusolver.strategy.HiddenSingle;
+import com.google.code.jsudokusolver.strategy.HiddenTriple;
 import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
@@ -28,6 +29,8 @@ public class Main {
 
         grid.registerStrategy(new HiddenSingle());
         grid.registerStrategy(new HiddenPair());
+        grid.registerStrategy(new HiddenTriple());
+        grid.registerStrategy(new HiddenQuad());
         grid.registerStrategy(new NakedSingle());
         grid.registerStrategy(new NakedPair());
         grid.registerStrategy(new NakedTriple());
@@ -35,5 +38,6 @@ public class Main {
 
         grid.solve();
         System.out.println(grid);
+        System.out.println("Export: " + grid.getPuzzle());
     }
 }
