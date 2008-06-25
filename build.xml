@@ -46,7 +46,7 @@
 	<target name="run" depends="build" description="Runs the application">
 		<java jar="${output}/jsudokusolver-r${build.version}.jar" fork="true"/>
 	</target>
-        <target name="test" depends="-test-compile" description="Runs all JUnit tests for this application">
+        <target name="test" depends="compile, -test-compile" description="Runs all JUnit tests for this application">
     	    <junit fork="yes" printsummary="off" haltonfailure="on">
 		<formatter type="plain" usefile="off"/>			
                 <classpath>
