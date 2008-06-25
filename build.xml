@@ -26,6 +26,7 @@
         <target name="-test-compile" depends="-init">
             <javac srcdir="${src.tests}" destdir="${output}/classes">
                 <classpath>
+                    <pathelement location="${output}/classes"/>
                     <pathelement location="${java.class.path}"/>
                     <pathelement location="${lib}/junit-4.4.jar"/>
                 </classpath>
