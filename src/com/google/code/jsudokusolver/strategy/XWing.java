@@ -14,6 +14,7 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolvingStrategy;
+import java.util.Collections;
 
 /**
 *
@@ -31,13 +32,20 @@ public class XWing implements SolvingStrategy {
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
-
+    
     public boolean solve() {
+        if (solveForRows()) {
+            return true;
+        }
+        return solveForColumns();
+    }
+
+    public boolean solveForRows() {
         boolean solved = false;
         List<House> rows = grid.getRows();
+        List<House> columns = grid.getColumns();
         for (int i = 1; i <= grid.getSize(); i++) {
             Map<Integer, Set<Integer>> matches = new TreeMap<Integer, Set<Integer>>();
-            System.out.println("Searching for... " + i);
             for (House row : rows) {
                 Set<Integer> rowMatches = new TreeSet<Integer>();
                 for (Cell cell : row.getUnsolvedCells()) {
@@ -45,78 +53,117 @@ public class XWing implements SolvingStrategy {
                         rowMatches.add(cell.getColumn().getOffset());
                     }
                 }
-                if (rowMatches.isEmpty() == false && rowMatches.size() <= 2) {
+                if (rowMatches.isEmpty() == false && rowMatches.size() == 2) {
                     matches.put(row.getOffset(), rowMatches);
                 }
             }
-            for (int j = 1; j <= grid.getSize(); j++) {
-                if (matches.get(j) == null) {
-                    continue;
-                }
-                for (int k = j + 1; k <= grid.getSize(); k++) {
-                    if (matches.get(k) == null) {
+            if (matches.size() < 2) {
+                continue;
+            }
+//            System.out.println(matches);
+            for (Map.Entry<Integer, Set<Integer>> entry : matches.entrySet()) {
+                Set<Integer> matchSet = entry.getValue();
+                Set<Integer> matchingRows = new TreeSet<Integer>();
+                matchingRows.add(entry.getKey());
+                for (Map.Entry<Integer, Set<Integer>> searchEntry : matches.entrySet()) {
+                    if (entry.getKey() >= searchEntry.getKey()) {
                         continue;
                     }
-                    if (matches.get(j).equals(matches.get(k))) {
-                        // We've got a match, but we need to make sure it isn't in the same
-                        // chute
-                        System.out.println(j + "," + k);
-                        List<Cell> cells = new ArrayList<Cell>(rows.get(j).getCells());
-                        for (Integer match : matches.get(j)) {
-                            cells.remove(match);
-                        }
-                        for (Cell cell : cells) {
-                            if (cell.remove(i)) {
-                                System.out.println("Removed " + i + " from " + cell);
-                            }
-                        }
-                        System.out.println("X-Wing for " + matches);
+//                    System.out.println("Is " + searchEntry + " a match?");
+                    Set<Integer> searchSet = new HashSet<Integer>(searchEntry.getValue());
+                    searchSet.removeAll(matchSet);
+                    if (searchSet.size() == 0) {
+                        matchingRows.add(searchEntry.getKey());
+//                        System.out.println("Yes!");
                     }
                 }
+                if (matchingRows.size() != 2) {
+                    // Not the right number of matched keys
+                    continue;
+                }
+                Integer[] rowArray = matchingRows.toArray(new Integer[]{});
+                Integer[] colArray = matchSet.toArray(new Integer[]{});
+                for (Integer columnOffset : matchSet) {
+                    House column = columns.get(columnOffset - 1);
+                    for (Cell cell : column.getUnsolvedCells()) {
+                        if (matchingRows.contains(cell.getRow().getOffset())) {
+                            continue;
+                        }
+                        if (cell.remove(i)) {
+                            solved = true;
+                            LOGGER.info(NAME + ": (" + columnOffset + "," + cell.getRow().getOffset() + ") cannot contain [" + i + "] due to X-Wing in (" + colArray[0] + ", " + rowArray[0] + "), (" + colArray[0] + ", " + rowArray[1] + "), (" + colArray[1] + ", " + rowArray[0] + ") and (" + colArray[1] + ", " + rowArray[1] + ")");
+                        }
+                    }
+                }
+                if (solved == true) {
+                    return true;
+                }
             }
-//            Set<Set<Cell>> matches = new HashSet<Set<Cell>>();
-//            // Find rows with pairs of the candidate in them
-//            for (House house : rows) {
-//                Set<Cell> rowCandidates = new HashSet<Cell>();
-//                for (Cell cell : house.getUnsolvedCells()) {
-//                    if (cell.contains(i)) {
-//                        rowCandidates.add(cell);
-//                    }
-//                }
-//                // Determine if we have a row with two cells
-//                // with the same candidates
-//                if (rowCandidates.size() == 2) {
-//                    matches.add(rowCandidates);
-//                }
-//            }
-//            if (matches.size() < 2) {
-//                // Don't have two matching rows, continue
-//                continue;
-//            }
-//            // These matches need to be split over two columns
-//            Map<House, Set<Cell>> colMatches = new HashMap<House, Set<Cell>>();
-//            for (Set<Cell> cells : matches) {
-//                for (Cell cell : cells) {
-//                    if (colMatches.containsKey(cell.getColumn())) {
-//                        colMatches.get(cell.getColumn()).add(cell);
-//                    } else {
-//                        Set<Cell> colMatch = new HashSet<Cell>();
-//                        colMatch.add(cell);
-//                        colMatches.put(cell.getColumn(), colMatch);
-//                    }
-//                }
-//            }
-//            solved |= solveHouseMatches(colMatches);            
         }
-        return solved;
+        return false;
     }
     
-    private boolean solveHouseMatches(Map<House, Set<Cell>> matches) {
+
+    public boolean solveForColumns() {
         boolean solved = false;
-        for (Map.Entry<House, Set<Cell>> entry : matches.entrySet()) {
-            if (entry.getValue().size() != 2) {
+        List<House> rows = grid.getRows();
+        List<House> columns = grid.getColumns();
+        for (int i = 1; i <= grid.getSize(); i++) {
+            Map<Integer, Set<Integer>> matches = new TreeMap<Integer, Set<Integer>>();
+            for (House column : columns) {
+                Set<Integer> columnMatches = new TreeSet<Integer>();
+                for (Cell cell : column.getUnsolvedCells()) {
+                    if (cell.contains(i)) {
+                        columnMatches.add(cell.getRow().getOffset());
+                    }
+                }
+                if (columnMatches.isEmpty() == false && columnMatches.size() == 2) {
+                    matches.put(column.getOffset(), columnMatches);
+                }
+            }
+            if (matches.size() < 2) {
+                continue;
+            }
+//            System.out.println(matches);
+            for (Map.Entry<Integer, Set<Integer>> entry : matches.entrySet()) {
+                Set<Integer> matchSet = entry.getValue();
+                Set<Integer> matchingColumns = new TreeSet<Integer>();
+                matchingColumns.add(entry.getKey());
+                for (Map.Entry<Integer, Set<Integer>> searchEntry : matches.entrySet()) {
+                    if (entry.getKey() >= searchEntry.getKey()) {
+                        continue;
+                    }
+//                    System.out.println("Is " + searchEntry + " a match?");
+                    Set<Integer> searchSet = new HashSet<Integer>(searchEntry.getValue());
+                    searchSet.removeAll(matchSet);
+                    if (searchSet.size() == 0) {
+                        matchingColumns.add(searchEntry.getKey());
+//                        System.out.println("Yes!");
+                    }
+                }
+                if (matchingColumns.size() != 2) {
+                    // Not the right number of matched keys
+                    continue;
+                }
+                Integer[] colArray = matchingColumns.toArray(new Integer[]{});
+                Integer[] rowArray = matchSet.toArray(new Integer[]{});
+                for (Integer rowOffset : matchSet) {
+                    House row = rows.get(rowOffset - 1);
+                    for (Cell cell : row.getUnsolvedCells()) {
+                        if (matchingColumns.contains(cell.getColumn().getOffset())) {
+                            continue;
+                        }
+                        if (cell.remove(i)) {
+                            solved = true;
+                            LOGGER.info(NAME + ": (" + rowOffset + ", " + cell.getRow().getOffset() + ") cannot contain [" + i + "] due to X-Wing in (" + colArray[0] + ", " + rowArray[0] + "), (" + colArray[0] + ", " + rowArray[1] + "), (" + colArray[1] + ", " + rowArray[0] + ") and (" + colArray[1] + ", " + rowArray[1] + ")");
+                        }
+                    }
+                }
+                if (solved == true) {
+                    return true;
+                }
             }
         }
-        return solved;
+        return false;
     }
 }

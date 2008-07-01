@@ -9,6 +9,7 @@ import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
 import com.google.code.jsudokusolver.strategy.NakedTriple;
+import com.google.code.jsudokusolver.strategy.XWing;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -35,6 +36,7 @@ public class Main {
         grid.registerStrategy(new NakedPair());
         grid.registerStrategy(new NakedTriple());
         grid.registerStrategy(new NakedQuad());
+        grid.registerStrategy(new XWing());
 
         grid.solve();
         System.out.println(grid);
