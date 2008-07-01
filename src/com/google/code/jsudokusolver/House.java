@@ -13,6 +13,7 @@ import java.util.List;
 public class House {
     private final List<Cell> cells;
     private final int offset;
+    private final int size;
     
     /**
      * Constructor
@@ -22,6 +23,7 @@ public class House {
      */
     public House(int size, int offset) {
         cells = new ArrayList<Cell>(size);
+        this.size = size;
         this.offset = offset;
     }
     
@@ -71,6 +73,10 @@ public class House {
      */
     public int getOffset() {
         return offset;
+    }
+    
+    public int getChute() {
+        return (int) (offset % Math.sqrt(size));
     }
     
     @Override

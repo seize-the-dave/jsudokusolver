@@ -202,6 +202,10 @@ public class Grid {
         return rows.get(columnIndex).getCells().get(rowIndex).getCandidates();
     }
     
+    public Cell getCell(int rowIndex, int columnIndex) {
+        return rows.get(columnIndex).getCells().get(rowIndex);
+    }
+    
     public void addCellChangeListener(CellChangeListener listener) {
         for (House house : getBoxes()) {
             house.addCellChangeListener(listener);
