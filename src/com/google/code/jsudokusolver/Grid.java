@@ -247,7 +247,19 @@ public class Grid {
     
     public void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
         Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
-        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates) + " due to " + strategy + " in " + formatCells(referenceSet));
+        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));
+    }
+    
+    public void logCandidateRetention(Cell cell, int candidate, String strategy) {
+        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + candidate);
+    }
+    
+    public void logCandidateRetention(Cell cell, Set<Integer> candidates, String strategy) {
+        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + formatCandidates(candidates, true));
+    }
+    
+    public void logCandidateRetention(Set<Cell> cells, Set<Integer> candidates, String strategy) {
+        LOGGER.info(step + " " + strategy + ": " + formatCells(cells) + " can only contain " + formatCandidates(candidates, true));
     }
     
     public String formatCells(Set<Cell> cells) {
@@ -265,13 +277,17 @@ public class Grid {
         return sb.toString();
     }
     
-    public String formatCandidates(Set<Integer> cells) {
+    public String formatCandidates(Set<Integer> cells, boolean and) {
         StringBuffer sb = new StringBuffer();
         Integer[] cellArray = cells.toArray(new Integer[]{});
         for (int i = 0; i < cellArray.length; i++) {
             sb.append(cellArray[i]);
             if (cellArray.length - i == 2) {
-                sb.append(" or ");
+                if (and) {
+                    sb.append(" and ");
+                } else {
+                    sb.append(" or ");
+                }
             }
             if (cellArray.length - i > 2) {
                 sb.append(", ");

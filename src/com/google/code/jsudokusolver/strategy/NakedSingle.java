@@ -40,7 +40,7 @@ public class NakedSingle implements SolvingStrategy {
                 if (cell.getCandidates().size() == 1) {
                     Integer candidate = (Integer) cell.getCandidates().toArray()[0];
                     cell.setDigit(candidate);
-                    LOGGER.info(NAME + ": " + cell.getPosition() + " contains a naked single: " + candidate);
+                    grid.logCandidateRetention(cell, candidate, NAME);
                     return true;
                 }
             }

@@ -74,11 +74,12 @@ public class HiddenPair implements SolvingStrategy {
         }
         if (matchingCells.size() == 2) {
             for (Cell cell : matchingCells) {
-                changed |= cell.retainAll(pair);
+                if (cell.retainAll(pair)) {
+                    changed = true;
+                }
             }
             if (changed) {
-                Cell[] cells = matchingCells.toArray(new Cell[]{});
-                LOGGER.info(NAME + ": " + cells[0].getPosition() + " and " + cells[1].getPosition() + " can only contain " + pair + ".");
+                grid.logCandidateRetention(matchingCells, pair, NAME);
             }
         }
         return changed;

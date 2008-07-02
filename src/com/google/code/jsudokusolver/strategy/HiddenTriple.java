@@ -89,11 +89,12 @@ public class HiddenTriple implements SolvingStrategy {
                 return false;
             }
             for (Cell cell : matchingCells) {
-                changed |= cell.retainAll(triple);
+                if (cell.retainAll(triple)) {
+                    changed = true;
+                }
             }
             if (changed) {
-                Cell[] cells = matchingCells.toArray(new Cell[]{});
-                LOGGER.info(NAME + ": " + cells[0].getPosition() + ", " + cells[1].getPosition() + " and " + cells[2].getPosition() + " can only contain " + triple + ".");
+                grid.logCandidateRetention(matchingCells, triple, NAME);
             }
         }
         return changed;

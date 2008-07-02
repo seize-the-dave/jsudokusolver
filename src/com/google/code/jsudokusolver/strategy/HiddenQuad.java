@@ -91,11 +91,12 @@ public class HiddenQuad implements SolvingStrategy {
                 return false;
             }
             for (Cell cell : matchingCells) {
-                changed |= cell.retainAll(quad);
+                if (cell.retainAll(quad)) {
+                    changed = true;
+                }
             }
             if (changed) {
-                Cell[] cells = matchingCells.toArray(new Cell[]{});
-                LOGGER.info(NAME + ": " + cells[0].getPosition() + ", " + cells[1].getPosition() + ", " + cells[2].getPosition() + " and " + cells[3].getPosition() + " can only contain " + quad + ".");
+                grid.logCandidateRetention(matchingCells, quad, NAME);
             }
         }
         return changed;

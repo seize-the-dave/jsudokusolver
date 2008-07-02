@@ -63,7 +63,7 @@ public class HiddenSingle implements SolvingStrategy {
         {
             Cell cell = candidates.toArray(new Cell[]{})[0];
             cell.setDigit(candidate);
-            LOGGER.info(NAME + ": " + cell.getPosition() + " can only contain " + candidate);
+            grid.logCandidateRetention(cell, candidate, NAME);
             return true;
         }
         return false;
