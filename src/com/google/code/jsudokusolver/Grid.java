@@ -1,12 +1,19 @@
 package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
+
+import com.google.code.jsudokusolver.strategy.LockedCandidate;
 
 public class Grid {
+    private static final Logger LOGGER = Logger.getLogger(Grid.class.getCanonicalName());
     private final int size;
     private final List<House> rows;
     private final List<House> columns;
@@ -228,5 +235,44 @@ public class Grid {
         for (House house : getRows()) {
             house.removeCellChangeListener(listener);
         }
+    }
+    
+    public void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
+        LOGGER.info(strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
+    }
+    
+    public void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
+        Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
+        LOGGER.info(strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates) + " due to " + strategy + " in " + formatCells(referenceSet));
+    }
+    
+    public String formatCells(Set<Cell> cells) {
+        StringBuffer sb = new StringBuffer();
+        Cell[] cellArray = cells.toArray(new Cell[]{});
+        for (int i = 0; i < cellArray.length; i++) {
+            sb.append(cellArray[i].getPosition());
+            if (cellArray.length - i == 2) {
+                sb.append(" and ");
+            }
+            if (cellArray.length - i > 2) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
+    
+    public String formatCandidates(Set<Integer> cells) {
+        StringBuffer sb = new StringBuffer();
+        Integer[] cellArray = cells.toArray(new Integer[]{});
+        for (int i = 0; i < cellArray.length; i++) {
+            sb.append(cellArray[i]);
+            if (cellArray.length - i == 2) {
+                sb.append(" or ");
+            }
+            if (cellArray.length - i > 2) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 }

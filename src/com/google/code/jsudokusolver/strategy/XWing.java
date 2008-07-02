@@ -81,8 +81,12 @@ public class XWing implements SolvingStrategy {
                     // Not the right number of matched keys
                     continue;
                 }
-                Integer[] rowArray = matchingRows.toArray(new Integer[]{});
-                Integer[] colArray = matchSet.toArray(new Integer[]{});
+                Set<Cell> xWing = new TreeSet<Cell>();
+                for (Integer matchingRow : matchingRows) {
+                    for (Integer matchingCol : matchSet) {
+                        xWing.add(rows.get(matchingRow - 1).getCells().get(matchingCol - 1));
+                    }
+                }
                 for (Integer columnOffset : matchSet) {
                     House column = columns.get(columnOffset - 1);
                     for (Cell cell : column.getUnsolvedCells()) {
@@ -91,7 +95,7 @@ public class XWing implements SolvingStrategy {
                         }
                         if (cell.remove(i)) {
                             solved = true;
-                            LOGGER.info(NAME + ": (" + columnOffset + "," + cell.getRow().getOffset() + ") cannot contain [" + i + "] due to X-Wing in (" + colArray[0] + ", " + rowArray[0] + "), (" + colArray[0] + ", " + rowArray[1] + "), (" + colArray[1] + ", " + rowArray[0] + ") and (" + colArray[1] + ", " + rowArray[1] + ")");
+                            grid.logCandidateRemoval(cell, i, NAME, xWing);
                         }
                     }
                 }
@@ -145,8 +149,12 @@ public class XWing implements SolvingStrategy {
                     // Not the right number of matched keys
                     continue;
                 }
-                Integer[] colArray = matchingColumns.toArray(new Integer[]{});
-                Integer[] rowArray = matchSet.toArray(new Integer[]{});
+                Set<Cell> xWing = new TreeSet<Cell>();
+                for (Integer matchingCol : matchingColumns) {
+                    for (Integer matchingRow : matchSet) {
+                        xWing.add(rows.get(matchingRow - 1).getCells().get(matchingCol - 1));
+                    }
+                }
                 for (Integer rowOffset : matchSet) {
                     House row = rows.get(rowOffset - 1);
                     for (Cell cell : row.getUnsolvedCells()) {
@@ -155,7 +163,7 @@ public class XWing implements SolvingStrategy {
                         }
                         if (cell.remove(i)) {
                             solved = true;
-                            LOGGER.info(NAME + ": (" + rowOffset + ", " + cell.getRow().getOffset() + ") cannot contain [" + i + "] due to X-Wing in (" + colArray[0] + ", " + rowArray[0] + "), (" + colArray[0] + ", " + rowArray[1] + "), (" + colArray[1] + ", " + rowArray[0] + ") and (" + colArray[1] + ", " + rowArray[1] + ")");
+                            grid.logCandidateRemoval(cell, i, NAME, xWing);
                         }
                     }
                 }

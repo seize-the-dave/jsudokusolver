@@ -89,7 +89,7 @@ public class NakedTriple implements SolvingStrategy {
             for (Cell cell : houseCells) {
                 if (cell.removeAll(triple)) {
                     Cell[] cells = selectedCells.toArray(new Cell[]{});
-                    LOGGER.info(NAME + ": " + cell.getPosition() + " cannot contain " + triple + " due to naked triple in " + cells[0].getPosition() + ", " + cells[1].getPosition() + " and " + cells[2].getPosition());
+                    grid.logCandidateRemoval(cell, triple, NAME, cells);
                     changed = true;
                 }
             }

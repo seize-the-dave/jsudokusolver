@@ -3,6 +3,7 @@ package com.google.code.jsudokusolver.strategy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import com.google.code.jsudokusolver.Cell;
@@ -59,7 +60,7 @@ public class NakedQuad implements SolvingStrategy {
     }
     
     private boolean solveHouse(House house, Set<Integer> quad) {
-        Set<Cell> selectedCells = new HashSet<Cell>();
+        Set<Cell> selectedCells = new TreeSet<Cell>();
         for (Cell cell : house.getCells()) {
             if (cell.isSolved()) {
                 // This house already contains a cell with
@@ -87,7 +88,7 @@ public class NakedQuad implements SolvingStrategy {
             for (Cell cell : houseCells) {
                 if (cell.removeAll(quad)) {
                     Cell[] cells = selectedCells.toArray(new Cell[]{});
-                    LOGGER.info(NAME + ": " + cell.getPosition() + " cannot contain " + quad + " due to naked quad in " + cells[0].getPosition() + ", " + cells[1].getPosition() + ", " + cells[2].getPosition() + " and " + cells[3].getPosition());
+                    grid.logCandidateRemoval(cell, quad, NAME, cells);
                     changed = true;
                 }
             }

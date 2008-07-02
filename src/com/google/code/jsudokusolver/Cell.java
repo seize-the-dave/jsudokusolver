@@ -10,7 +10,7 @@ import java.util.TreeSet;
  * 
  * @author David Grant
  */
-public class Cell {
+public class Cell implements Comparable<Cell> {
     private final Set<Integer> candidates;
     private final House row;
     private final House column;
@@ -175,5 +175,22 @@ public class Cell {
         for (CellChangeListener listener : listeners) {
             listener.candidatesChanged(event);
         }
+    }
+
+    public int compareTo(Cell cell)
+    {
+        if (column.getOffset() > cell.column.getOffset()) {
+            return 1;
+        }
+        if (column.getOffset() < cell.column.getOffset()) {
+            return -1;
+        }
+        if (row.getOffset() > cell.row.getOffset()) {
+            return 1;
+        }
+        if (row.getOffset() < cell.row.getOffset()) {
+            return -1;
+        }
+        return 0;
     }
 }

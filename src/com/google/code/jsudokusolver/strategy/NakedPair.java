@@ -63,7 +63,7 @@ public class NakedPair implements SolvingStrategy {
                             continue;
                         }
                         if (affectedCell.removeAll(pair)) {
-                            LOGGER.info(NAME + ": " + affectedCell.getPosition() + " cannot contain " + pair + " due to naked pair in " + cell.getPosition() + " and " + matchCell.getPosition());
+                            grid.logCandidateRemoval(affectedCell, pair, NAME, cell, matchCell);
                             changed = true;
                         }
                     }
