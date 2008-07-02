@@ -2,15 +2,12 @@ package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import com.google.code.jsudokusolver.strategy.LockedCandidate;
 
 public class Grid {
     private static final Logger LOGGER = Logger.getLogger(Grid.class.getCanonicalName());
@@ -19,7 +16,7 @@ public class Grid {
     private final List<House> columns;
     private final List<House> boxes;
     private final Set<SolvingStrategy> strategies = new HashSet<SolvingStrategy>();
-    private int step = 1;
+    private static int step = 1;
     
     public Grid(int size) {
         this.size = size;
@@ -243,28 +240,28 @@ public class Grid {
         }
     }
     
-    public void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
+    public static void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
         LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
     }
     
-    public void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
+    public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
         Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
         LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));
     }
     
-    public void logCandidateRetention(Cell cell, int candidate, String strategy) {
+    public static void logCandidateRetention(Cell cell, int candidate, String strategy) {
         LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + candidate);
     }
     
-    public void logCandidateRetention(Cell cell, Set<Integer> candidates, String strategy) {
+    public static void logCandidateRetention(Cell cell, Set<Integer> candidates, String strategy) {
         LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + formatCandidates(candidates, true));
     }
     
-    public void logCandidateRetention(Set<Cell> cells, Set<Integer> candidates, String strategy) {
+    public static void logCandidateRetention(Set<Cell> cells, Set<Integer> candidates, String strategy) {
         LOGGER.info(step + " " + strategy + ": " + formatCells(cells) + " can only contain " + formatCandidates(candidates, true));
     }
     
-    public String formatCells(Set<Cell> cells) {
+    public static String formatCells(Set<Cell> cells) {
         StringBuffer sb = new StringBuffer();
         Cell[] cellArray = cells.toArray(new Cell[]{});
         for (int i = 0; i < cellArray.length; i++) {
@@ -279,7 +276,7 @@ public class Grid {
         return sb.toString();
     }
     
-    public String formatCandidates(Set<Integer> cells, boolean and) {
+    public static String formatCandidates(Set<Integer> cells, boolean and) {
         StringBuffer sb = new StringBuffer();
         Integer[] cellArray = cells.toArray(new Integer[]{});
         for (int i = 0; i < cellArray.length; i++) {
