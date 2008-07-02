@@ -20,7 +20,35 @@ import java.util.Set;
 abstract public class AbstractHiddenSubset implements SolvingStrategy {
     protected Grid grid;
     
-    abstract protected boolean solveHouses(List<House> houses);
+    /**
+     * Gets the size of the subset that is being searched for, e.g. 4 for a
+     * Hidden Quad, 3 for a Hidden Triple.
+     * 
+     * @return the subset size
+     */
+    abstract protected int getSetSize();
+    
+    private boolean solveHouses(List<House> houses) {
+        Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
+        Set<Integer> elements = new HashSet<Integer>();
+        for (int i = 1; i <= 9; i++) {
+            elements.add(i);
+        }
+        combinations = Cell.generateCombinations(elements, 
+                                                 combinations, 
+                                                 getSetSize());
+        for (Set<Integer> combination : combinations) {
+            for (House house : houses) {
+                if (house.getUnsolvedCells().size() <= getSetSize()) {
+                    continue;
+                }
+                if (searchHouse(house, combination)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
     public void setGrid(Grid grid) {
         this.grid = grid;
