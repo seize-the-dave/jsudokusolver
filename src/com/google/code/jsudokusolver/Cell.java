@@ -193,4 +193,31 @@ public class Cell implements Comparable<Cell> {
         }
         return 0;
     }
+    
+    public static Set<Set<Integer>> generateCombinations(Set<Integer> elements, Set<Set<Integer>> combinations, int size) {
+        Set<Set<Integer>> newCombinations = new HashSet<Set<Integer>>();
+        if (combinations.size() != 0) {
+            for (Set<Integer> combination : combinations) {
+                for (Integer element : elements) {
+                    if (combination.contains(element)) {
+                        continue;
+                    }
+                    Set<Integer> newCombination = new HashSet<Integer>(combination);
+                    newCombination.add(element);
+                    newCombinations.add(newCombination);
+                }
+            }
+        } else {
+            for (Integer element : elements) {
+                Set<Integer> newCombination = new HashSet<Integer>();
+                newCombination.add(element);
+                newCombinations.add(newCombination);
+            }
+        }
+        if (size == 0) {
+            return combinations;
+        } else {
+            return generateCombinations(elements, newCombinations, --size);
+        }
+    }
 }

@@ -111,4 +111,38 @@ public class CellTest {
         cell.setDigit(1);
         assertEquals(new Integer(1), cell.getDigit());
     }
+    
+    @Test
+    public void testGenerateCombinations() {
+        // Sanity Check
+        assertEquals(2598960, combinations(5, 52));
+        
+        Set<Integer> elements = new HashSet<Integer>();
+        for (int i = 1; i <= 9; i++) {
+            elements.add(i);
+        }
+        Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
+        combinations = Cell.generateCombinations(elements, combinations, 4);
+
+        assertEquals(combinations(4, 9), combinations.size());
+    }
+    
+    private int combinations(double k, double n) {
+        double product = 1;
+        for (int i = 0; i < k; i++) {
+            double top = (n - i);
+            double btm = (k - i);
+            product = product * ((n - i) / (k - i));
+        }
+        return (int) product;
+    }
+    
+    private int factorial(int num) {
+        int product = 1;
+        for (int i = 1; i <= num; i++) {
+            product = i * product;
+            System.out.println(product);
+        }
+        return product;
+    }
 }
