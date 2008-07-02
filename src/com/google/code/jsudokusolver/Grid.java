@@ -176,6 +176,8 @@ public class Grid {
     public boolean step() {
         boolean changed = false;
         for (SolvingStrategy strategy : strategies) {
+            // This is wrong: we move onto the next strategy after we've
+            // just been successful!
             if (strategy.solve()) {
                 step++;
                 changed = true;
