@@ -19,6 +19,7 @@ public class Grid {
     private final List<House> columns;
     private final List<House> boxes;
     private final Set<SolvingStrategy> strategies = new HashSet<SolvingStrategy>();
+    private int step = 1;
     
     public Grid(int size) {
         this.size = size;
@@ -175,7 +176,10 @@ public class Grid {
     public boolean step() {
         boolean changed = false;
         for (SolvingStrategy strategy : strategies) {
-            changed |= strategy.solve();
+            if (strategy.solve()) {
+                step++;
+                changed = true;
+            }
         }
         return changed;
     }
@@ -238,12 +242,12 @@ public class Grid {
     }
     
     public void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
-        LOGGER.info(strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
+        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
     }
     
     public void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
         Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
-        LOGGER.info(strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates) + " due to " + strategy + " in " + formatCells(referenceSet));
+        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates) + " due to " + strategy + " in " + formatCells(referenceSet));
     }
     
     public String formatCells(Set<Cell> cells) {
