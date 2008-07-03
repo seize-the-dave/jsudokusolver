@@ -1,20 +1,16 @@
 package com.google.code.jsudokusolver.strategy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.logging.Logger;
 
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolvingStrategy;
-import java.util.Collections;
 
 /**
 *
@@ -22,7 +18,6 @@ import java.util.Collections;
 */
 public class XWing implements SolvingStrategy {
     private final static String NAME = "X-Wing";
-    private static final Logger LOGGER = Logger.getLogger(NakedTriple.class.getCanonicalName());
     private Grid grid;
     
     public String getName() {
@@ -95,7 +90,7 @@ public class XWing implements SolvingStrategy {
                         }
                         if (cell.remove(i)) {
                             solved = true;
-                            grid.logCandidateRemoval(cell, i, NAME, xWing);
+                            Grid.logCandidateRemoval(cell, i, NAME, xWing);
                         }
                     }
                 }
@@ -163,7 +158,7 @@ public class XWing implements SolvingStrategy {
                         }
                         if (cell.remove(i)) {
                             solved = true;
-                            grid.logCandidateRemoval(cell, i, NAME, xWing);
+                            Grid.logCandidateRemoval(cell, i, NAME, xWing);
                         }
                     }
                 }
