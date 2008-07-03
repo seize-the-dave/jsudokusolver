@@ -30,25 +30,6 @@ public class NakedTripleTest {
                         "920738406";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedTriple());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                Cell cell = event.getCell();
-                assertEquals(2, cell.getColumn().getOffset(), 2);
-                if (cell.getRow().getOffset() == 1) {
-                    assertEquals(Cell.generateCandidateSet(4, 9),
-                                 event.getPostChangeCandidates());
-                } else if (cell.getRow().getOffset() == 3) {
-                    assertEquals(Cell.generateCandidateSet(5, 9),
-                                 event.getPostChangeCandidates());
-                } else {
-                    fail("Change occured in wrong row");
-                }
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                fail("Was not expecting a digit to be changed");
-            }
-        });
         assertTrue(grid.step());
     }
 }

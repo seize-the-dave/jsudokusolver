@@ -27,10 +27,6 @@ public class HiddenPairTest {
                         "219500008";
         grid.fill(puzzle);
         grid.registerStrategy(new HiddenPair());
-        assertEquals(Cell.generateCandidateSet(1, 2, 3),
-                     grid.getCandidates(8, 2));
         assertTrue(grid.step());
-        assertEquals(Cell.generateCandidateSet(1, 3),
-                     grid.getCandidates(8, 2));
     }
 }
