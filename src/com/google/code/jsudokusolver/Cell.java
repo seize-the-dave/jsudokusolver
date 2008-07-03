@@ -210,14 +210,14 @@ public class Cell implements Comparable<Cell> {
                     if (combination.contains(element)) {
                         continue;
                     }
-                    Set<Integer> newCombination = new HashSet<Integer>(combination);
+                    Set<Integer> newCombination = new TreeSet<Integer>(combination);
                     newCombination.add(element);
                     newCombinations.add(newCombination);
                 }
             }
         } else {
             for (Integer element : elements) {
-                Set<Integer> newCombination = new HashSet<Integer>();
+                Set<Integer> newCombination = new TreeSet<Integer>();
                 newCombination.add(element);
                 newCombinations.add(newCombination);
             }
