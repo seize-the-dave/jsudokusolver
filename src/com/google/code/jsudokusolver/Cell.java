@@ -134,6 +134,14 @@ public class Cell implements Comparable<Cell> {
         return candidateSet;
     }
     
+    public static Set<Integer> generateCandidateSet(int from, int to) {
+        Set<Integer> candidateSet = new TreeSet<Integer>();
+        for (int i = from; i <= to; i++) {
+            candidateSet.add(i);
+        }
+        return candidateSet;
+    }
+    
     public String getPosition() {
         return "(" + column.getOffset() + ", " + row.getOffset() + ")";
     }

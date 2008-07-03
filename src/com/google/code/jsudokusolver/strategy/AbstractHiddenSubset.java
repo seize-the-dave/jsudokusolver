@@ -30,11 +30,7 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy {
     
     private boolean solveHouses(List<House> houses) {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
-        Set<Integer> elements = new HashSet<Integer>();
-        for (int i = 1; i <= 9; i++) {
-            elements.add(i);
-        }
-        combinations = Cell.generateCombinations(elements, 
+        combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
                                                  combinations, 
                                                  getSetSize());
         for (Set<Integer> combination : combinations) {

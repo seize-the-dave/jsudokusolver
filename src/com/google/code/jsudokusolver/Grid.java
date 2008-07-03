@@ -60,11 +60,10 @@ public class Grid {
             House column = getColumn(i);
             House box = getBox(i);
             
-            Cell cell = new Cell(row, column, box, generateCandidates());
+            Cell cell = new Cell(row, column, box, Cell.generateCandidateSet(1, 9));
             cells.add(cell);
             Integer digit = Integer.valueOf(String.valueOf(puzzle.charAt(i)));
-            if (digit != 0)
-            {
+            if (digit != 0) {
                 cell.setDigit(digit);
             }
         }
@@ -95,14 +94,6 @@ public class Grid {
         int columnOffset = (column / sqrt);
         int box = (rowOffset * sqrt) + columnOffset;
         return boxes.get(box);
-    }
-    
-    private Set<Integer> generateCandidates() {
-        Set<Integer> candidates = new TreeSet<Integer>();
-        for (int i = 0; i < size; i++) {
-            candidates.add(i + 1);
-        }
-        return candidates;
     }
     
     public List<House> getRows() {
