@@ -10,6 +10,7 @@ import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
 import com.google.code.jsudokusolver.strategy.NakedTriple;
+import com.google.code.jsudokusolver.strategy.Swordfish;
 import com.google.code.jsudokusolver.strategy.XWing;
 
 public class Main {
@@ -39,6 +40,7 @@ public class Main {
         grid.registerStrategy(new NakedQuad());
         grid.registerStrategy(new LockedCandidate());
         grid.registerStrategy(new XWing());
+        grid.registerStrategy(new Swordfish());
 
         grid.solve();
         System.out.println(grid);
