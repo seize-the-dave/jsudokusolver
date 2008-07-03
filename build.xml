@@ -21,10 +21,10 @@
 		</propertyregex>  
 	</target>
 	<target name="compile" depends="-init" description="Compiles all *.java files">
-		<javac srcdir="${src}" destdir="${output}/classes"/>
+		<javac srcdir="${src}" destdir="${output}/classes" source="5"/>
 	</target>
         <target name="-test-compile" depends="-init">
-            <javac srcdir="${src.tests}" destdir="${output}/classes">
+            <javac srcdir="${src.tests}" destdir="${output}/classes" source="5">
                 <classpath>
                     <pathelement location="${output}/classes"/>
                     <pathelement location="${java.class.path}"/>
@@ -47,8 +47,7 @@
 		<java jar="${output}/jsudokusolver-r${build.version}.jar" fork="true"/>
 	</target>
         <target name="test" depends="compile, -test-compile" description="Runs all JUnit tests for this application">
-    	    <junit fork="yes" printsummary="off" haltonfailure="on">
-		<formatter type="plain" usefile="off"/>			
+    	    <junit fork="yes" printsummary="on" haltonfailure="on">
                 <classpath>
                     <pathelement location="${output}/classes"/>
                     <pathelement location="${java.class.path}"/>
