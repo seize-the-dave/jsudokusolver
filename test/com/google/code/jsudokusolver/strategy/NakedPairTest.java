@@ -1,11 +1,10 @@
 package com.google.code.jsudokusolver.strategy;
 
-import com.google.code.jsudokusolver.Cell;
-import com.google.code.jsudokusolver.Grid;
-import java.util.HashSet;
-import java.util.Set;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import com.google.code.jsudokusolver.Grid;
 
 /**
  * @author David Grant
@@ -28,10 +27,6 @@ public class NakedPairTest {
                         "007600050";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedPair());
-        assertTrue(grid.solve());
-        assertEquals(Cell.generateCandidateSet(3, 9), grid.getCandidates(8, 0));
-        assertEquals(Cell.generateCandidateSet(3, 9), grid.getCandidates(7, 2));
-        assertEquals(Cell.generateCandidateSet(1, 4, 7), grid.getCandidates(6, 5));
-        assertEquals(Cell.generateCandidateSet(4), grid.getCandidates(6, 6));
+        assertTrue(grid.step());
     }
 }
