@@ -89,7 +89,7 @@ public class House {
     }
     
     public int getChute() {
-        return (int) (offset % Math.sqrt(size));
+        return (int) ((offset - 1) / Math.sqrt(size)) + 1;
     }
     
     @Override

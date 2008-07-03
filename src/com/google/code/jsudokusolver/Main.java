@@ -5,11 +5,13 @@ import com.google.code.jsudokusolver.strategy.HiddenPair;
 import com.google.code.jsudokusolver.strategy.HiddenQuad;
 import com.google.code.jsudokusolver.strategy.HiddenSingle;
 import com.google.code.jsudokusolver.strategy.HiddenTriple;
+import com.google.code.jsudokusolver.strategy.Jellyfish;
 import com.google.code.jsudokusolver.strategy.LockedCandidate;
 import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
 import com.google.code.jsudokusolver.strategy.NakedTriple;
+import com.google.code.jsudokusolver.strategy.Squirmbag;
 import com.google.code.jsudokusolver.strategy.Swordfish;
 import com.google.code.jsudokusolver.strategy.XWing;
 
@@ -39,8 +41,10 @@ public class Main {
         grid.registerStrategy(new NakedTriple());
         grid.registerStrategy(new NakedQuad());
         grid.registerStrategy(new LockedCandidate());
-        grid.registerStrategy(new XWing());
-        grid.registerStrategy(new Swordfish());
+//        grid.registerStrategy(new XWing());
+//        grid.registerStrategy(new Swordfish());
+//        grid.registerStrategy(new Jellyfish());
+//        grid.registerStrategy(new Squirmbag());
 
         grid.solve();
         System.out.println(grid);

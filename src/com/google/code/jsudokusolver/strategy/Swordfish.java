@@ -1,5 +1,8 @@
 package com.google.code.jsudokusolver.strategy;
 
+/**
+* @author David Grant
+*/
 public class Swordfish extends AbstractBasicFish {
     public String getName() {
         return "Swordfish";
