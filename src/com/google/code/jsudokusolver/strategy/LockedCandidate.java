@@ -23,8 +23,15 @@ public class LockedCandidate implements SolvingStrategy {
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
-
+    
     public boolean solve() {
+    	if (solveType1()) {
+    		return true;
+    	}
+    	return solveType2();
+    }
+
+    public boolean solveType1() {
         List<House> boxes = grid.getBoxes();
         for (int i = 1; i <= grid.getSize(); i++) {
             for (House box : boxes) {
@@ -50,7 +57,7 @@ public class LockedCandidate implements SolvingStrategy {
                         columnCells.removeAll(cells);
                         for (Cell cell : columnCells) {
                             cell.remove(i);
-                            grid.logCandidateRemoval(cell, i, NAME, cells);
+                            Grid.logCandidateRemoval(cell, i, NAME, cells);
                         }
                         return true;
                     }
@@ -70,7 +77,7 @@ public class LockedCandidate implements SolvingStrategy {
                         rowCells.removeAll(cells);
                         for (Cell cell : rowCells) {
                             cell.remove(i);
-                            grid.logCandidateRemoval(cell, i, NAME, cells);
+                            Grid.logCandidateRemoval(cell, i, NAME, cells);
                         }
                         return true;
                     }
@@ -78,5 +85,62 @@ public class LockedCandidate implements SolvingStrategy {
             }
         }
         return false;
+    }
+    
+    public boolean solveType2() {
+    	boolean solved = false;
+    	List<House> columns = grid.getColumns();
+    	List<House> rows = grid.getColumns();
+    	for (int i = 1; i <= grid.getSize(); i++) {
+    		for (House column : columns) {
+    			Set<Cell> cells = column.getCellsWithCandidate(i);
+    			House search = null;
+    			for (Cell cell : cells) {
+    				House box = cell.getBox();
+                    if (search == null) {
+                        search = box;
+                    } else if (search.equals(box) == false) {
+                        search = null;
+                        break;
+                    }
+    			}
+    			if (search != null) {
+                    Set<Cell> boxCells = search.getCellsWithCandidate(i);
+                    if (boxCells.equals(cells) == false) {
+                        boxCells.removeAll(cells);
+                        for (Cell cell : boxCells) {
+                            cell.remove(i);
+                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                        }
+                        return true;
+                    }
+                }
+    		}
+    		for (House row : rows) {
+    			Set<Cell> cells = row.getCellsWithCandidate(i);
+    			House search = null;
+    			for (Cell cell : cells) {
+    				House box = cell.getBox();
+                    if (search == null) {
+                        search = box;
+                    } else if (search.equals(box) == false) {
+                        search = null;
+                        break;
+                    }
+    			}
+    			if (search != null) {
+                    Set<Cell> boxCells = search.getCellsWithCandidate(i);
+                    if (boxCells.equals(cells) == false) {
+                        boxCells.removeAll(cells);
+                        for (Cell cell : boxCells) {
+                            cell.remove(i);
+                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                        }
+                        return true;
+                    }
+                }
+    		}
+    	}
+    	return solved;
     }
 }
