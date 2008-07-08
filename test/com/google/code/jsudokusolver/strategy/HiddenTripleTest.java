@@ -31,19 +31,6 @@ public class HiddenTripleTest {
                         "070904582";
         grid.fill(puzzle);
         grid.registerStrategy(new HiddenTriple());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                final Cell cell = event.getCell();
-                Set<Integer> changes = Cell.generateCandidateSet(1, 2, 5, 6, 8, 9);
-                for (Integer change : changes) {
-                    assertFalse(event.getPostChangeCandidates().contains(change));
-                }
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                fail("Was not expecting a digit to be changed");
-            }
-        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

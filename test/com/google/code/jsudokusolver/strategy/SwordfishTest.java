@@ -20,6 +20,6 @@ public class SwordfishTest {
         String puzzle = "080007060076020408031600070069300054010000086850006700048001690697840500120960847";
         grid.fill(puzzle);
         grid.registerStrategy(new Swordfish());
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

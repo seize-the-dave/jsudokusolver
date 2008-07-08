@@ -30,17 +30,6 @@ public class XWingTest {
                         "390812570";
         grid.fill(puzzle);
         grid.registerStrategy(new XWing());
-//        grid.addCellChangeListener(new CellChangeListener() {
-//            public void candidatesChanged(CandidateChangeEvent event) {
-//                Cell cell = event.getCell();
-//                int column = cell.getColumn().getOffset();
-//                assertTrue(column == 3 || column == 9);
-//            }
-//
-//            public void digitChanged(DigitChangeEvent event) {
-//                fail("Was not expecting a digit to be changed");
-//            }
-//        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

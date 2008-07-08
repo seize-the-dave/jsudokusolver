@@ -32,21 +32,6 @@ public class NakedQuadTest {
                         "248357169";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedQuad());
-        /**
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                final Cell cell = event.getCell();
-                Set<Integer> changes = Cell.generateCandidateSet(1, 3, 5, 7);
-                for (Integer change : changes) {
-                    assertFalse(event.getPostChangeCandidates().contains(change));
-                }
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                fail("Was not expecting a digit to be changed");
-            }
-        });
-        */
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

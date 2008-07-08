@@ -27,6 +27,6 @@ public class NakedPairTest {
                         "007600050";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedPair());
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

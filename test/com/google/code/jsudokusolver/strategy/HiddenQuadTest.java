@@ -31,19 +31,6 @@ public class HiddenQuadTest {
                         "459718263";
         grid.fill(puzzle);
         grid.registerStrategy(new HiddenQuad());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                final Cell cell = event.getCell();
-                Set<Integer> changes = Cell.generateCandidateSet(1, 3, 4, 5, 8);
-                for (Integer change : changes) {
-                    assertFalse(event.getPostChangeCandidates().contains(change));
-                }
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                fail("Was not expecting a digit to be changed");
-            }
-        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

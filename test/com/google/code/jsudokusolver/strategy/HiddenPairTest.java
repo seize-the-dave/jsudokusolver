@@ -27,6 +27,6 @@ public class HiddenPairTest {
                         "219500008";
         grid.fill(puzzle);
         grid.registerStrategy(new HiddenPair());
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

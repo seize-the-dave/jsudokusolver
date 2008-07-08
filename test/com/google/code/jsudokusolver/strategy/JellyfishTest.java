@@ -19,8 +19,7 @@ public class JellyfishTest {
         Grid grid = new Grid(9);
         String puzzle = "310064257420537009007102340005701403730000001102306975273409500800603792060270034";
         grid.fill(puzzle);
-        System.out.println(grid);
         grid.registerStrategy(new Jellyfish());
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

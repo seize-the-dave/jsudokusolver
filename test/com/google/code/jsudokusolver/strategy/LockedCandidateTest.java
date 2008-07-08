@@ -32,16 +32,6 @@ public class LockedCandidateTest {
                         "000160094";
         grid.fill(puzzle);
         grid.registerStrategy(new LockedCandidate());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                final Cell cell = event.getCell();
-                assertEquals(8, cell.getColumn().getOffset());
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                fail("Was not expecting a digit to be changed");
-            }
-        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

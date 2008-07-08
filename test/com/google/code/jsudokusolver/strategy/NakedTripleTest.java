@@ -30,6 +30,6 @@ public class NakedTripleTest {
                         "920738406";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedTriple());
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

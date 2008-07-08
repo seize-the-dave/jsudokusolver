@@ -26,17 +26,6 @@ public class HiddenSingleTest {
                         "700100009";
         grid.fill(puzzle);
         grid.registerStrategy(new HiddenSingle());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                // Ignore
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                assertEquals(4, event.getCell().getDigit().intValue());
-                assertEquals(5, event.getCell().getColumn().getOffset());
-                assertEquals(6, event.getCell().getRow().getOffset());
-            }
-        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }

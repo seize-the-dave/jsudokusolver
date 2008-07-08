@@ -26,17 +26,6 @@ public class NakedSingleTest {
                         "400006005";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedSingle());
-        grid.addCellChangeListener(new CellChangeListener() {
-            public void candidatesChanged(CandidateChangeEvent event) {
-                // Ignore
-            }
-
-            public void digitChanged(DigitChangeEvent event) {
-                assertEquals(8, event.getCell().getDigit().intValue());
-                assertEquals(6, event.getCell().getColumn().getOffset());
-                assertEquals(1, event.getCell().getRow().getOffset());
-            }
-        });
-        assertTrue(grid.step());
+        assertTrue(grid.stepOnce());
     }
 }
