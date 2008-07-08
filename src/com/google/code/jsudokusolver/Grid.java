@@ -174,7 +174,7 @@ public class Grid {
     }
     
     public boolean stepOnce() {
-        SolvingStrategy strategy = strategies.get(currentStrategy % strategies.size());
+        SolvingStrategy strategy = strategies.get(currentStrategy);
         if (strategy.solve()) {
             step++;
             return true;
