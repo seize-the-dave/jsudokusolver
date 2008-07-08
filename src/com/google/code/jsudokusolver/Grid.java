@@ -15,8 +15,9 @@ public class Grid {
     private final List<House> rows;
     private final List<House> columns;
     private final List<House> boxes;
-    private final Set<SolvingStrategy> strategies = new HashSet<SolvingStrategy>();
+    private final List<SolvingStrategy> strategies = new ArrayList<SolvingStrategy>();
     private static int step = 1;
+    private int currentStrategy = 0;
     
     public Grid(int size) {
         this.size = size;
@@ -163,15 +164,22 @@ public class Grid {
     
     public boolean step() {
         boolean changed = false;
-        for (SolvingStrategy strategy : strategies) {
-            // This is wrong: we move onto the next strategy after we've
-            // just been successful!
-            if (strategy.solve()) {
-                step++;
+        for (int i = 0; i < strategies.size(); i++) {
+            currentStrategy = i;
+            while (stepOnce()) {
                 changed = true;
             }
         }
         return changed;
+    }
+    
+    public boolean stepOnce() {
+        SolvingStrategy strategy = strategies.get(currentStrategy % strategies.size());
+        if (strategy.solve()) {
+            step++;
+            return true;
+        }
+        return false;
     }
     
     public Integer[][] toArray()
@@ -232,24 +240,29 @@ public class Grid {
     }
     
     public static void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
-        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
+        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
     }
     
     public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
         Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
-        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));
+        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));
     }
     
     public static void logCandidateRetention(Cell cell, int candidate, String strategy) {
-        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + candidate);
+        log(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + candidate);
     }
     
     public static void logCandidateRetention(Cell cell, Set<Integer> candidates, String strategy) {
-        LOGGER.info(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + formatCandidates(candidates, true));
+        log(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + formatCandidates(candidates, true));
     }
     
     public static void logCandidateRetention(Set<Cell> cells, Set<Integer> candidates, String strategy) {
-        LOGGER.info(step + " " + strategy + ": " + formatCells(cells) + " can only contain " + formatCandidates(candidates, true));
+        log(step + " " + strategy + ": " + formatCells(cells) + " can only contain " + formatCandidates(candidates, true));
+    }
+    
+    private static void log(String message) {
+//        System.out.println(message);
+        LOGGER.info(message);
     }
     
     public static String formatCells(Set<Cell> cells) {
