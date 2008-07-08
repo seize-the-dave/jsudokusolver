@@ -143,7 +143,7 @@ public class Cell implements Comparable<Cell> {
     }
     
     public String getPosition() {
-        return "r" + row.getOffset() + "c" + column.getOffset() + "";
+        return "r" + row.getOffset() + "c" + column.getOffset();
     }
     
     
