@@ -41,9 +41,9 @@ public class Main {
         grid.registerStrategy(new NakedTriple());
         grid.registerStrategy(new NakedQuad());
         grid.registerStrategy(new LockedCandidate());
-//        grid.registerStrategy(new XWing());
-//        grid.registerStrategy(new Swordfish());
-//        grid.registerStrategy(new Jellyfish());
+        grid.registerStrategy(new XWing());
+        grid.registerStrategy(new Swordfish());
+        grid.registerStrategy(new Jellyfish());
 //        grid.registerStrategy(new Squirmbag());
 
         grid.solve();
