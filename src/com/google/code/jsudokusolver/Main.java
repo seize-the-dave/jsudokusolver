@@ -11,7 +11,6 @@ import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
 import com.google.code.jsudokusolver.strategy.NakedTriple;
-import com.google.code.jsudokusolver.strategy.Squirmbag;
 import com.google.code.jsudokusolver.strategy.Swordfish;
 import com.google.code.jsudokusolver.strategy.XWing;
 
@@ -44,7 +43,6 @@ public class Main {
         grid.registerStrategy(new XWing());
         grid.registerStrategy(new Swordfish());
         grid.registerStrategy(new Jellyfish());
-//        grid.registerStrategy(new Squirmbag());
 
         grid.solve();
         System.out.println(grid);
