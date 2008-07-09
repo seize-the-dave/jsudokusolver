@@ -169,6 +169,11 @@ public class Grid {
             while (stepOnce()) {
                 changed = true;
             }
+	    // If we find a solution after the first strategy, restart
+	    // so we don't move onto complex strategies too early.
+	    if (changed && currentStrategy != 0) {
+		return true;
+	    }
         }
         return changed;
     }
