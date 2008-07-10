@@ -32,7 +32,7 @@
                 </classpath>
             </javac>
         </target>
-	<target name="build" depends="compile, test" description="Builds a distributable JAR file for this application">
+	<target name="build" depends="compile, test, javadoc" description="Builds a distributable JAR file for this application">
 		<jar destfile="${output}/jsudokusolver-r${build.version}.jar" basedir="${output}/classes/">
 			<manifest>
 				<attribute name="Main-Class" value="com.google.code.jsudokusolver.Main"/>
@@ -42,9 +42,10 @@
 				</section>
 			</manifest>
 		</jar>
+		<jar destfile="${output}/jsudokusolver-r${build.version}-javadoc.jar" basedir="${output}/javadoc/"/>
 	</target>
 	<target name="javadoc">
-		<javadoc destdir="${output}/javadoc/" locale="en_GB" version="true" author="true">
+		<javadoc destdir="${output}/javadoc/" locale="en_GB" version="true" author="true" windowtitle="JSudokuSolver API">
 			<packageset dir="${src}"/>
 		</javadoc>
 	</target>
