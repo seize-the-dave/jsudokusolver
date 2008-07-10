@@ -7,6 +7,7 @@ import java.util.Set;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 public class SimpleColours implements SolvingStrategy {
@@ -66,9 +67,9 @@ public class SimpleColours implements SolvingStrategy {
 		System.out.println(cell.getPosition());
 	    }
 	    if (hasContradiction(colour2)) {
+		ReferenceReason reason = new ReferenceReason(getName(), colour1);
 		for (Cell cell : colour2) {
-		    cell.remove(i);
-		    Grid.logCandidateRemoval(cell, i, getName(), colour1);
+		    cell.remove(i, reason);
 		}
 		return true;
 	    }

@@ -73,9 +73,9 @@ public class House {
      * 
      * @param candidate the candidate to remove
      */
-    public void removeCandidate(Integer candidate) {
+    protected void removeCandidate(Integer candidate, ReferenceReason reason) {
         for (Cell cell : cells) {
-            cell.remove(candidate);
+            cell.remove(candidate, reason);
         }
     }
     

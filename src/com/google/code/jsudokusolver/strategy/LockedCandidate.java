@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 /**
@@ -61,11 +62,11 @@ public class LockedCandidate implements SolvingStrategy {
                 }
                 if (search != null) {
                     Set<Cell> columnCells = search.getCellsWithCandidate(i);
+                    ReferenceReason reason = new ReferenceReason(NAME, cells);
                     if (columnCells.equals(cells) == false) {
                         columnCells.removeAll(cells);
                         for (Cell cell : columnCells) {
-                            cell.remove(i);
-                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                            cell.remove(i, reason);
                         }
                         return true;
                     }
@@ -83,9 +84,9 @@ public class LockedCandidate implements SolvingStrategy {
                     Set<Cell> rowCells = search.getCellsWithCandidate(i);
                     if (rowCells.equals(cells) == false) {
                         rowCells.removeAll(cells);
+                        ReferenceReason reason = new ReferenceReason(NAME, cells);
                         for (Cell cell : rowCells) {
-                            cell.remove(i);
-                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                            cell.remove(i, reason);
                         }
                         return true;
                     }
@@ -116,9 +117,9 @@ public class LockedCandidate implements SolvingStrategy {
                     Set<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
+                        ReferenceReason reason = new ReferenceReason(NAME, cells);
                         for (Cell cell : boxCells) {
-                            cell.remove(i);
-                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                            cell.remove(i, reason);
                         }
                         return true;
                     }
@@ -140,9 +141,9 @@ public class LockedCandidate implements SolvingStrategy {
                     Set<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
+                        ReferenceReason reason = new ReferenceReason(NAME, cells);
                         for (Cell cell : boxCells) {
-                            cell.remove(i);
-                            Grid.logCandidateRemoval(cell, i, NAME, cells);
+                            cell.remove(i, reason);
                         }
                         return true;
                     }

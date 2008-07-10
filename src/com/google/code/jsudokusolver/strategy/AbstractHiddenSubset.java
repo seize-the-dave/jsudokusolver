@@ -3,6 +3,7 @@ package com.google.code.jsudokusolver.strategy;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.Reason;
 import com.google.code.jsudokusolver.SolvingStrategy;
 import java.util.HashSet;
 import java.util.List;
@@ -82,13 +83,11 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy {
             if (subsetCopy.size() != 0) {
                 return false;
             }
+            Reason reason = new Reason(getName());
             for (Cell cell : matchingCells) {
-                if (cell.retainAll(subset)) {
+                if (cell.retainAll(subset, reason)) {
                     changed = true;
                 }
-            }
-            if (changed) {
-                Grid.logCandidateRetention(matchingCells, subset, getName());
             }
         }
         return changed;

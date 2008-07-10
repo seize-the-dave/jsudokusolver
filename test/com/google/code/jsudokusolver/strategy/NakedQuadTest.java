@@ -21,15 +21,7 @@ public class NakedQuadTest {
     @Test
     public void testSolve() throws Exception {
         Grid grid = new Grid(9);
-        String puzzle = "624900000" +
-                        "739100008" +
-                        "815004000" +
-                        "400009370" +
-                        "300040006" +
-                        "591003002" + 
-                        "900400200" +
-                        "100296004" +
-                        "248357169";
+        String puzzle = "624900000739100008815004000400009370300040006591003002900400200100296004248357169";
         grid.fill(puzzle);
         grid.registerStrategy(new NakedQuad());
         assertTrue(grid.stepOnce());

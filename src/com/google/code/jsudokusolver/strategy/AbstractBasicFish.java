@@ -10,6 +10,7 @@ import java.util.TreeSet;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 /**
@@ -95,13 +96,13 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
                 rowMap.remove(entry.getKey());
             }
             boolean solved = false;
+            ReferenceReason reason = new ReferenceReason(getName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : rowMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House row = rows.get(entry.getKey() - 1);
                 for (Integer column : entry.getValue()) {
                     Cell cell = row.getCells().get(column - 1);
-                    cell.remove(candidate);
-                    Grid.logCandidateRemoval(cell, candidate, getName(), fish);
+                    cell.remove(candidate, reason);
                     solved = true;
                 }
             }
@@ -164,13 +165,13 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
                 columnMap.remove(entry.getKey());
             }
             boolean solved = false;
+            ReferenceReason reason = new ReferenceReason(getName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : columnMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House column = columns.get(entry.getKey() - 1);
                 for (Integer row : entry.getValue()) {
                     Cell cell = column.getCells().get(row - 1);
-                    cell.remove(candidate);
-                    Grid.logCandidateRemoval(cell, candidate, getName(), fish);
+                    cell.remove(candidate, reason);
                     solved = true;
                 }
             }

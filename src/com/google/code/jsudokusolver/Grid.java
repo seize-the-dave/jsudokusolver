@@ -248,6 +248,10 @@ public class Grid {
         log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
     }
     
+    public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Set<Cell> reference) {
+        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(reference));
+    }
+    
     public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
         Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
         log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));

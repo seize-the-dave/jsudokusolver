@@ -54,31 +54,64 @@ public class Cell implements Comparable<Cell> {
         return candidates.contains(digit);
     }
     
-    public boolean remove(Integer candidate) {
+//    public boolean remove(Integer candidate) {
+//        final Set<Integer> before = getCandidates();
+//        if (candidates.remove(candidate)) {
+//            final Set<Integer> after = getCandidates();
+//            fireCandidateChangeEvent(before, after);
+//            return true;
+//        }
+//        return false;
+//    }
+    
+    public boolean remove(Integer candidate, ReferenceReason reason) {
         final Set<Integer> before = getCandidates();
         if (candidates.remove(candidate)) {
             final Set<Integer> after = getCandidates();
             fireCandidateChangeEvent(before, after);
+            Grid.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-    public boolean removeAll(Set<Integer> candidates) {
+//    public boolean removeAll(Set<Integer> candidates) {
+//        final Set<Integer> before = getCandidates();
+//        if (this.candidates.removeAll(candidates)) {
+//            final Set<Integer> after = getCandidates();
+//            fireCandidateChangeEvent(before, after);
+//            return true;
+//        }
+//        return false;
+//    }
+    
+    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) {
         final Set<Integer> before = getCandidates();
         if (this.candidates.removeAll(candidates)) {
             final Set<Integer> after = getCandidates();
             fireCandidateChangeEvent(before, after);
+            Grid.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-    public boolean retainAll(Set<Integer> candidates) {
-        final Set<Integer> before = getCandidates();
+//    public boolean retainAll(Set<Integer> candidates) {
+//        final Set<Integer> before = getCandidates();
+//        if (this.candidates.retainAll(candidates)) {
+//            Set<Integer> after = getCandidates();
+//            fireCandidateChangeEvent(before, after);
+//            return true;
+//        }
+//        return false;
+//    }
+    
+    public boolean retainAll(Set<Integer> candidates, Reason reason) {
+	final Set<Integer> before = getCandidates();
         if (this.candidates.retainAll(candidates)) {
             Set<Integer> after = getCandidates();
             fireCandidateChangeEvent(before, after);
+            Grid.logCandidateRetention(this, candidates, reason.getName());
             return true;
         }
         return false;
@@ -109,9 +142,12 @@ public class Cell implements Comparable<Cell> {
         this.digit = digit;
         candidates.clear();
         
-        row.removeCandidate(digit);
-        column.removeCandidate(digit);
-        box.removeCandidate(digit);
+        Set<Cell> cells = new HashSet<Cell>();
+        cells.add(this);
+        ReferenceReason reason = new ReferenceReason("Set Digit", cells);
+        row.removeCandidate(digit, reason);
+        column.removeCandidate(digit, reason);
+        box.removeCandidate(digit, reason);
         
         fireDigitChangeEvent();
     }
