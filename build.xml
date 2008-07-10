@@ -43,6 +43,11 @@
 			</manifest>
 		</jar>
 	</target>
+	<target name="javadoc">
+		<javadoc destdir="${output}/javadoc/" locale="en_GB" version="true" author="true">
+			<packageset dir="${src}"/>
+		</javadoc>
+	</target>
 	<target name="run" depends="build" description="Runs the application">
 		<java jar="${output}/jsudokusolver-r${build.version}.jar" fork="true"/>
 	</target>
