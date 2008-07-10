@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.google.code.jsudokusolver.strategy;
 
 import com.google.code.jsudokusolver.Cell;
@@ -15,7 +10,7 @@ import java.util.Set;
 
 /**
  *
- * @author Dave
+ * @author David Grant
  */
 abstract public class AbstractHiddenSubset implements SolvingStrategy {
     protected Grid grid;

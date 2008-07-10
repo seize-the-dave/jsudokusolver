@@ -10,6 +10,9 @@ import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
+/**
+ * @author David Grant
+ */
 abstract public class AbstractNakedSubset implements SolvingStrategy {
     private Grid grid;
     /**

@@ -19,8 +19,10 @@ public interface SolvingStrategy {
      */
     void setGrid(Grid grid);
     /**
-     * Takes a step towards solving the grid.  This method should return as
-     * soon as a change is made, either to a cell's candidates or its digit
+     * Attempt to solve the grid with this strategy.
+     * 
+     * This method should return as soon as a atomic set of changes is made, 
+     * either to a cell's candidates or its digit
      * 
      * @return true if a change was made; false otherwise
      */

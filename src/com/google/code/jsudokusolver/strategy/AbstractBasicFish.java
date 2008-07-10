@@ -18,12 +18,27 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 abstract public class AbstractBasicFish implements SolvingStrategy {
     private Grid grid;
 
+    /**
+     * {@inheritDoc}
+     */
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
     
+    /**
+     * Returns the size of the fish.
+     * 
+     * The size of the fist denotes the maximum numbers of cells
+     * that the implementation should look for, e.g. 2 for X-Wing 
+     * and 3 for Swordfish.
+     * 
+     * @return the size of this fish
+     */
     abstract protected int getFishSize();
     
+    /**
+     * {@inheritDoc}
+     */
     public boolean solve() {
         List<House> rows = grid.getRows();
         List<House> columns = grid.getColumns();

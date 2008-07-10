@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+/**
+ * @author David Grant
+ */
 public class HiddenSingle implements SolvingStrategy {
     private static final String NAME = "Hidden Single";
     private static final Logger LOGGER = Logger.getLogger(HiddenPair.class.getCanonicalName());

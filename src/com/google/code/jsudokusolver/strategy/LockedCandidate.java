@@ -1,13 +1,12 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.List;
+import java.util.Set;
+
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolvingStrategy;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * @author David Grant
@@ -16,14 +15,23 @@ public class LockedCandidate implements SolvingStrategy {
     private static final String NAME = "Locked Candidate";
     private Grid grid;
 
+    /**
+     * {@inheritDoc}
+     */
     public String getName() {
         return NAME;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     public void setGrid(Grid grid) {
         this.grid = grid;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public boolean solve() {
     	if (solveType1()) {
     		return true;
