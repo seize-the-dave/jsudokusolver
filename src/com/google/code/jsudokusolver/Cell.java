@@ -10,7 +10,8 @@ import java.util.TreeSet;
  * 
  * @author David Grant
  */
-public class Cell implements Comparable<Cell> {
+public class Cell implements Comparable<Cell> 
+{
     private final Set<Integer> candidates;
     private final House row;
     private final House column;
@@ -18,7 +19,8 @@ public class Cell implements Comparable<Cell> {
     private Integer digit;
     private Set<CellChangeListener> listeners = new HashSet<CellChangeListener>();
     
-    public Cell(House row, House column, House box, Set<Integer> candidates) {
+    public Cell(House row, House column, House box, Set<Integer> candidates) 
+    {
         this.candidates = candidates;
         this.row = row;
         this.column = column;
@@ -41,7 +43,8 @@ public class Cell implements Comparable<Cell> {
     /**
      * @return true if this cell has been solved; false otherwise
      */
-    public boolean isSolved() {
+    public boolean isSolved() 
+    {
         return digit != null;
     }
     
@@ -50,7 +53,8 @@ public class Cell implements Comparable<Cell> {
      * @param digit
      * @return true if this 
      */
-    public boolean contains(Integer digit) {
+    public boolean contains(Integer digit) 
+    {
         return candidates.contains(digit);
     }
     
@@ -66,7 +70,8 @@ public class Cell implements Comparable<Cell> {
     
     public boolean remove(Integer candidate, ReferenceReason reason) {
         final Set<Integer> before = getCandidates();
-        if (candidates.remove(candidate)) {
+        if (candidates.remove(candidate)) 
+        {
             final Set<Integer> after = getCandidates();
             fireCandidateChangeEvent(before, after);
             Grid.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
@@ -144,7 +149,7 @@ public class Cell implements Comparable<Cell> {
         
         Set<Cell> cells = new HashSet<Cell>();
         cells.add(this);
-        ReferenceReason reason = new ReferenceReason("Set Digit", cells);
+        ReferenceReason reason = new ReferenceReason("Given Digit", cells);
         row.removeCandidate(digit, reason);
         column.removeCandidate(digit, reason);
         box.removeCandidate(digit, reason);
@@ -216,7 +221,8 @@ public class Cell implements Comparable<Cell> {
                 return Cell.this;
             }
         };
-        for (CellChangeListener listener : listeners) {
+        for (CellChangeListener listener : listeners) 
+        {
             listener.candidatesChanged(event);
         }
     }

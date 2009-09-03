@@ -5,13 +5,20 @@ package com.google.code.jsudokusolver;
  * 
  * @author David Grant
  */
-public class InvalidSudokuException extends Exception {
+public class InvalidSudokuException extends Exception 
+{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructor
      * 
      * @param message description of this exception
      */
-    public InvalidSudokuException(String message) {
+    public InvalidSudokuException(String message) 
+    {
         super(message);
     }
 }

@@ -6,7 +6,8 @@ package com.google.code.jsudokusolver;
  * 
  * @author David Grant
  */
-public interface CellChangeListener {
+public interface CellChangeListener 
+{
     /**
      * This is the method called when a cell's candidates change
      * 

@@ -8,7 +8,8 @@ import java.util.Set;
  * 
  * @author David Grant
  */
-public interface CandidateChangeEvent {
+public interface CandidateChangeEvent 
+{
     /**
      * Returns the cell's candidates as they were before the change
      * 

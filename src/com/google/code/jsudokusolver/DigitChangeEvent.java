@@ -6,7 +6,8 @@ package com.google.code.jsudokusolver;
  * 
  * @author David Grant
  */
-public interface DigitChangeEvent {
+public interface DigitChangeEvent 
+{
     /**
      * Returns the cell that was subject to the digit change
      * 

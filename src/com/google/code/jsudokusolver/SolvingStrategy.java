@@ -5,7 +5,8 @@ package com.google.code.jsudokusolver;
  * 
  * @author David Grant
  */
-public interface SolvingStrategy {
+public interface SolvingStrategy 
+{
     /**
      * Returns the name of this strategy.
      * 

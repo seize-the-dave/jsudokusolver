@@ -16,7 +16,6 @@ import com.google.code.jsudokusolver.strategy.XWing;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Grid grid = new Grid(9);
         String puzzle = "801006094" +
                         "300009080" +
                         "970080500" +
@@ -29,22 +28,22 @@ public class Main {
         if (args.length == 1) {
 		    puzzle = args[0];
 	    }
-        grid.fill(puzzle);
-
-        grid.registerStrategy(new HiddenSingle());
-        grid.registerStrategy(new HiddenPair());
-        grid.registerStrategy(new HiddenTriple());
-        grid.registerStrategy(new HiddenQuad());
-        grid.registerStrategy(new NakedSingle());
-        grid.registerStrategy(new NakedPair());
-        grid.registerStrategy(new NakedTriple());
-        grid.registerStrategy(new NakedQuad());
-        grid.registerStrategy(new LockedCandidate());
-        grid.registerStrategy(new XWing());
-        grid.registerStrategy(new Swordfish());
-        grid.registerStrategy(new Jellyfish());
-
-        grid.solve();
+        Grid grid = Grid.parseGrid(puzzle);
+        Solver solver = new Solver();
+//        solver.addSolvingStrategy(new HiddenSingle());
+//        solver.addSolvingStrategy(new HiddenPair());
+//        solver.addSolvingStrategy(new HiddenTriple());
+//        solver.addSolvingStrategy(new HiddenQuad());
+//        solver.addSolvingStrategy(new NakedSingle());
+//        solver.addSolvingStrategy(new NakedPair());
+//        solver.addSolvingStrategy(new NakedTriple());
+//        solver.addSolvingStrategy(new NakedQuad());
+//        solver.addSolvingStrategy(new LockedCandidate());
+//        solver.addSolvingStrategy(new XWing());
+//        solver.addSolvingStrategy(new Swordfish());
+//        solver.addSolvingStrategy(new Jellyfish());
+        
+        grid.solve(solver);
         System.out.println(grid);
         System.out.println("Export: " + grid.getPuzzle());
     }

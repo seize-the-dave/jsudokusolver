@@ -9,17 +9,24 @@ import java.util.TreeSet;
 import java.util.logging.Logger;
 
 
-public class Grid {
+public class Grid 
+{
     private static final Logger LOGGER = Logger.getLogger(Grid.class.getCanonicalName());
     private final int size;
     private final List<House> rows;
     private final List<House> columns;
     private final List<House> boxes;
-    private final List<SolvingStrategy> strategies = new ArrayList<SolvingStrategy>();
+    private  List<SolvingStrategy> strategies;
     private static int step = 1;
     private int currentStrategy = 0;
     
-    public Grid(int size) {
+    public Grid()
+    {
+    	this(9);
+    }
+    
+    public Grid(int size) 
+    {
         this.size = size;
         
         rows = generateHouses();
@@ -35,10 +42,6 @@ public class Grid {
         return houses;
     }
     
-    public Grid() {
-        this(9);
-    }
-    
     /**
      * Fills in the puzzle.
      * 
@@ -51,7 +54,7 @@ public class Grid {
      * @param puzzle
      * @throws InvalidSudokuException if the puzzle String is invalid
      */
-    public void fill(String puzzle) throws InvalidSudokuException {
+    public void fromString(String puzzle) throws InvalidSudokuException {
         if (puzzle.length() != (size * size)) {
             throw new InvalidSudokuException("Wrong Length");
         }
@@ -138,16 +141,6 @@ public class Grid {
     }
     
     /**
-     * Registers a SolvingStrategy to use for solving this Sudoku.
-     * 
-     * @param strategy the SolvingStrategy to register
-     */
-    public void registerStrategy(SolvingStrategy strategy) {
-        strategy.setGrid(this);
-        strategies.add(strategy);
-    }
-    
-    /**
      * Attempts to solve this puzzle by invoking SolvingStrategy.solve() on each
      * registered SolvingStrategy.  This method continues to invoke each 
      * strategy until all strategies fail to change the puzzle.
@@ -162,25 +155,40 @@ public class Grid {
         return changed;
     }
     
-    public boolean step() {
+    public boolean solve(Solver solver)
+    {
+    	boolean changed = false;
+    	solver.setGrid(this);
+    	strategies = solver.getStrategies();
+    	
+    	while (step()) {
+    		changed = true;
+    	}
+    	
+    	return changed;
+    }
+    
+    private boolean step() {
         boolean changed = false;
         for (int i = 0; i < strategies.size(); i++) {
             currentStrategy = i;
             while (stepOnce()) {
                 changed = true;
             }
-	    // If we find a solution after the first strategy, restart
-	    // so we don't move onto complex strategies too early.
-	    if (changed && currentStrategy != 0) {
-		return true;
-	    }
+		    // If we find a solution after the first strategy, restart
+		    // so we don't move onto complex strategies too early.
+		    if (changed && currentStrategy != 0) {
+		    	return true;
+		    }
         }
         return changed;
     }
     
-    public boolean stepOnce() {
+    public boolean stepOnce() 
+    {
         SolvingStrategy strategy = strategies.get(currentStrategy);
-        if (strategy.solve()) {
+        if (strategy.solve()) 
+        {
             step++;
             return true;
         }
@@ -274,7 +282,8 @@ public class Grid {
         LOGGER.info(message);
     }
     
-    public static String formatCells(Set<Cell> cells) {
+    public static String formatCells(Set<Cell> cells) 
+    {
         StringBuffer sb = new StringBuffer();
         Cell[] cellArray = cells.toArray(new Cell[]{});
         for (int i = 0; i < cellArray.length; i++) {
@@ -306,5 +315,13 @@ public class Grid {
             }
         }
         return sb.toString();
+    }
+    
+    public static Grid parseGrid(String s) throws InvalidSudokuException
+    {
+    	Grid g = new Grid();
+    	g.fromString(s);
+    	
+    	return g;
     }
 }

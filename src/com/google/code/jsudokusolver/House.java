@@ -2,7 +2,6 @@ package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,7 +12,8 @@ import java.util.TreeSet;
  * 
  * @author David Grant
  */
-public class House {
+public class House 
+{
     private final List<Cell> cells;
     private final int offset;
     private final int size;
@@ -24,7 +24,8 @@ public class House {
      * @param size the size of this house
      * @param offset the offset of this house
      */
-    public House(int size, int offset) {
+    public House(int size, int offset) 
+    {
         cells = new ArrayList<Cell>(size);
         this.size = size;
         this.offset = offset;
@@ -35,7 +36,8 @@ public class House {
      * 
      * @param cell the Cell
      */
-    public void addCell(Cell cell) {
+    public void addCell(Cell cell) 
+    {
         cells.add(cell);
     }
     
@@ -44,14 +46,17 @@ public class House {
      * 
      * @return an unmodifiable list
      */
-    public List<Cell> getCells() {
+    public List<Cell> getCells() 
+    {
         return Collections.unmodifiableList(cells);
     }
     
-    public Set<Cell> getCellsWithCandidate(int candidate) {
+    public Set<Cell> getCellsWithCandidate(int candidate) 
+    {
         Set<Cell> candidateCells = new TreeSet<Cell>();
         for (Cell cell : cells) {
-            if (cell.isSolved() == false && cell.contains(candidate)) {
+            if (cell.isSolved() == false && cell.contains(candidate)) 
+            {
                 candidateCells.add(cell);
             }
         }
@@ -74,7 +79,8 @@ public class House {
      * @param candidate the candidate to remove
      */
     protected void removeCandidate(Integer candidate, ReferenceReason reason) {
-        for (Cell cell : cells) {
+        for (Cell cell : cells) 
+        {
             cell.remove(candidate, reason);
         }
     }
