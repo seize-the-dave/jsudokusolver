@@ -3,10 +3,13 @@ package com.google.code.jsudokusolver.strategy;
 import java.util.List;
 import java.util.Set;
 
+import com.google.code.jsudokusolver.Box;
 import com.google.code.jsudokusolver.Cell;
+import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
+import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 /**
@@ -41,7 +44,7 @@ public class LockedCandidate implements SolvingStrategy {
     }
 
     public boolean solveType1() {
-        List<House> boxes = grid.getBoxes();
+        List<Box> boxes = grid.getBoxes();
         for (int i = 1; i <= grid.getSize(); i++) {
             for (House box : boxes) {
                 Set<Cell> cells = box.getCellsWithCandidate(i);
@@ -98,8 +101,8 @@ public class LockedCandidate implements SolvingStrategy {
     
     public boolean solveType2() {
     	boolean solved = false;
-    	List<House> columns = grid.getColumns();
-    	List<House> rows = grid.getColumns();
+    	List<Column> columns = grid.getColumns();
+    	List<Row> rows = grid.getRows();
     	for (int i = 1; i <= grid.getSize(); i++) {
     		for (House column : columns) {
     			Set<Cell> cells = column.getCellsWithCandidate(i);

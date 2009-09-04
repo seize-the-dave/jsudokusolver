@@ -8,9 +8,11 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.google.code.jsudokusolver.Cell;
+import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
+import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 /**
@@ -41,8 +43,8 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
      * {@inheritDoc}
      */
     public boolean solve() {
-        List<House> rows = grid.getRows();
-        List<House> columns = grid.getColumns();
+        List<Row> rows = grid.getRows();
+        List<Column> columns = grid.getColumns();
         for (int i = 1; i <= grid.getSize(); i++) {
             if (solveRow(i, rows)) {
                 return true;
@@ -54,7 +56,7 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
         return false;
     }
 
-    private boolean solveRow(int candidate, List<House> rows) {
+    private boolean solveRow(int candidate, List<Row> rows) {
         Map<Integer, Set<Integer>> rowMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> columnPopulation = new TreeSet<Integer>();
         for (House row : rows) {
@@ -123,7 +125,7 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
         return matches;
     }
     
-    private boolean solveColumn(int candidate, List<House> columns) {
+    private boolean solveColumn(int candidate, List<Column> columns) {
         Map<Integer, Set<Integer>> columnMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> rowPopulation = new TreeSet<Integer>();
         for (House column : columns) {

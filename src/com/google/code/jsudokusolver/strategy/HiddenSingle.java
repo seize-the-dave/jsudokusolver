@@ -1,20 +1,19 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolvingStrategy;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * @author David Grant
  */
 public class HiddenSingle implements SolvingStrategy {
     private static final String NAME = "Hidden Single";
-    private static final Logger LOGGER = Logger.getLogger(HiddenPair.class.getCanonicalName());
     private Grid grid;
     
     public String getName() {
@@ -38,7 +37,7 @@ public class HiddenSingle implements SolvingStrategy {
         return false;
     }
     
-    private boolean solveHouses(List<House> houses) {
+    private boolean solveHouses(List<? extends House> houses) {
         for (int i = 1; i <= grid.getSize(); i++) {
             for (House house : houses) {
                 if (solveHouse(house, i)) {
@@ -66,7 +65,7 @@ public class HiddenSingle implements SolvingStrategy {
         {
             Cell cell = candidates.toArray(new Cell[]{})[0];
             cell.setDigit(candidate);
-            grid.logCandidateRetention(cell, candidate, NAME);
+            Grid.logCandidateRetention(cell, candidate, NAME);
             return true;
         }
         return false;

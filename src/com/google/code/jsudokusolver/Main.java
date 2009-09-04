@@ -1,6 +1,5 @@
 package com.google.code.jsudokusolver;
 
-
 import com.google.code.jsudokusolver.strategy.HiddenPair;
 import com.google.code.jsudokusolver.strategy.HiddenQuad;
 import com.google.code.jsudokusolver.strategy.HiddenSingle;
@@ -30,20 +29,20 @@ public class Main {
 	    }
         Grid grid = Grid.parseGrid(puzzle);
         Solver solver = new Solver();
-//        solver.addSolvingStrategy(new HiddenSingle());
-//        solver.addSolvingStrategy(new HiddenPair());
-//        solver.addSolvingStrategy(new HiddenTriple());
-//        solver.addSolvingStrategy(new HiddenQuad());
-//        solver.addSolvingStrategy(new NakedSingle());
-//        solver.addSolvingStrategy(new NakedPair());
-//        solver.addSolvingStrategy(new NakedTriple());
-//        solver.addSolvingStrategy(new NakedQuad());
-//        solver.addSolvingStrategy(new LockedCandidate());
-//        solver.addSolvingStrategy(new XWing());
-//        solver.addSolvingStrategy(new Swordfish());
-//        solver.addSolvingStrategy(new Jellyfish());
+        solver.addSolvingStrategy(new HiddenSingle());
+        solver.addSolvingStrategy(new HiddenPair());
+        solver.addSolvingStrategy(new HiddenTriple());
+        solver.addSolvingStrategy(new HiddenQuad());
+        solver.addSolvingStrategy(new NakedSingle());
+        solver.addSolvingStrategy(new NakedPair());
+        solver.addSolvingStrategy(new NakedTriple());
+        solver.addSolvingStrategy(new NakedQuad());
+        solver.addSolvingStrategy(new LockedCandidate());
+        solver.addSolvingStrategy(new XWing());
+        solver.addSolvingStrategy(new Swordfish());
+        solver.addSolvingStrategy(new Jellyfish());
         
-        grid.solve(solver);
+//        grid.solve(solver);
         System.out.println(grid);
         System.out.println("Export: " + grid.getPuzzle());
     }

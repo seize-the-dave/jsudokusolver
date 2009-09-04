@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.code.jsudokusolver.Box;
 import com.google.code.jsudokusolver.Cell;
+import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
+import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 public class SimpleColours implements SolvingStrategy {
@@ -23,9 +26,9 @@ public class SimpleColours implements SolvingStrategy {
 
     // Each pair must be split between colours!
     public boolean solve() {
-	List<House> rows = grid.getRows();
-	List<House> columns = grid.getColumns();
-	List<House> boxes = grid.getBoxes();
+	List<Row> rows = grid.getRows();
+	List<Column> columns = grid.getColumns();
+	List<Box> boxes = grid.getBoxes();
 	for (int i = 1; i <= grid.getSize(); i++) {
 	    Set<Cell> pairCells = new HashSet<Cell>();
 	    pairCells.addAll(findPairs(rows, i));
@@ -88,7 +91,7 @@ public class SimpleColours implements SolvingStrategy {
 	return false;
     }
     
-    private Set<Cell> findPairs(List<House> houses, int candidate) {
+    private Set<Cell> findPairs(List<? extends House> houses, int candidate) {
 	Set<Cell> pairCells = new HashSet<Cell>();
 	for (House house : houses) {
 	    Set<Cell> houseCells = house.getCellsWithCandidate(candidate);

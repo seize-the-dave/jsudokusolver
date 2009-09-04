@@ -24,7 +24,7 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy {
      */
     abstract protected int getSetSize();
     
-    private boolean solveHouses(List<House> houses) {
+    private boolean solveHouses(List<? extends House> houses) {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
         combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
                                                  combinations, 

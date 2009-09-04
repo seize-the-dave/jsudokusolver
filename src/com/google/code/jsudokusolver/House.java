@@ -99,7 +99,8 @@ public class House
     }
     
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return cells.toString();
     }
     

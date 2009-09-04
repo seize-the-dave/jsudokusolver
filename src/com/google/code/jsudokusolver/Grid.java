@@ -3,6 +3,7 @@ package com.google.code.jsudokusolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,34 +13,36 @@ import java.util.logging.Logger;
 public class Grid 
 {
     private static final Logger LOGGER = Logger.getLogger(Grid.class.getCanonicalName());
-    private final int size;
-    private final List<House> rows;
-    private final List<House> columns;
-    private final List<House> boxes;
+    private static final int SIZE = 9;
+    private final List<Row> rows = new LinkedList<Row>();
+    private final List<Column> columns = new LinkedList<Column>();
+    private final List<Box> boxes = new LinkedList<Box>();
+    private final List<Floor> floors = new LinkedList<Floor>();
+    private final List<Tower> towers = new LinkedList<Tower>();
     private  List<SolvingStrategy> strategies;
     private static int step = 1;
     private int currentStrategy = 0;
     
-    public Grid()
+    public Grid() 
     {
-    	this(9);
-    }
-    
-    public Grid(int size) 
-    {
-        this.size = size;
-        
-        rows = generateHouses();
-        columns = generateHouses();
-        boxes = generateHouses();
-    }
-    
-    private List<House> generateHouses() {
-        List<House> houses = new ArrayList<House>(size);
-        for (int i = 0; i < size; i++) {
-            houses.add(new House(size, i + 1));
+    	for (int i = 0; i < 3; i++)
+        {
+    		towers.add(new Tower());
+        	floors.add(new Floor());
         }
-        return houses;
+    	for (int i = 0; i < SIZE; i++)
+    	{
+    		int o = i / 3;
+    		Row r = new Row(SIZE, i);
+    		rows.add(r);
+    		floors.get(o).add(r);
+    		
+    		Column c = new Column(SIZE, i);
+    		columns.add(c);
+    		towers.get(o).add(c);
+    		
+    		boxes.add(new Box(SIZE, i));
+    	}
     }
     
     /**
@@ -55,7 +58,7 @@ public class Grid
      * @throws InvalidSudokuException if the puzzle String is invalid
      */
     public void fromString(String puzzle) throws InvalidSudokuException {
-        if (puzzle.length() != (size * size)) {
+        if (puzzle.length() != (SIZE * SIZE)) {
             throw new InvalidSudokuException("Wrong Length");
         }
         Set<Cell> cells = new HashSet<Cell>();
@@ -80,19 +83,19 @@ public class Grid
     }
     
     private House getRow(int offset) {
-        int row = offset / size;
+        int row = offset / SIZE;
         return rows.get(row);
     }
     
     private House getColumn(int offset) {
-        int column = offset % size;
+        int column = offset % SIZE;
         return columns.get(column);
     }
     
     private House getBox(int offset) {
-        int row = offset / size;
-        int column = offset % size;
-        int sqrt = (int) Math.sqrt((double) size);
+        int row = offset / SIZE;
+        int column = offset % SIZE;
+        int sqrt = (int) Math.sqrt((double) SIZE);
         
         int rowOffset = (row / sqrt);
         int columnOffset = (column / sqrt);
@@ -100,20 +103,20 @@ public class Grid
         return boxes.get(box);
     }
     
-    public List<House> getRows() {
+    public List<Row> getRows() {
         return rows;
     }
     
-    public List<House> getColumns() {
+    public List<Column> getColumns() {
         return columns;
     }
     
-    public List<House> getBoxes() {
+    public List<Box> getBoxes() {
         return boxes;
     }
     
     public int getSize() {
-        return size;
+        return SIZE;
     }
     
     @Override
@@ -278,7 +281,6 @@ public class Grid
     }
     
     private static void log(String message) {
-//        System.out.println(message);
         LOGGER.info(message);
     }
     
