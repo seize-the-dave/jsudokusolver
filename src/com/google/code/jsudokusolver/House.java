@@ -2,6 +2,7 @@ package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -26,7 +27,7 @@ public class House
      */
     public House(int size, int offset) 
     {
-        cells = new ArrayList<Cell>(size);
+        cells = new LinkedList<Cell>();
         this.size = size;
         this.offset = offset;
     }
@@ -94,7 +95,8 @@ public class House
         return offset;
     }
     
-    public int getChute() {
+    public int getChute() 
+    {
         return (int) ((offset - 1) / Math.sqrt(size)) + 1;
     }
     
@@ -109,8 +111,10 @@ public class House
      * 
      * @param listener the listener to add
      */
-    public void addCellChangeListener(CellChangeListener listener) {
-        for (Cell cell : cells) {
+    public void addCellChangeListener(CellChangeListener listener) 
+    {
+        for (Cell cell : cells) 
+        {
             cell.addCellChangeListener(listener);
         }
     }
@@ -120,8 +124,10 @@ public class House
      * 
      * @param listener the listener to remove
      */
-    public void removeCellChangeListener(CellChangeListener listener) {
-        for (Cell cell : cells) {
+    public void removeCellChangeListener(CellChangeListener listener) 
+    {
+        for (Cell cell : cells) 
+        {
             cell.removeCellChangeListener(listener);
         }
     }
