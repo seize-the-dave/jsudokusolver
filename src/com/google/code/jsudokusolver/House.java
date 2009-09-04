@@ -17,7 +17,6 @@ public class House
 {
     private final List<Cell> cells;
     private final int offset;
-    private final int size;
     
     /**
      * Constructor
@@ -25,10 +24,9 @@ public class House
      * @param size the size of this house
      * @param offset the offset of this house
      */
-    public House(int size, int offset) 
+    public House(int offset) 
     {
         cells = new LinkedList<Cell>();
-        this.size = size;
         this.offset = offset;
     }
     
@@ -91,13 +89,9 @@ public class House
      * 
      * @return the offset
      */
-    public int getOffset() {
-        return offset;
-    }
-    
-    public int getChute() 
+    public int getOffset() 
     {
-        return (int) ((offset - 1) / Math.sqrt(size)) + 1;
+        return offset;
     }
     
     @Override

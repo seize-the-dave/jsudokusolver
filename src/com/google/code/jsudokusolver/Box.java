@@ -2,8 +2,8 @@ package com.google.code.jsudokusolver;
 
 public class Box extends House 
 {
-	public Box(int size, int offset)
+	public Box(int offset)
 	{
-		super(size, offset);
+		super(offset);
 	}
 }

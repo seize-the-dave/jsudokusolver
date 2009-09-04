@@ -45,7 +45,7 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
     public boolean solve() {
         List<Row> rows = grid.getRows();
         List<Column> columns = grid.getColumns();
-        for (int i = 1; i <= grid.getSize(); i++) {
+        for (int i = 1; i <= 9; i++) {
             if (solveRow(i, rows)) {
                 return true;
             }

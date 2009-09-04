@@ -29,7 +29,7 @@ public class SimpleColours implements SolvingStrategy {
 	List<Row> rows = grid.getRows();
 	List<Column> columns = grid.getColumns();
 	List<Box> boxes = grid.getBoxes();
-	for (int i = 1; i <= grid.getSize(); i++) {
+	for (int i = 1; i <= 9; i++) {
 	    Set<Cell> pairCells = new HashSet<Cell>();
 	    pairCells.addAll(findPairs(rows, i));
 	    pairCells.addAll(findPairs(columns, i));

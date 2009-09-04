@@ -32,15 +32,15 @@ public class Grid
     	for (int i = 0; i < SIZE; i++)
     	{
     		int o = i / 3;
-    		Row r = new Row(SIZE, i);
+    		Row r = new Row(i);
     		rows.add(r);
     		floors.get(o).add(r);
     		
-    		Column c = new Column(SIZE, i);
+    		Column c = new Column(i);
     		columns.add(c);
     		towers.get(o).add(c);
     		
-    		boxes.add(new Box(SIZE, i));
+    		boxes.add(new Box(i));
     	}
     }
     
@@ -128,14 +128,17 @@ public class Grid
         return sb.toString();
     }
     
-    public String getPuzzle() {
+    public String getPuzzle() 
+    {
         StringBuilder sb = new StringBuilder();
-        for (House row : rows) {
+        
+        for (House row : rows) 
+        {
             for (Cell cell : row.getCells()) {
                 if (cell.isSolved()) {
                     sb.append(cell.getDigit());
                 } else {
-                    sb.append("0");
+                    sb.append(".");
                 }
             }
         }

@@ -45,7 +45,7 @@ public class LockedCandidate implements SolvingStrategy {
 
     public boolean solveType1() {
         List<Box> boxes = grid.getBoxes();
-        for (int i = 1; i <= grid.getSize(); i++) {
+        for (int i = 1; i <= 9; i++) {
             for (House box : boxes) {
                 Set<Cell> cells = box.getCellsWithCandidate(i);
                 // We're not interested in boxes with only zero or one candidate
@@ -103,7 +103,7 @@ public class LockedCandidate implements SolvingStrategy {
     	boolean solved = false;
     	List<Column> columns = grid.getColumns();
     	List<Row> rows = grid.getRows();
-    	for (int i = 1; i <= grid.getSize(); i++) {
+    	for (int i = 1; i <= 9; i++) {
     		for (House column : columns) {
     			Set<Cell> cells = column.getCellsWithCandidate(i);
     			House search = null;

@@ -2,8 +2,8 @@ package com.google.code.jsudokusolver;
 
 public class Column extends House 
 {
-	public Column(int size, int offset)
+	public Column(int offset)
 	{
-		super(size, offset);
+		super(offset);
 	}
 }
