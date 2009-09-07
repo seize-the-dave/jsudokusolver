@@ -1,13 +1,13 @@
 package com.google.code.jsudokusolver;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
-
 
 public class Grid 
 {
@@ -18,16 +18,19 @@ public class Grid
     private final List<Box> boxes = new LinkedList<Box>();
     private final List<Floor> floors = new LinkedList<Floor>();
     private final List<Tower> towers = new LinkedList<Tower>();
+    private final List<Cell> cells = new LinkedList<Cell>();
     private static int step = 1;
     
-    public Grid() 
+    private Grid() 
     {
+    	// Initialize Chutes
     	for (int i = 0; i < 3; i++)
         {
     		towers.add(new Tower());
         	floors.add(new Floor());
         }
-    	for (int i = 0; i < SIZE; i++)
+    	// Initialize Houses
+    	for (int i = 0; i < 9; i++)
     	{
     		int o = i / 3;
     		Row r = new Row(i);
@@ -40,6 +43,43 @@ public class Grid
     		
     		boxes.add(new Box(i));
     	}
+    	// Initialize Cells
+    	for (int i = 0; i < 81; i++)
+    	{
+    		Set<Integer> candidates = Cell.generateCandidateSet(1, 9);
+    		House row = getRow(i);
+            House column = getColumn(i);
+            House box = getBox(i);
+            
+    		Cell cell = new Cell(row, column, box, candidates);
+    		cells.add(cell);
+    	}
+    }
+    
+    public Set<House> getHouses()
+    {
+    	Set<House> houses = new HashSet<House>();
+    	
+    	houses.addAll(rows);
+    	houses.addAll(columns);
+    	houses.addAll(boxes);
+    	
+    	return houses;
+    }
+    
+    public Set<Chute> getChutes()
+    {
+    	Set<Chute> chutes = new HashSet<Chute>();
+    	
+    	chutes.addAll(floors);
+    	chutes.addAll(towers);
+    	
+    	return chutes;
+    }
+    
+    public List<Cell> getCells()
+    {
+    	return Collections.unmodifiableList(cells);
     }
     
     /**
@@ -54,27 +94,18 @@ public class Grid
      * @param puzzle
      * @throws InvalidSudokuException if the puzzle String is invalid
      */
-    public void fromString(String puzzle) throws InvalidSudokuException {
-        if (puzzle.length() != (SIZE * SIZE)) {
+    private void fromString(String puzzle) throws InvalidSudokuException {
+        if (puzzle.length() != 81) {
             throw new InvalidSudokuException("Wrong Length");
         }
-        Set<Cell> cells = new HashSet<Cell>();
-        for (int i = 0; i < puzzle.length(); i++) {
-            House row = getRow(i);
-            House column = getColumn(i);
-            House box = getBox(i);
+        for (int i = 0; i < 81; i++) 
+        {
+        	Cell cell = cells.get(i);
             
-            Cell cell = new Cell(row, column, box, Cell.generateCandidateSet(1, 9));
-            cells.add(cell);
             Integer digit = Integer.valueOf(String.valueOf(puzzle.charAt(i)));
-            if (digit != 0) {
+            if (digit != 0) 
+            {
                 cell.setDigit(digit);
-            }
-        }
-        // Flush Cells
-        for (Cell cell : cells) {
-            if (cell.isSolved()) {
-                cell.setDigit(cell.getDigit());
             }
         }
     }
@@ -112,10 +143,6 @@ public class Grid
         return boxes;
     }
     
-    public int getSize() {
-        return SIZE;
-    }
-    
     @Override
     public String toString() 
     {
@@ -126,56 +153,6 @@ public class Grid
             sb.append("\n");
         }
         return sb.toString();
-    }
-    
-    public String getPuzzle() 
-    {
-        StringBuilder sb = new StringBuilder();
-        
-        for (House row : rows) 
-        {
-            for (Cell cell : row.getCells()) {
-                if (cell.isSolved()) {
-                    sb.append(cell.getDigit());
-                } else {
-                    sb.append(".");
-                }
-            }
-        }
-        return sb.toString();
-    }
-    
-    public Integer[][] toArray()
-    {
-        Integer[][] puzzle = new Integer[9][9];
-        int i = 0;
-        for (House row : rows) {
-            int j = 0;
-            for (Cell cell : row.getCells()) {
-                if (cell.isSolved()) {
-                    puzzle[i][j] = cell.getDigit();
-                } else {
-                    puzzle[i][j] = 0;
-                }
-                j++;
-            }
-            i++;
-        }
-        return puzzle;
-    }
-    
-    /**
-     * 
-     * @param rowIndex zero-based row number
-     * @param columnIndex zero-based column number
-     * @return
-     */
-    public Set<Integer> getCandidates(int rowIndex, int columnIndex) {
-        return rows.get(columnIndex).getCells().get(rowIndex).getCandidates();
-    }
-    
-    public Cell getCell(int rowIndex, int columnIndex) {
-        return rows.get(columnIndex).getCells().get(rowIndex);
     }
     
     public static void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {

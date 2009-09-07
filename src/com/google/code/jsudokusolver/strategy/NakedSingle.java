@@ -16,13 +16,16 @@ public class NakedSingle implements SolvingStrategy {
     
     public boolean solve(Grid grid)
     {
-        if (solveHouses(grid.getRows())) {
+        if (solveHouses(grid.getRows())) 
+        {
             return true;
         }
-        if (solveHouses(grid.getColumns())) {
+        if (solveHouses(grid.getColumns())) 
+        {
             return true;
         }
-        if (solveHouses(grid.getBoxes())) {
+        if (solveHouses(grid.getBoxes())) 
+        {
             return true;
         }
         return false;
@@ -30,13 +33,17 @@ public class NakedSingle implements SolvingStrategy {
     
     private boolean solveHouses(List<? extends House> houses)
     {
-        for (House house : houses) {
-            for (Cell cell : house.getCells()) {
-                if (cell.isSolved()) {
+        for (House house : houses) 
+        {
+            for (Cell cell : house.getCells()) 
+            {
+                if (cell.isSolved()) 
+                {
                     continue;
                 }
-                if (cell.getCandidates().size() == 1) {
-                    Integer candidate = (Integer) cell.getCandidates().toArray()[0];
+                if (cell.getCandidates().size() == 1) 
+                {
+                    Integer candidate = cell.getCandidates().iterator().next();
                     cell.setDigit(candidate);
                     Grid.logCandidateRetention(cell, candidate, NAME);
                     return true;

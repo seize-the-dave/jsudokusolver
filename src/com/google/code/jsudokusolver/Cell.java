@@ -40,6 +40,17 @@ public class Cell implements Comparable<Cell>
         return Collections.unmodifiableSet(candidates);
     }
     
+    public Set<House> getHouses()
+    {
+    	Set<House> houses = new HashSet<House>();
+    	
+    	houses.add(row);
+    	houses.add(column);
+    	houses.add(box);
+    	
+    	return houses;
+    }
+    
     /**
      * @return true if this cell has been solved; false otherwise
      */

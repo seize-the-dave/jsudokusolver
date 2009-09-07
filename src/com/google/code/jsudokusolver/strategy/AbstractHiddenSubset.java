@@ -23,17 +23,22 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy
      */
     abstract protected int getSetSize();
     
-    private boolean solveHouses(List<? extends House> houses) {
+    private boolean solveHouses(List<? extends House> houses) 
+    {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
         combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
                                                  combinations, 
                                                  getSetSize());
-        for (Set<Integer> combination : combinations) {
-            for (House house : houses) {
-                if (house.getUnsolvedCells().size() <= getSetSize()) {
+        for (Set<Integer> combination : combinations) 
+        {
+            for (House house : houses) 
+            {
+                if (house.getUnsolvedCells().size() <= getSetSize()) 
+                {
                     continue;
                 }
-                if (searchHouse(house, combination)) {
+                if (searchHouse(house, combination)) 
+                {
                     return true;
                 }
             }
@@ -42,23 +47,29 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy
     }
     
     public boolean solve(Grid grid) {
-        if (solveHouses(grid.getRows())) {
+        if (solveHouses(grid.getRows())) 
+        {
             return true;
         }
-        if (solveHouses(grid.getColumns())) {
+        if (solveHouses(grid.getColumns())) 
+        {
             return true;
         }
-        if (solveHouses(grid.getBoxes())) {
+        if (solveHouses(grid.getBoxes())) 
+        {
             return true;
         }
         return false;
     }
     
-    protected boolean searchHouse(House house, Set<Integer> subset) {
+    protected boolean searchHouse(House house, Set<Integer> subset) 
+    {
         boolean changed = false;
         final Set<Cell> matchingCells = new HashSet<Cell>();
-        for (Cell cell : house.getCells()) {
-            if (cell.isSolved()) {
+        for (Cell cell : house.getCells()) 
+        {
+            if (cell.isSolved()) 
+            {
                 continue;
             }
             Set<Integer> cellCandidates 
