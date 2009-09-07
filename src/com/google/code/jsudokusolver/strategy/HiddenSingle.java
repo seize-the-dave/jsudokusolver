@@ -14,17 +14,13 @@ import com.google.code.jsudokusolver.SolvingStrategy;
  */
 public class HiddenSingle implements SolvingStrategy {
     private static final String NAME = "Hidden Single";
-    private Grid grid;
     
     public String getName() {
         return NAME;
     }
 
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
-
-    public boolean solve() {
+    public boolean solve(Grid grid) 
+    {
         if (solveHouses(grid.getRows())) {
             return true;
         }

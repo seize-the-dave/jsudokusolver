@@ -15,9 +15,9 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 /**
  * @author David Grant
  */
-public class LockedCandidate implements SolvingStrategy {
+public class LockedCandidate implements SolvingStrategy 
+{
     private static final String NAME = "Locked Candidate";
-    private Grid grid;
 
     /**
      * {@inheritDoc}
@@ -25,25 +25,19 @@ public class LockedCandidate implements SolvingStrategy {
     public String getName() {
         return NAME;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
     
     /**
      * {@inheritDoc}
      */
-    public boolean solve() {
-    	if (solveType1()) {
+    public boolean solve(Grid grid) {
+    	if (solveType1(grid)) {
     		return true;
     	}
-    	return solveType2();
+    	return solveType2(grid);
     }
 
-    public boolean solveType1() {
+    public boolean solveType1(Grid grid) 
+    {
         List<Box> boxes = grid.getBoxes();
         for (int i = 1; i <= 9; i++) {
             for (House box : boxes) {
@@ -99,7 +93,7 @@ public class LockedCandidate implements SolvingStrategy {
         return false;
     }
     
-    public boolean solveType2() {
+    public boolean solveType2(Grid grid) {
     	boolean solved = false;
     	List<Column> columns = grid.getColumns();
     	List<Row> rows = grid.getRows();

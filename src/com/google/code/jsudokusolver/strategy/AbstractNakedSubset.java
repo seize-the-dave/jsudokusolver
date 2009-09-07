@@ -14,8 +14,8 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 /**
  * @author David Grant
  */
-abstract public class AbstractNakedSubset implements SolvingStrategy {
-    private Grid grid;
+abstract public class AbstractNakedSubset implements SolvingStrategy 
+{
     /**
      * Gets the size of the subset that is being searched for, e.g. 4 for a
      * Naked Quad, 3 for a Naked Triple.
@@ -23,12 +23,8 @@ abstract public class AbstractNakedSubset implements SolvingStrategy {
      * @return the subset size
      */
     abstract protected int getSetSize();
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
-
-    public boolean solve() {
+    
+    public boolean solve(Grid grid) {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
         combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
                                                  combinations, 

@@ -14,18 +14,12 @@ import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolvingStrategy;
 
 public class SimpleColours implements SolvingStrategy {
-    private Grid grid;
-    
     public String getName() {
 	return "Simple Colours";
     }
 
-    public void setGrid(Grid grid) {
-	this.grid = grid;
-    }
-
     // Each pair must be split between colours!
-    public boolean solve() {
+    public boolean solve(Grid grid) {
 	List<Row> rows = grid.getRows();
 	List<Column> columns = grid.getColumns();
 	List<Box> boxes = grid.getBoxes();

@@ -13,9 +13,8 @@ import java.util.Set;
  *
  * @author David Grant
  */
-abstract public class AbstractHiddenSubset implements SolvingStrategy {
-    protected Grid grid;
-    
+abstract public class AbstractHiddenSubset implements SolvingStrategy 
+{    
     /**
      * Gets the size of the subset that is being searched for, e.g. 4 for a
      * Hidden Quad, 3 for a Hidden Triple.
@@ -42,11 +41,7 @@ abstract public class AbstractHiddenSubset implements SolvingStrategy {
         return false;
     }
     
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
-    
-    public boolean solve() {
+    public boolean solve(Grid grid) {
         if (solveHouses(grid.getRows())) {
             return true;
         }

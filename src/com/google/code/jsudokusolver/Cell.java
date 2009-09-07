@@ -36,7 +36,8 @@ public class Cell implements Comparable<Cell>
      * 
      * @return the candidates for this cell
      */
-    public Set<Integer> getCandidates() {
+    public Set<Integer> getCandidates() 
+    {
         return Collections.unmodifiableSet(candidates);
     }
     
@@ -68,7 +69,8 @@ public class Cell implements Comparable<Cell>
 //        return false;
 //    }
     
-    public boolean remove(Integer candidate, ReferenceReason reason) {
+    public boolean remove(Integer candidate, ReferenceReason reason) 
+    {
         final Set<Integer> before = getCandidates();
         if (candidates.remove(candidate)) 
         {

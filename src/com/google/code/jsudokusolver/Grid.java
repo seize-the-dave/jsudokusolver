@@ -119,9 +119,11 @@ public class Grid
     }
     
     @Override
-    public String toString() {
+    public String toString() 
+    {
         StringBuilder sb = new StringBuilder();
-        for (House row : rows) {
+        for (House row : rows) 
+        {
             sb.append(row.toString());
             sb.append("\n");
         }
@@ -143,61 +145,6 @@ public class Grid
             }
         }
         return sb.toString();
-    }
-    
-    /**
-     * Attempts to solve this puzzle by invoking SolvingStrategy.solve() on each
-     * registered SolvingStrategy.  This method continues to invoke each 
-     * strategy until all strategies fail to change the puzzle.
-     * 
-     * @return true if the puzzle was changed; false otherwise
-     */
-    public boolean solve() {
-        boolean changed = false;
-        while (step()) {
-            changed = true;
-        }
-        return changed;
-    }
-    
-    public boolean solve(Solver solver)
-    {
-    	boolean changed = false;
-    	solver.setGrid(this);
-    	strategies = solver.getStrategies();
-    	
-    	while (step()) {
-    		changed = true;
-    	}
-    	
-    	return changed;
-    }
-    
-    private boolean step() {
-        boolean changed = false;
-        for (int i = 0; i < strategies.size(); i++) {
-            currentStrategy = i;
-            while (stepOnce()) {
-                changed = true;
-            }
-		    // If we find a solution after the first strategy, restart
-		    // so we don't move onto complex strategies too early.
-		    if (changed && currentStrategy != 0) {
-		    	return true;
-		    }
-        }
-        return changed;
-    }
-    
-    public boolean stepOnce() 
-    {
-        SolvingStrategy strategy = strategies.get(currentStrategy);
-        if (strategy.solve()) 
-        {
-            step++;
-            return true;
-        }
-        return false;
     }
     
     public Integer[][] toArray()

@@ -18,16 +18,8 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 /**
  * @author David Grant
  */
-abstract public class AbstractBasicFish implements SolvingStrategy {
-    private Grid grid;
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
-    
+abstract public class AbstractBasicFish implements SolvingStrategy 
+{    
     /**
      * Returns the size of the fish.
      * 
@@ -42,7 +34,7 @@ abstract public class AbstractBasicFish implements SolvingStrategy {
     /**
      * {@inheritDoc}
      */
-    public boolean solve() {
+    public boolean solve(Grid grid) {
         List<Row> rows = grid.getRows();
         List<Column> columns = grid.getColumns();
         for (int i = 1; i <= 9; i++) {

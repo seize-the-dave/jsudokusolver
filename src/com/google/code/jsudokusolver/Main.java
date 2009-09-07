@@ -31,17 +31,18 @@ public class Main {
         Solver solver = new Solver();
         solver.addSolvingStrategy(new HiddenSingle());
         solver.addSolvingStrategy(new HiddenPair());
-        solver.addSolvingStrategy(new HiddenTriple());
-        solver.addSolvingStrategy(new HiddenQuad());
-        solver.addSolvingStrategy(new NakedSingle());
-        solver.addSolvingStrategy(new NakedPair());
-        solver.addSolvingStrategy(new NakedTriple());
-        solver.addSolvingStrategy(new NakedQuad());
-        solver.addSolvingStrategy(new LockedCandidate());
-        solver.addSolvingStrategy(new XWing());
-        solver.addSolvingStrategy(new Swordfish());
-        solver.addSolvingStrategy(new Jellyfish());
+//        solver.addSolvingStrategy(new HiddenTriple());
+//        solver.addSolvingStrategy(new HiddenQuad());
+//        solver.addSolvingStrategy(new NakedSingle());
+//        solver.addSolvingStrategy(new NakedPair());
+//        solver.addSolvingStrategy(new NakedTriple());
+//        solver.addSolvingStrategy(new NakedQuad());
+//        solver.addSolvingStrategy(new LockedCandidate());
+//        solver.addSolvingStrategy(new XWing());
+//        solver.addSolvingStrategy(new Swordfish());
+//        solver.addSolvingStrategy(new Jellyfish());
         
+        solver.solve(grid);
 //        grid.solve(solver);
         System.out.println(grid);
         System.out.println("Export: " + grid.getPuzzle());

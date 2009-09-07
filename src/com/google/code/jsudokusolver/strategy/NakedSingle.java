@@ -9,13 +9,12 @@ import com.google.code.jsudokusolver.SolvingStrategy;
 
 public class NakedSingle implements SolvingStrategy {
     private static final String NAME = "Naked Single";
-    private Grid grid;
     
     public String getName() {
         return NAME;
     }
     
-    public boolean solve()
+    public boolean solve(Grid grid)
     {
         if (solveHouses(grid.getRows())) {
             return true;
@@ -45,9 +44,5 @@ public class NakedSingle implements SolvingStrategy {
             }
         }
         return false;
-    }
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
     }
 }

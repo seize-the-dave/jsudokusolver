@@ -17,16 +17,11 @@ public class Solver
 		strategies.add(strategy);
 	}
 	
-	public List<SolvingStrategy> getStrategies()
+	public void solve(Grid g)
 	{
-		return strategies;
-	}
-	
-	public void setGrid(Grid g)
-	{
-		for (SolvingStrategy s : strategies)
+		for (SolvingStrategy strategy : strategies)
 		{
-			s.setGrid(g);
+			strategy.solve(g);
 		}
 	}
 }

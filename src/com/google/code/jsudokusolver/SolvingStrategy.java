@@ -14,12 +14,6 @@ public interface SolvingStrategy
      */
     String getName();
     /**
-     * Used for injecting the grid into the solving strategy.
-     * 
-     * @param grid the grid
-     */
-    void setGrid(Grid grid);
-    /**
      * Attempt to solve the grid with this strategy.
      * 
      * This method should return as soon as a atomic set of changes is made, 
@@ -27,5 +21,5 @@ public interface SolvingStrategy
      * 
      * @return true if a change was made; false otherwise
      */
-    boolean solve();
+    boolean solve(Grid grid);
 }
