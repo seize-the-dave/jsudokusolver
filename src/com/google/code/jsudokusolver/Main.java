@@ -4,14 +4,11 @@ import com.google.code.jsudokusolver.strategy.HiddenPair;
 import com.google.code.jsudokusolver.strategy.HiddenQuad;
 import com.google.code.jsudokusolver.strategy.HiddenSingle;
 import com.google.code.jsudokusolver.strategy.HiddenTriple;
-import com.google.code.jsudokusolver.strategy.Jellyfish;
 import com.google.code.jsudokusolver.strategy.LockedCandidate;
 import com.google.code.jsudokusolver.strategy.NakedPair;
 import com.google.code.jsudokusolver.strategy.NakedQuad;
 import com.google.code.jsudokusolver.strategy.NakedSingle;
 import com.google.code.jsudokusolver.strategy.NakedTriple;
-import com.google.code.jsudokusolver.strategy.Swordfish;
-import com.google.code.jsudokusolver.strategy.XWing;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -40,9 +37,7 @@ public class Main {
         solver.addSolvingStrategy(new NakedTriple());
         solver.addSolvingStrategy(new NakedQuad());
         solver.addSolvingStrategy(new LockedCandidate());
-//        solver.addSolvingStrategy(new XWing());
-//        solver.addSolvingStrategy(new Swordfish());
-//        solver.addSolvingStrategy(new Jellyfish());
+
         solver.solve(grid);
         
         System.out.println(grid);
