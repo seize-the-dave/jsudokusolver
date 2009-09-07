@@ -62,10 +62,13 @@ public class House
         return candidateCells;
     }
     
-    public List<Cell> getUnsolvedCells() {
+    public List<Cell> getUnsolvedCells() 
+    {
         List<Cell> unsolvedCells = new ArrayList<Cell>();
-        for (Cell cell : cells) {
-            if (cell.isSolved() == false) {
+        for (Cell cell : cells) 
+        {
+            if (cell.isSolved() == false) 
+            {
                 unsolvedCells.add(cell);
             }
         }
@@ -77,7 +80,8 @@ public class House
      * 
      * @param candidate the candidate to remove
      */
-    protected void removeCandidate(Integer candidate, ReferenceReason reason) {
+    protected void removeCandidate(Integer candidate, ReferenceReason reason) 
+    {
         for (Cell cell : cells) 
         {
             cell.remove(candidate, reason);
@@ -98,31 +102,5 @@ public class House
     public String toString() 
     {
         return cells.toString();
-    }
-    
-    /**
-     * Shortcut for adding a CellChangeListener to each cell in this house
-     * 
-     * @param listener the listener to add
-     */
-    public void addCellChangeListener(CellChangeListener listener) 
-    {
-        for (Cell cell : cells) 
-        {
-            cell.addCellChangeListener(listener);
-        }
-    }
-    
-    /**
-     * Shortcut for removing a CellChangeListener from each cell in this house
-     * 
-     * @param listener the listener to remove
-     */
-    public void removeCellChangeListener(CellChangeListener listener) 
-    {
-        for (Cell cell : cells) 
-        {
-            cell.removeCellChangeListener(listener);
-        }
     }
 }

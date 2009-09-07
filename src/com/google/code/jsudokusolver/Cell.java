@@ -17,7 +17,6 @@ public class Cell implements Comparable<Cell>
     private final House column;
     private final House box;
     private Integer digit;
-    private Set<CellChangeListener> listeners = new HashSet<CellChangeListener>();
     
     public Cell(House row, House column, House box, Set<Integer> candidates) 
     {
@@ -59,65 +58,28 @@ public class Cell implements Comparable<Cell>
         return candidates.contains(digit);
     }
     
-//    public boolean remove(Integer candidate) {
-//        final Set<Integer> before = getCandidates();
-//        if (candidates.remove(candidate)) {
-//            final Set<Integer> after = getCandidates();
-//            fireCandidateChangeEvent(before, after);
-//            return true;
-//        }
-//        return false;
-//    }
-    
     public boolean remove(Integer candidate, ReferenceReason reason) 
     {
-        final Set<Integer> before = getCandidates();
         if (candidates.remove(candidate)) 
         {
-            final Set<Integer> after = getCandidates();
-            fireCandidateChangeEvent(before, after);
             Grid.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-//    public boolean removeAll(Set<Integer> candidates) {
-//        final Set<Integer> before = getCandidates();
-//        if (this.candidates.removeAll(candidates)) {
-//            final Set<Integer> after = getCandidates();
-//            fireCandidateChangeEvent(before, after);
-//            return true;
-//        }
-//        return false;
-//    }
-    
     public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) {
-        final Set<Integer> before = getCandidates();
-        if (this.candidates.removeAll(candidates)) {
-            final Set<Integer> after = getCandidates();
-            fireCandidateChangeEvent(before, after);
+        if (this.candidates.removeAll(candidates)) 
+        {
             Grid.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-//    public boolean retainAll(Set<Integer> candidates) {
-//        final Set<Integer> before = getCandidates();
-//        if (this.candidates.retainAll(candidates)) {
-//            Set<Integer> after = getCandidates();
-//            fireCandidateChangeEvent(before, after);
-//            return true;
-//        }
-//        return false;
-//    }
-    
-    public boolean retainAll(Set<Integer> candidates, Reason reason) {
-	final Set<Integer> before = getCandidates();
+    public boolean retainAll(Set<Integer> candidates, Reason reason) 
+    {
         if (this.candidates.retainAll(candidates)) {
-            Set<Integer> after = getCandidates();
-            fireCandidateChangeEvent(before, after);
             Grid.logCandidateRetention(this, candidates, reason.getName());
             return true;
         }
@@ -151,12 +113,10 @@ public class Cell implements Comparable<Cell>
         
         Set<Cell> cells = new HashSet<Cell>();
         cells.add(this);
-        ReferenceReason reason = new ReferenceReason("Given Digit", cells);
-        row.removeCandidate(digit, reason);
-        column.removeCandidate(digit, reason);
-        box.removeCandidate(digit, reason);
-        
-        fireDigitChangeEvent();
+//        ReferenceReason reason = new ReferenceReason("Given Digit", cells);
+//        row.removeCandidate(digit, reason);
+//        column.removeCandidate(digit, reason);
+//        box.removeCandidate(digit, reason);
     }
  
     @Override
@@ -187,46 +147,6 @@ public class Cell implements Comparable<Cell>
     
     public String getPosition() {
         return "r" + row.getOffset() + "c" + column.getOffset();
-    }
-    
-    
-    public void addCellChangeListener(CellChangeListener listener) {
-        listeners.add(listener);
-    }
-    
-    public void removeCellChangeListener(CellChangeListener listener) {
-        listeners.remove(listener);
-    }
-    
-    private void fireDigitChangeEvent() {
-        DigitChangeEvent event = new DigitChangeEvent() {
-            public Cell getCell() {
-                return Cell.this;
-            }
-        };
-        for (CellChangeListener listener : listeners) {
-            listener.digitChanged(event);
-        }
-    }
-    
-    private void fireCandidateChangeEvent(final Set<Integer> before, final Set<Integer> after) {
-        CandidateChangeEvent event = new CandidateChangeEvent() {
-            public Set<Integer> getPreChangeCandidates() {
-                return before;
-            }
-
-            public Set<Integer> getPostChangeCandidates() {
-                return after;
-            }
-
-            public Cell getCell() {
-                return Cell.this;
-            }
-        };
-        for (CellChangeListener listener : listeners) 
-        {
-            listener.candidatesChanged(event);
-        }
     }
 
     public int compareTo(Cell cell)

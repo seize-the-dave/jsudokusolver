@@ -24,26 +24,27 @@ public class Main {
                         "083620915" +
                         "065198000" +
                         "219500008";
-        if (args.length == 1) {
+        if (args.length == 1) 
+        {
 		    puzzle = args[0];
 	    }
         Grid grid = Grid.parseGrid(puzzle);
+        
         Solver solver = new Solver();
         solver.addSolvingStrategy(new HiddenSingle());
         solver.addSolvingStrategy(new HiddenPair());
-//        solver.addSolvingStrategy(new HiddenTriple());
-//        solver.addSolvingStrategy(new HiddenQuad());
-//        solver.addSolvingStrategy(new NakedSingle());
-//        solver.addSolvingStrategy(new NakedPair());
-//        solver.addSolvingStrategy(new NakedTriple());
-//        solver.addSolvingStrategy(new NakedQuad());
-//        solver.addSolvingStrategy(new LockedCandidate());
+        solver.addSolvingStrategy(new HiddenTriple());
+        solver.addSolvingStrategy(new HiddenQuad());
+        solver.addSolvingStrategy(new NakedSingle());
+        solver.addSolvingStrategy(new NakedPair());
+        solver.addSolvingStrategy(new NakedTriple());
+        solver.addSolvingStrategy(new NakedQuad());
+        solver.addSolvingStrategy(new LockedCandidate());
 //        solver.addSolvingStrategy(new XWing());
 //        solver.addSolvingStrategy(new Swordfish());
 //        solver.addSolvingStrategy(new Jellyfish());
-        
         solver.solve(grid);
-//        grid.solve(solver);
+        
         System.out.println(grid);
         System.out.println("Export: " + grid.getPuzzle());
     }

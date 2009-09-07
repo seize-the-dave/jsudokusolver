@@ -18,9 +18,7 @@ public class Grid
     private final List<Box> boxes = new LinkedList<Box>();
     private final List<Floor> floors = new LinkedList<Floor>();
     private final List<Tower> towers = new LinkedList<Tower>();
-    private  List<SolvingStrategy> strategies;
     private static int step = 1;
-    private int currentStrategy = 0;
     
     public Grid() 
     {
@@ -178,30 +176,6 @@ public class Grid
     
     public Cell getCell(int rowIndex, int columnIndex) {
         return rows.get(columnIndex).getCells().get(rowIndex);
-    }
-    
-    public void addCellChangeListener(CellChangeListener listener) {
-        for (House house : getBoxes()) {
-            house.addCellChangeListener(listener);
-        }
-        for (House house : getColumns()) {
-            house.addCellChangeListener(listener);
-        }
-        for (House house : getRows()) {
-            house.addCellChangeListener(listener);
-        }
-    }
-    
-    public void removeCellChangeListener(CellChangeListener listener) {
-        for (House house : getBoxes()) {
-            house.removeCellChangeListener(listener);
-        }
-        for (House house : getColumns()) {
-            house.removeCellChangeListener(listener);
-        }
-        for (House house : getRows()) {
-            house.removeCellChangeListener(listener);
-        }
     }
     
     public static void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
