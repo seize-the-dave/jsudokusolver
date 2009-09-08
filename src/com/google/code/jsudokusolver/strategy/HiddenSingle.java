@@ -8,6 +8,7 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.SolverStrategy;
+import com.google.code.jsudokusolver.Util;
 
 /**
  * @author David Grant
@@ -61,7 +62,7 @@ public class HiddenSingle implements SolverStrategy {
         {
             Cell cell = candidates.toArray(new Cell[]{})[0];
             cell.setDigit(candidate);
-            Grid.logCandidateRetention(cell, candidate, NAME);
+            Util.logCandidateRetention(cell, candidate, NAME);
             return true;
         }
         return false;

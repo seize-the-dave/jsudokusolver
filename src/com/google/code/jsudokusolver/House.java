@@ -10,8 +10,6 @@ import java.util.TreeSet;
 /**
  * This class is the representation of a non-cell constraint, e.g. a row or a
  * column.
- * 
- * @author David Grant
  */
 public class House 
 {
@@ -21,7 +19,6 @@ public class House
     /**
      * Constructor
      * 
-     * @param size the size of this house
      * @param offset the offset of this house
      */
     public House(int offset) 

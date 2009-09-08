@@ -73,7 +73,7 @@ public class Cell implements Comparable<Cell>
     {
         if (candidates.remove(candidate)) 
         {
-            Grid.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
+            Util.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
             return true;
         }
         return false;
@@ -82,7 +82,7 @@ public class Cell implements Comparable<Cell>
     public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) {
         if (this.candidates.removeAll(candidates)) 
         {
-            Grid.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
+            Util.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
             return true;
         }
         return false;
@@ -91,7 +91,7 @@ public class Cell implements Comparable<Cell>
     public boolean retainAll(Set<Integer> candidates, Reason reason) 
     {
         if (this.candidates.retainAll(candidates)) {
-            Grid.logCandidateRetention(this, candidates, reason.getName());
+            Util.logCandidateRetention(this, candidates, reason.getName());
             return true;
         }
         return false;

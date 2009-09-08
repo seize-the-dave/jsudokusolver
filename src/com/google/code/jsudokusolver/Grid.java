@@ -1,17 +1,13 @@
 package com.google.code.jsudokusolver;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.logging.Logger;
 
 public class Grid 
 {
-    private static final Logger LOGGER = Logger.getLogger(Grid.class.getCanonicalName());
     private static final int SIZE = 9;
     private final List<Row> rows = new LinkedList<Row>();
     private final List<Column> columns = new LinkedList<Column>();
@@ -19,20 +15,19 @@ public class Grid
     private final List<Floor> floors = new LinkedList<Floor>();
     private final List<Tower> towers = new LinkedList<Tower>();
     private final List<Cell> cells = new LinkedList<Cell>();
-    private static int step = 1;
     
     private Grid() 
     {
     	// Initialize Chutes
-    	for (int i = 0; i < 3; i++)
+    	for (int i = 0; i < Math.sqrt(SIZE); i++)
         {
     		towers.add(new Tower());
         	floors.add(new Floor());
         }
     	// Initialize Houses
-    	for (int i = 0; i < 9; i++)
+    	for (int i = 0; i < SIZE; i++)
     	{
-    		int o = i / 3;
+    		int o = i / (int) Math.sqrt(SIZE);
     		Row r = new Row(i);
     		rows.add(r);
     		floors.get(o).add(r);
@@ -95,14 +90,22 @@ public class Grid
      * @throws InvalidSudokuException if the puzzle String is invalid
      */
     private void fromString(String puzzle) throws InvalidSudokuException {
-        if (puzzle.length() != 81) {
+        if (puzzle.length() != cells.size()) {
             throw new InvalidSudokuException("Wrong Length");
         }
-        for (int i = 0; i < 81; i++) 
+        for (int i = 0; i < cells.size(); i++) 
         {
         	Cell cell = cells.get(i);
             
-            Integer digit = Integer.valueOf(String.valueOf(puzzle.charAt(i)));
+        	int digit;
+        	try
+        	{
+        		digit = Integer.parseInt(String.valueOf(puzzle.charAt(i)));
+        	}
+        	catch (NumberFormatException e)
+        	{
+        		digit = 0;
+        	}
             if (digit != 0) 
             {
                 cell.setDigit(digit);
@@ -110,36 +113,42 @@ public class Grid
         }
     }
     
-    private House getRow(int offset) {
-        int row = offset / SIZE;
+    private House getRow(int offset) 
+    {
+        int row = offset / rows.size();
         return rows.get(row);
     }
     
-    private House getColumn(int offset) {
-        int column = offset % SIZE;
+    private House getColumn(int offset) 
+    {
+        int column = offset % columns.size();
         return columns.get(column);
     }
     
     private House getBox(int offset) {
-        int row = offset / SIZE;
-        int column = offset % SIZE;
+        int row = offset / rows.size();
+        int column = offset % columns.size();
         int sqrt = (int) Math.sqrt((double) SIZE);
         
         int rowOffset = (row / sqrt);
         int columnOffset = (column / sqrt);
         int box = (rowOffset * sqrt) + columnOffset;
+        
         return boxes.get(box);
     }
     
-    public List<Row> getRows() {
+    public List<Row> getRows() 
+    {
         return rows;
     }
     
-    public List<Column> getColumns() {
+    public List<Column> getColumns() 
+    {
         return columns;
     }
     
-    public List<Box> getBoxes() {
+    public List<Box> getBoxes() 
+    {
         return boxes;
     }
     
@@ -151,70 +160,6 @@ public class Grid
         {
             sb.append(row.toString());
             sb.append("\n");
-        }
-        return sb.toString();
-    }
-    
-    public static void logCandidateRemoval(Cell cell, int candidate, String strategy, Set<Cell> reference) {
-        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + candidate + " due to " + strategy + " in " + formatCells(reference));
-    }
-    
-    public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Set<Cell> reference) {
-        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(reference));
-    }
-    
-    public static void logCandidateRemoval(Cell cell, Set<Integer> candidates, String strategy, Cell... reference) {
-        Set<Cell> referenceSet = new TreeSet<Cell>(Arrays.asList(reference));
-        log(step + " " + strategy + ": " + cell.getPosition() + " cannot contain " + formatCandidates(candidates, false) + " due to " + strategy + " in " + formatCells(referenceSet));
-    }
-    
-    public static void logCandidateRetention(Cell cell, int candidate, String strategy) {
-        log(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + candidate);
-    }
-    
-    public static void logCandidateRetention(Cell cell, Set<Integer> candidates, String strategy) {
-        log(step + " " + strategy + ": " + cell.getPosition() + " can only contain " + formatCandidates(candidates, true));
-    }
-    
-    public static void logCandidateRetention(Set<Cell> cells, Set<Integer> candidates, String strategy) {
-        log(step + " " + strategy + ": " + formatCells(cells) + " can only contain " + formatCandidates(candidates, true));
-    }
-    
-    private static void log(String message) {
-        LOGGER.info(message);
-    }
-    
-    public static String formatCells(Set<Cell> cells) 
-    {
-        StringBuffer sb = new StringBuffer();
-        Cell[] cellArray = cells.toArray(new Cell[]{});
-        for (int i = 0; i < cellArray.length; i++) {
-            sb.append(cellArray[i].getPosition());
-            if (cellArray.length - i == 2) {
-                sb.append(" and ");
-            }
-            if (cellArray.length - i > 2) {
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
-    }
-    
-    public static String formatCandidates(Set<Integer> cells, boolean and) {
-        StringBuffer sb = new StringBuffer();
-        Integer[] cellArray = cells.toArray(new Integer[]{});
-        for (int i = 0; i < cellArray.length; i++) {
-            sb.append(cellArray[i]);
-            if (cellArray.length - i == 2) {
-                if (and) {
-                    sb.append(" and ");
-                } else {
-                    sb.append(" or ");
-                }
-            }
-            if (cellArray.length - i > 2) {
-                sb.append(", ");
-            }
         }
         return sb.toString();
     }

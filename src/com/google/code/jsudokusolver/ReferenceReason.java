@@ -16,6 +16,7 @@ public class ReferenceReason extends Reason
     public ReferenceReason(String name, Cell cell) 
     {
     	super(name);
+    	
     	this.reference = new HashSet<Cell>();
     	reference.add(cell);
     }
