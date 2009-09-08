@@ -11,6 +11,8 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.NoCandidatesException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
@@ -33,8 +35,9 @@ abstract public class AbstractBasicFish implements SolverStrategy
     
     /**
      * {@inheritDoc}
+     * @throws InvalidPuzzleException 
      */
-    public boolean solve(Grid grid) {
+    public boolean solve(Grid grid) throws InvalidPuzzleException {
         List<Row> rows = grid.getRows();
         List<Column> columns = grid.getColumns();
         for (int i = 1; i <= 9; i++) {
@@ -48,7 +51,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
         return false;
     }
 
-    private boolean solveRow(int candidate, List<Row> rows) {
+    private boolean solveRow(int candidate, List<Row> rows) throws InvalidPuzzleException {
         Map<Integer, Set<Integer>> rowMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> columnPopulation = new TreeSet<Integer>();
         for (House row : rows) {
@@ -117,7 +120,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
         return matches;
     }
     
-    private boolean solveColumn(int candidate, List<Column> columns) {
+    private boolean solveColumn(int candidate, List<Column> columns) throws NoCandidatesException {
         Map<Integer, Set<Integer>> columnMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> rowPopulation = new TreeSet<Integer>();
         for (House column : columns) {

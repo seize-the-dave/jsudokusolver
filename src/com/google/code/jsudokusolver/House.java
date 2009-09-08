@@ -76,8 +76,9 @@ public class House
      * Remove a candidate from each of the cells in this house
      * 
      * @param candidate the candidate to remove
+     * @throws NoCandidatesException 
      */
-    protected void removeCandidate(Integer candidate, ReferenceReason reason) 
+    protected void removeCandidate(Integer candidate, ReferenceReason reason) throws NoCandidatesException 
     {
         for (Cell cell : cells) 
         {
@@ -98,6 +99,13 @@ public class House
     @Override
     public String toString() 
     {
-        return cells.toString();
+    	StringBuilder sb = new StringBuilder();
+    	
+    	for (Cell cell : cells)
+    	{
+    		sb.append(cell.toString());
+    	}
+    	
+        return sb.toString();
     }
 }

@@ -18,11 +18,11 @@ public class Main {
         {
 		    puzzle = args[0];
 	    }
-        Grid grid = Grid.parseGrid(puzzle);
+        Grid grid = Grid.fromString(puzzle);
         
         Solver solver = new Solver();
-        solver.addSolvingStrategy(new Given());
-        solver.addSolvingStrategy(new NakedSingle());
+        solver.addStrategy(new Given());
+        solver.addStrategy(new NakedSingle());
         solver.solve(grid);
         
         System.out.println(grid);

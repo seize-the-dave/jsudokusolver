@@ -69,19 +69,27 @@ public class Cell implements Comparable<Cell>
         return candidates.contains(digit);
     }
     
-    public boolean remove(Integer candidate, ReferenceReason reason) 
+    public boolean remove(Integer candidate, ReferenceReason reason) throws NoCandidatesException 
     {
         if (candidates.remove(candidate)) 
         {
+        	if (candidates.size() == 0)
+        	{
+        		throw new NoCandidatesException(getPosition() + " has no remaining candidates.");
+        	}
             Util.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) {
+    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) throws NoCandidatesException {
         if (this.candidates.removeAll(candidates)) 
         {
+        	if (candidates.size() == 0)
+        	{
+        		throw new NoCandidatesException(getPosition() + " has no remaining candidates.");
+        	}
             Util.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
             return true;
         }
@@ -117,8 +125,28 @@ public class Cell implements Comparable<Cell>
         return digit;
     }
     
-    public void setDigit(Integer digit)
+    public void setDigit(Integer digit) throws RepeatedDigitException
     {
+    	Set<House> houses = new HashSet<House>();
+		houses.add(row);
+		houses.add(column);
+		houses.add(box);
+		
+    	for (House house : houses)
+    	{
+	    	for (Cell cell : house.getCells())
+	    	{
+	    		if (cell.equals(this))
+	    		{
+	    			continue;
+	    		}
+    			if (cell.isSolved() && cell.getDigit().equals(digit))
+    			{
+    				throw new RepeatedDigitException(digit + " not permitted in " + getPosition() + "; already present in " + cell.getPosition());
+    			}
+	    	}
+    	}
+    	
         this.digit = digit;
         candidates.clear();
         
@@ -135,7 +163,7 @@ public class Cell implements Comparable<Cell>
     {
         if (digit == null)
         {
-            return candidates.toString();
+            return ".";
         }
         return digit.toString();
     }

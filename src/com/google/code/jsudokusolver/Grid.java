@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -51,7 +52,7 @@ public class Grid
     	}
     }
     
-    public Set<House> getHouses()
+    public Collection<House> getHouses()
     {
     	Set<House> houses = new HashSet<House>();
     	
@@ -87,11 +88,11 @@ public class Grid
      * 1302465798...
      * 
      * @param puzzle
-     * @throws InvalidSudokuException if the puzzle String is invalid
+     * @throws InvalidPuzzleException if the puzzle String is invalid
      */
-    private void fromString(String puzzle) throws InvalidSudokuException {
+    private void parseGrid(String puzzle) throws InvalidPuzzleException {
         if (puzzle.length() != cells.size()) {
-            throw new InvalidSudokuException("Wrong Length");
+            throw new InvalidPuzzleException("Wrong Length");
         }
         for (int i = 0; i < cells.size(); i++) 
         {
@@ -152,6 +153,19 @@ public class Grid
         return boxes;
     }
     
+    public boolean isSolved()
+    {
+    	for (Cell cell : cells)
+    	{
+    		if (cell.isSolved() == false)
+    		{
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
+    
     @Override
     public String toString() 
     {
@@ -159,15 +173,14 @@ public class Grid
         for (House row : rows) 
         {
             sb.append(row.toString());
-            sb.append("\n");
         }
         return sb.toString();
     }
     
-    public static Grid parseGrid(String s) throws InvalidSudokuException
+    public static Grid fromString(String s) throws InvalidPuzzleException
     {
     	Grid g = new Grid();
-    	g.fromString(s);
+    	g.parseGrid(s);
     	
     	return g;
     }

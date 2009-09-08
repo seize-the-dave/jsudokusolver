@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.RepeatedDigitException;
 import com.google.code.jsudokusolver.SolverStrategy;
 import com.google.code.jsudokusolver.Util;
 
@@ -15,7 +16,7 @@ public class NakedSingle implements SolverStrategy {
         return NAME;
     }
     
-    public boolean solve(Grid grid)
+    public boolean solve(Grid grid) throws RepeatedDigitException
     {
         if (solveHouses(grid.getRows())) 
         {
@@ -32,7 +33,7 @@ public class NakedSingle implements SolverStrategy {
         return false;
     }
     
-    private boolean solveHouses(List<? extends House> houses)
+    private boolean solveHouses(List<? extends House> houses) throws RepeatedDigitException
     {
         for (House house : houses) 
         {

@@ -9,17 +9,21 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
+import com.google.code.jsudokusolver.InvalidPuzzleException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
 
-public class SimpleColours implements SolverStrategy {
-    public String getName() {
-	return "Simple Colours";
+public class SimpleColours implements SolverStrategy 
+{
+    public String getName() 
+    {
+    	return "Simple Colours";
     }
 
     // Each pair must be split between colours!
-    public boolean solve(Grid grid) {
+    public boolean solve(Grid grid) throws InvalidPuzzleException 
+    {
 	List<Row> rows = grid.getRows();
 	List<Column> columns = grid.getColumns();
 	List<Box> boxes = grid.getBoxes();
