@@ -9,12 +9,12 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
  * @author David Grant
  */
-abstract public class AbstractNakedSubset implements SolvingStrategy 
+abstract public class AbstractNakedSubset implements SolverStrategy 
 {
     /**
      * Gets the size of the subset that is being searched for, e.g. 4 for a

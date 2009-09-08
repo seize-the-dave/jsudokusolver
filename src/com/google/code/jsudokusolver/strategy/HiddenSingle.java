@@ -7,12 +7,12 @@ import java.util.Set;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
  * @author David Grant
  */
-public class HiddenSingle implements SolvingStrategy {
+public class HiddenSingle implements SolverStrategy {
     private static final String NAME = "Hidden Single";
     
     public String getName() {

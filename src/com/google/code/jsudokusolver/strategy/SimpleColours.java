@@ -11,9 +11,9 @@ import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 
-public class SimpleColours implements SolvingStrategy {
+public class SimpleColours implements SolverStrategy {
     public String getName() {
 	return "Simple Colours";
     }

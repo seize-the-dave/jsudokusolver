@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Solver 
 {
-	private List<SolvingStrategy> strategies;
+	private List<SolverStrategy> strategies;
 	
 	public Solver()
 	{
-		strategies = new LinkedList<SolvingStrategy>();
+		strategies = new LinkedList<SolverStrategy>();
 	}
 	
-	public void addSolvingStrategy(SolvingStrategy strategy)
+	public void addSolvingStrategy(SolverStrategy strategy)
 	{
 		strategies.add(strategy);
 	}
 	
 	public void solve(Grid g)
 	{
-		for (SolvingStrategy strategy : strategies)
+		for (SolverStrategy strategy : strategies)
 		{
 			strategy.solve(g);
 		}

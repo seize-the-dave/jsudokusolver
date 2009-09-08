@@ -5,9 +5,9 @@ import java.util.List;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 
-public class NakedSingle implements SolvingStrategy {
+public class NakedSingle implements SolverStrategy {
     private static final String NAME = "Naked Single";
     
     public String getName() {

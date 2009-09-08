@@ -10,12 +10,12 @@ import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
  * @author David Grant
  */
-public class LockedCandidate implements SolvingStrategy 
+public class LockedCandidate implements SolverStrategy 
 {
     private static final String NAME = "Locked Candidate";
 
@@ -30,13 +30,13 @@ public class LockedCandidate implements SolvingStrategy
      * {@inheritDoc}
      */
     public boolean solve(Grid grid) {
-    	if (solveType1(grid)) {
+    	if (solvePointing(grid)) {
     		return true;
     	}
-    	return solveType2(grid);
+    	return solveClaiming(grid);
     }
 
-    public boolean solveType1(Grid grid) 
+    public boolean solvePointing(Grid grid) 
     {
         List<Box> boxes = grid.getBoxes();
         for (int i = 1; i <= 9; i++) {
@@ -93,7 +93,7 @@ public class LockedCandidate implements SolvingStrategy
         return false;
     }
     
-    public boolean solveType2(Grid grid) {
+    public boolean solveClaiming(Grid grid) {
     	boolean solved = false;
     	List<Column> columns = grid.getColumns();
     	List<Row> rows = grid.getRows();

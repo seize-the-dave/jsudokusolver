@@ -4,7 +4,7 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.Reason;
-import com.google.code.jsudokusolver.SolvingStrategy;
+import com.google.code.jsudokusolver.SolverStrategy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * @author David Grant
  */
-abstract public class AbstractHiddenSubset implements SolvingStrategy 
+abstract public class AbstractHiddenSubset implements SolverStrategy 
 {    
     /**
      * Gets the size of the subset that is being searched for, e.g. 4 for a
