@@ -1,6 +1,6 @@
 package com.google.code.jsudokusolver;
 
-public class RepeatedDigitException extends InvalidPuzzleException {
+public class RepeatedDigitException extends IllegalPuzzleException {
 
 	/**
 	 * 

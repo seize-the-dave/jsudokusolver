@@ -3,7 +3,7 @@ package com.google.code.jsudokusolver;
 /**
  * This exception is thrown when a grid is filled with an invalid puzzle
  */
-public class InvalidPuzzleException extends Exception 
+public class IllegalPuzzleException extends IllegalStateException 
 {
     /**
 	 * 
@@ -15,7 +15,7 @@ public class InvalidPuzzleException extends Exception
      * 
      * @param message description of this exception
      */
-    public InvalidPuzzleException(String message) 
+    public IllegalPuzzleException(String message) 
     {
         super(message);
     }

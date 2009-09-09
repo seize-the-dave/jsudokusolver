@@ -69,7 +69,7 @@ public class Cell implements Comparable<Cell>
         return candidates.contains(digit);
     }
     
-    public boolean remove(Integer candidate, ReferenceReason reason) throws NoCandidatesException 
+    public boolean remove(Integer candidate, ReferenceReason reason) 
     {
         if (candidates.remove(candidate)) 
         {
@@ -83,7 +83,8 @@ public class Cell implements Comparable<Cell>
         return false;
     }
     
-    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason) throws NoCandidatesException {
+    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason)
+    {
         if (this.candidates.removeAll(candidates)) 
         {
         	if (candidates.size() == 0)
@@ -125,7 +126,7 @@ public class Cell implements Comparable<Cell>
         return digit;
     }
     
-    public void setDigit(Integer digit) throws RepeatedDigitException
+    public void setDigit(Integer digit)
     {
     	Set<House> houses = new HashSet<House>();
 		houses.add(row);

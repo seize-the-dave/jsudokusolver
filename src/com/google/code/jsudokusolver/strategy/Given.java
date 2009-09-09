@@ -3,7 +3,7 @@ package com.google.code.jsudokusolver.strategy;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolverStrategy;
 
@@ -16,7 +16,7 @@ public class Given implements SolverStrategy
 	}
 
 	@Override
-	public boolean solve(Grid grid) throws InvalidPuzzleException 
+	public boolean solve(Grid grid) throws IllegalPuzzleException 
 	{
 		boolean changed = false;
 		

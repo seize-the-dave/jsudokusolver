@@ -4,13 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.code.jsudokusolver.Grid;
-import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.Solver;
 
 public class HiddenSingleTest 
 {
 	@Test
-	public void testSolve() throws InvalidPuzzleException 
+	public void testSolve() 
 	{
 		Grid g = Grid.fromString("..2.3...8.....8....31.2.....6..5.27..1.....5.2.4.6..31....8.6.5.......13..531.4..");
 		

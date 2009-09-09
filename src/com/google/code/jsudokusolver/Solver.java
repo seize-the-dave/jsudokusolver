@@ -18,7 +18,7 @@ public class Solver
 		strategies.add(strategy);
 	}
 	
-	public void solve(Grid g) throws InvalidPuzzleException
+	public void solve(Grid g) throws IllegalPuzzleException
 	{
 		Iterator<SolverStrategy> iter = strategies.iterator();
 		while (iter.hasNext())

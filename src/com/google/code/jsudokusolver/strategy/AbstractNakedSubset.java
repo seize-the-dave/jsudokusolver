@@ -8,7 +8,7 @@ import java.util.TreeSet;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolverStrategy;
 
@@ -25,7 +25,8 @@ abstract public class AbstractNakedSubset implements SolverStrategy
      */
     abstract protected int getSetSize();
     
-    public boolean solve(Grid grid) throws InvalidPuzzleException {
+    public boolean solve(Grid grid)
+    {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
         combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
                                                  combinations, 
@@ -44,7 +45,8 @@ abstract public class AbstractNakedSubset implements SolverStrategy
         return false;
     }
 
-    private boolean solveHouses(List<? extends House> houses, Set<Integer> quad) throws InvalidPuzzleException {
+    private boolean solveHouses(List<? extends House> houses, Set<Integer> quad)
+    {
         for (House house : houses) {
             if (solveHouse(house, quad)) {
                 return true;
@@ -53,7 +55,8 @@ abstract public class AbstractNakedSubset implements SolverStrategy
         return false;
     }
     
-    private boolean solveHouse(House house, Set<Integer> combination) throws InvalidPuzzleException {
+    private boolean solveHouse(House house, Set<Integer> combination)
+    {
         Set<Cell> selectedCells = new TreeSet<Cell>();
         for (Cell cell : house.getCells()) {
             if (cell.isSolved()) {

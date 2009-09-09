@@ -16,7 +16,7 @@ public class NakedSingle implements SolverStrategy {
         return NAME;
     }
     
-    public boolean solve(Grid grid) throws RepeatedDigitException
+    public boolean solve(Grid grid)
     {
         if (solveHouses(grid.getRows())) 
         {
@@ -33,7 +33,7 @@ public class NakedSingle implements SolverStrategy {
         return false;
     }
     
-    private boolean solveHouses(List<? extends House> houses) throws RepeatedDigitException
+    private boolean solveHouses(List<? extends House> houses)
     {
         for (House house : houses) 
         {

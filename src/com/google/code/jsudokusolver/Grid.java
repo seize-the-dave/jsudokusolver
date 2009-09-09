@@ -88,11 +88,12 @@ public class Grid
      * 1302465798...
      * 
      * @param puzzle
-     * @throws InvalidPuzzleException if the puzzle String is invalid
+     * @throws IllegalPuzzleException if the puzzle String is invalid
      */
-    private void parseGrid(String puzzle) throws InvalidPuzzleException {
+    private void parseGrid(String puzzle) 
+    {
         if (puzzle.length() != cells.size()) {
-            throw new InvalidPuzzleException("Wrong Length");
+            throw new IllegalPuzzleException("Wrong Length");
         }
         for (int i = 0; i < cells.size(); i++) 
         {
@@ -177,7 +178,7 @@ public class Grid
         return sb.toString();
     }
     
-    public static Grid fromString(String s) throws InvalidPuzzleException
+    public static Grid fromString(String s) throws IllegalPuzzleException
     {
     	Grid g = new Grid();
     	g.parseGrid(s);

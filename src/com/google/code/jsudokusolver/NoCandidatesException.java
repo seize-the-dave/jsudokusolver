@@ -1,6 +1,6 @@
 package com.google.code.jsudokusolver;
 
-public class NoCandidatesException extends InvalidPuzzleException 
+public class NoCandidatesException extends IllegalPuzzleException 
 {
 	/**
 	 * 

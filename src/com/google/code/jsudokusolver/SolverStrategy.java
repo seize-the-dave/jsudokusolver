@@ -21,5 +21,5 @@ public interface SolverStrategy
      * 
      * @return true if a change was made; false otherwise
      */
-    boolean solve(Grid grid) throws InvalidPuzzleException;
+    boolean solve(Grid grid) throws IllegalPuzzleException;
 }

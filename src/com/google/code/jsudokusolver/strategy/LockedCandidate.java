@@ -8,7 +8,7 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
@@ -30,7 +30,7 @@ public class LockedCandidate implements SolverStrategy
     /**
      * {@inheritDoc}
      */
-    public boolean solve(Grid grid) throws InvalidPuzzleException 
+    public boolean solve(Grid grid) 
     {
     	if (solvePointing(grid)) {
     		return true;
@@ -38,7 +38,7 @@ public class LockedCandidate implements SolverStrategy
     	return solveClaiming(grid);
     }
 
-    public boolean solvePointing(Grid grid)  throws InvalidPuzzleException
+    public boolean solvePointing(Grid grid)
     {
         List<Box> boxes = grid.getBoxes();
         for (int i = 1; i <= 9; i++) {
@@ -95,7 +95,7 @@ public class LockedCandidate implements SolverStrategy
         return false;
     }
     
-    public boolean solveClaiming(Grid grid) throws InvalidPuzzleException 
+    public boolean solveClaiming(Grid grid) 
     {
     	boolean solved = false;
     	List<Column> columns = grid.getColumns();

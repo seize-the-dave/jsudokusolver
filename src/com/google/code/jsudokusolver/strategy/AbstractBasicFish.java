@@ -11,7 +11,7 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.InvalidPuzzleException;
+import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.NoCandidatesException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
@@ -35,9 +35,10 @@ abstract public class AbstractBasicFish implements SolverStrategy
     
     /**
      * {@inheritDoc}
-     * @throws InvalidPuzzleException 
+     * @throws IllegalPuzzleException 
      */
-    public boolean solve(Grid grid) throws InvalidPuzzleException {
+    public boolean solve(Grid grid)
+    {
         List<Row> rows = grid.getRows();
         List<Column> columns = grid.getColumns();
         for (int i = 1; i <= 9; i++) {
@@ -51,7 +52,8 @@ abstract public class AbstractBasicFish implements SolverStrategy
         return false;
     }
 
-    private boolean solveRow(int candidate, List<Row> rows) throws InvalidPuzzleException {
+    private boolean solveRow(int candidate, List<Row> rows)
+    {
         Map<Integer, Set<Integer>> rowMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> columnPopulation = new TreeSet<Integer>();
         for (House row : rows) {
@@ -120,7 +122,8 @@ abstract public class AbstractBasicFish implements SolverStrategy
         return matches;
     }
     
-    private boolean solveColumn(int candidate, List<Column> columns) throws NoCandidatesException {
+    private boolean solveColumn(int candidate, List<Column> columns)
+    {
         Map<Integer, Set<Integer>> columnMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> rowPopulation = new TreeSet<Integer>();
         for (House column : columns) {
@@ -183,7 +186,8 @@ abstract public class AbstractBasicFish implements SolverStrategy
         return map.size() <= getFishSize();
     }
     
-    private boolean wrongSize(Set<Map.Entry<Integer, Set<Integer>>> set) {
+    private boolean wrongSize(Set<Map.Entry<Integer, Set<Integer>>> set)
+    {
         return set.size() != getFishSize();
     }
 }
