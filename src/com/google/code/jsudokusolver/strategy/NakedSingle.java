@@ -1,11 +1,10 @@
 package com.google.code.jsudokusolver.strategy;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.RepeatedDigitException;
 import com.google.code.jsudokusolver.SolverStrategy;
 import com.google.code.jsudokusolver.Util;
 
@@ -18,22 +17,10 @@ public class NakedSingle implements SolverStrategy {
     
     public boolean solve(Grid grid)
     {
-        if (solveHouses(grid.getRows())) 
-        {
-            return true;
-        }
-        if (solveHouses(grid.getColumns())) 
-        {
-            return true;
-        }
-        if (solveHouses(grid.getBoxes())) 
-        {
-            return true;
-        }
-        return false;
+        return solveHouses(grid.getHouses()); 
     }
     
-    private boolean solveHouses(List<? extends House> houses)
+    private boolean solveHouses(Collection<? extends House> houses)
     {
         for (House house : houses) 
         {
