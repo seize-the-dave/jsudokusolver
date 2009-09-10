@@ -1,17 +1,15 @@
 package com.google.code.jsudokusolver.strategy;
 
 /**
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Naked_Triple
  */
-public class NakedTriple extends AbstractNakedSubset {
-    private static String NAME = "Naked Triple";
-
-    public String getName() {
-        return NAME;
-    }
-    
-    @Override
-    protected int getSetSize() {
+public class NakedTriple extends AbstractNakedSubset 
+{
+    /**
+     * {@inheritDoc}
+     */
+    protected int getSetSize() 
+    {
         return 3;
     }
 }

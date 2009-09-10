@@ -12,7 +12,7 @@ public interface SolverStrategy
      * 
      * @return the name
      */
-    String getName();
+//    String getName();
     /**
      * Attempt to solve the grid with this strategy.
      * 

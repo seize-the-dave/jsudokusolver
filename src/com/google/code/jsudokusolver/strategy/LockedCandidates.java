@@ -17,15 +17,6 @@ import com.google.code.jsudokusolver.SolverStrategy;
  */
 public class LockedCandidates implements SolverStrategy 
 {
-    private static final String NAME = "Locked Candidates";
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getName() {
-        return NAME;
-    }
-    
     /**
      * {@inheritDoc}
      */
@@ -64,7 +55,7 @@ public class LockedCandidates implements SolverStrategy
                 }
                 if (search != null) {
                     Set<Cell> columnCells = search.getCellsWithCandidate(i);
-                    ReferenceReason reason = new ReferenceReason(NAME, cells);
+                    ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
                     if (columnCells.equals(cells) == false) {
                         columnCells.removeAll(cells);
                         for (Cell cell : columnCells) {
@@ -86,7 +77,7 @@ public class LockedCandidates implements SolverStrategy
                     Set<Cell> rowCells = search.getCellsWithCandidate(i);
                     if (rowCells.equals(cells) == false) {
                         rowCells.removeAll(cells);
-                        ReferenceReason reason = new ReferenceReason(NAME, cells);
+                        ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
                         for (Cell cell : rowCells) {
                             cell.remove(i, reason);
                         }
@@ -120,7 +111,7 @@ public class LockedCandidates implements SolverStrategy
                     Set<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
-                        ReferenceReason reason = new ReferenceReason(NAME, cells);
+                        ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
                         for (Cell cell : boxCells) {
                             cell.remove(i, reason);
                         }
@@ -144,7 +135,7 @@ public class LockedCandidates implements SolverStrategy
                     Set<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
-                        ReferenceReason reason = new ReferenceReason(NAME, cells);
+                        ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
                         for (Cell cell : boxCells) {
                             cell.remove(i, reason);
                         }

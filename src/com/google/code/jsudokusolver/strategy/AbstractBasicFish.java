@@ -11,14 +11,12 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.IllegalPuzzleException;
-import com.google.code.jsudokusolver.NoCandidatesException;
 import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Fish
  */
 abstract public class AbstractBasicFish implements SolverStrategy 
 {    
@@ -35,7 +33,6 @@ abstract public class AbstractBasicFish implements SolverStrategy
     
     /**
      * {@inheritDoc}
-     * @throws IllegalPuzzleException 
      */
     public boolean solve(Grid grid)
     {
@@ -95,7 +92,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
                 rowMap.remove(entry.getKey());
             }
             boolean solved = false;
-            ReferenceReason reason = new ReferenceReason(getName(), fish);
+            ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : rowMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House row = rows.get(entry.getKey() - 1);
@@ -165,7 +162,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
                 columnMap.remove(entry.getKey());
             }
             boolean solved = false;
-            ReferenceReason reason = new ReferenceReason(getName(), fish);
+            ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : columnMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House column = columns.get(entry.getKey() - 1);

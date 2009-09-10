@@ -1,19 +1,15 @@
 package com.google.code.jsudokusolver.strategy;
 
 /**
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Hidden_Pair
  */
-public class HiddenPair extends AbstractHiddenSubset {
-    private static final String NAME = "Hidden Pair";
-
-    public String getName() {
-        return NAME;
-    }
-    
+public class HiddenPair extends AbstractHiddenSubset 
+{
     /**
      * {@inheritDoc}
      */
-    protected int getSetSize() {
+    protected int getSetSize() 
+    {
         return 2;
     }
 }

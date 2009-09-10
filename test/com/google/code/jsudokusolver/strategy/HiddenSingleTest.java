@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.code.jsudokusolver.Grid;
-import com.google.code.jsudokusolver.IllegalPuzzleException;
 import com.google.code.jsudokusolver.Solver;
 
 public class HiddenSingleTest 

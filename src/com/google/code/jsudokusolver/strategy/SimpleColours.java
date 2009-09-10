@@ -13,14 +13,14 @@ import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
 
+/**
+ * @see http://www.sudopedia.org/wiki/Simple_Colors
+ */
 public class SimpleColours implements SolverStrategy 
 {
-    public String getName() 
-    {
-    	return "Simple Colours";
-    }
-
-    // Each pair must be split between colours!
+    /**
+	 * {@inheritDoc}
+	 */
     public boolean solve(Grid grid)
     {
 	List<Row> rows = grid.getRows();
@@ -67,7 +67,7 @@ public class SimpleColours implements SolverStrategy
 		System.out.println(cell.getPosition());
 	    }
 	    if (hasContradiction(colour2)) {
-		ReferenceReason reason = new ReferenceReason(getName(), colour1);
+		ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), colour1);
 		for (Cell cell : colour2) {
 		    cell.remove(i, reason);
 		}

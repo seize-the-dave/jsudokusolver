@@ -1,22 +1,15 @@
 package com.google.code.jsudokusolver.strategy;
 
 /**
-*
-* @author David Grant
-*/
-public class Jellyfish extends AbstractBasicFish {
+ * @see http://www.sudopedia.org/wiki/Jellyfish
+ */
+public class Jellyfish extends AbstractBasicFish 
+{
     /**
      * {@inheritDoc}
      */
-    public String getName() {
-        return "Jellyfish";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected int getFishSize() {
+    protected int getFishSize() 
+    {
         return 4;
     }
 }

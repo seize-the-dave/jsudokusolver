@@ -1,17 +1,17 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.Reason;
 import com.google.code.jsudokusolver.SolverStrategy;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
- *
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Hidden_Subset
  */
 abstract public class AbstractHiddenSubset implements SolverStrategy 
 {    
@@ -23,7 +23,7 @@ abstract public class AbstractHiddenSubset implements SolverStrategy
      */
     abstract protected int getSetSize();
     
-    private boolean solveHouses(List<? extends House> houses) 
+    private boolean solveHouses(Collection<? extends House> houses) 
     {
         Set<Set<Integer>> combinations = new HashSet<Set<Integer>>();
         combinations = Cell.generateCombinations(Cell.generateCandidateSet(1, 9), 
@@ -46,20 +46,9 @@ abstract public class AbstractHiddenSubset implements SolverStrategy
         return false;
     }
     
-    public boolean solve(Grid grid) {
-        if (solveHouses(grid.getRows())) 
-        {
-            return true;
-        }
-        if (solveHouses(grid.getColumns())) 
-        {
-            return true;
-        }
-        if (solveHouses(grid.getBoxes())) 
-        {
-            return true;
-        }
-        return false;
+    public boolean solve(Grid grid) 
+    {
+        return solveHouses(grid.getHouses());
     }
     
     protected boolean searchHouse(House house, Set<Integer> subset) 
@@ -89,7 +78,7 @@ abstract public class AbstractHiddenSubset implements SolverStrategy
             if (subsetCopy.size() != 0) {
                 return false;
             }
-            Reason reason = new Reason(getName());
+            Reason reason = new Reason(getClass().getSimpleName());
             for (Cell cell : matchingCells) {
                 if (cell.retainAll(subset, reason)) {
                     changed = true;

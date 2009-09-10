@@ -9,13 +9,9 @@ import com.google.code.jsudokusolver.SolverStrategy;
 
 public class Given implements SolverStrategy 
 {
-	@Override
-	public String getName() 
-	{
-		return "GivenDigit";
-	}
-
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean solve(Grid grid) throws IllegalPuzzleException 
 	{
 		boolean changed = false;
@@ -40,7 +36,7 @@ public class Given implements SolverStrategy
 					}
 					if (other.contains(cell.getDigit()))
 					{
-						ReferenceReason reason = new ReferenceReason(getName(), cell);
+						ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cell);
 						if (other.remove(cell.getDigit(), reason))
 						{
 							changed = true;

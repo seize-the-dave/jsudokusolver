@@ -1,17 +1,15 @@
 package com.google.code.jsudokusolver.strategy;
 
 /**
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Naked_Quad
  */
-public class NakedQuad extends AbstractNakedSubset {
-    private static final String NAME = "Naked Quad";
-    
-    public String getName() {
-        return NAME;
-    }
-
-    @Override
-    protected int getSetSize() {
+public class NakedQuad extends AbstractNakedSubset 
+{
+    /**
+     * {@inheritDoc}
+     */
+    protected int getSetSize() 
+    {
         return 4;
     }
 }

@@ -6,20 +6,15 @@
 package com.google.code.jsudokusolver.strategy;
 
 /**
- *
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Hidden_Triple
  */
-public class HiddenTriple extends AbstractHiddenSubset {
-    private static final String NAME = "Hidden Triple";
-
-    public String getName() {
-        return NAME;
-    }
-    
+public class HiddenTriple extends AbstractHiddenSubset 
+{
     /**
      * {@inheritDoc}
      */
-    protected int getSetSize() {
+    protected int getSetSize() 
+    {
         return 3;
     }
 }
