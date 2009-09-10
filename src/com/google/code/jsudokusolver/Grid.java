@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @see http://www.sudopedia.org/wiki/Grid
+ */
 public class Grid 
 {
     private static final int SIZE = 9;
@@ -61,6 +64,16 @@ public class Grid
     	houses.addAll(boxes);
     	
     	return houses;
+    }
+    
+    public Collection<Line> getLines()
+    {
+    	Set<Line> lines = new HashSet<Line>();
+    	
+    	lines.addAll(rows);
+    	lines.addAll(columns);
+    	
+    	return lines;
     }
     
     public Set<Chute> getChutes()

@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,15 +89,18 @@ public class SimpleColours implements SolverStrategy
 	return false;
     }
     
-    private Set<Cell> findPairs(List<? extends House> houses, int candidate) {
-	Set<Cell> pairCells = new HashSet<Cell>();
-	for (House house : houses) {
-	    Set<Cell> houseCells = house.getCellsWithCandidate(candidate);
-	    if (houseCells.size() == 2) {
-		pairCells.addAll(houseCells);
-	    }
-	}
-	return pairCells;
+    private Collection<Cell> findPairs(List<? extends House> houses, int candidate) 
+    {
+    	Collection<Cell> pairCells = new HashSet<Cell>();
+    	for (House house : houses) 
+    	{
+    		Collection<Cell> houseCells = house.getCellsWithCandidate(candidate);
+    		if (houseCells.size() == 2) 
+    		{
+    			pairCells.addAll(houseCells);
+    		}
+    	}
+    	return pairCells;
     }
     
     private boolean isConjugatePair(Cell firstCell, Cell secondCell) {

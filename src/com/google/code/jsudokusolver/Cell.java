@@ -1,14 +1,13 @@
 package com.google.code.jsudokusolver;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Representation of the smallest element of a Sudoku grid
- * 
- * @author David Grant
+ * @see http://www.sudopedia.org/wiki/Cell
  */
 public class Cell implements Comparable<Cell> 
 {
@@ -40,15 +39,27 @@ public class Cell implements Comparable<Cell>
         return Collections.unmodifiableSet(candidates);
     }
     
-    public Set<House> getHouses()
+    public Collection<House> getHouses()
     {
-    	Set<House> houses = new HashSet<House>();
+    	Collection<House> houses = new HashSet<House>();
     	
     	houses.add(row);
     	houses.add(column);
     	houses.add(box);
     	
     	return houses;
+    }
+    
+    public Set<Cell> getPeers()
+    {
+    	Set<Cell> peers = new HashSet<Cell>();
+    	
+    	peers.addAll(row.getCells());
+    	peers.addAll(column.getCells());
+    	peers.addAll(box.getCells());
+    	peers.remove(this);
+    	
+    	return peers;
     }
     
     /**
@@ -83,7 +94,7 @@ public class Cell implements Comparable<Cell>
         return false;
     }
     
-    public boolean removeAll(Set<Integer> candidates, ReferenceReason reason)
+    public boolean removeAll(Collection<Integer> candidates, ReferenceReason reason)
     {
         if (this.candidates.removeAll(candidates)) 
         {

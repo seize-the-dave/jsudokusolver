@@ -1,6 +1,7 @@
 package com.google.code.jsudokusolver;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,8 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This class is the representation of a non-cell constraint, e.g. a row or a
- * column.
+ * @see http://www.sudopedia.org/wiki/House
  */
 public class House 
 {
@@ -47,10 +47,11 @@ public class House
         return Collections.unmodifiableList(cells);
     }
     
-    public Set<Cell> getCellsWithCandidate(int candidate) 
+    public Collection<Cell> getCellsWithCandidate(int candidate) 
     {
         Set<Cell> candidateCells = new TreeSet<Cell>();
-        for (Cell cell : cells) {
+        for (Cell cell : cells) 
+        {
             if (cell.isSolved() == false && cell.contains(candidate)) 
             {
                 candidateCells.add(cell);

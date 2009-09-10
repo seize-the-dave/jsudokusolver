@@ -1,7 +1,7 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import com.google.code.jsudokusolver.Box;
 import com.google.code.jsudokusolver.Cell;
@@ -36,7 +36,7 @@ public class LockedCandidates implements SolverStrategy
         {
             for (House box : boxes) 
             {
-                Set<Cell> cells = box.getCellsWithCandidate(i);
+                Collection<Cell> cells = box.getCellsWithCandidate(i);
                 // We're not interested in boxes with only zero or one candidate
                 // as they have either been solved, or are immediately solvable.
                 if (cells.size() < 2) 
@@ -54,7 +54,7 @@ public class LockedCandidates implements SolverStrategy
                     }
                 }
                 if (search != null) {
-                    Set<Cell> columnCells = search.getCellsWithCandidate(i);
+                    Collection<Cell> columnCells = search.getCellsWithCandidate(i);
                     ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
                     if (columnCells.equals(cells) == false) {
                         columnCells.removeAll(cells);
@@ -74,7 +74,7 @@ public class LockedCandidates implements SolverStrategy
                     }
                 }
                 if (search != null) {
-                    Set<Cell> rowCells = search.getCellsWithCandidate(i);
+                	Collection<Cell> rowCells = search.getCellsWithCandidate(i);
                     if (rowCells.equals(cells) == false) {
                         rowCells.removeAll(cells);
                         ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
@@ -96,7 +96,7 @@ public class LockedCandidates implements SolverStrategy
     	List<Row> rows = grid.getRows();
     	for (int i = 1; i <= 9; i++) {
     		for (House column : columns) {
-    			Set<Cell> cells = column.getCellsWithCandidate(i);
+    			Collection<Cell> cells = column.getCellsWithCandidate(i);
     			House search = null;
     			for (Cell cell : cells) {
     				House box = cell.getBox();
@@ -108,7 +108,7 @@ public class LockedCandidates implements SolverStrategy
                     }
     			}
     			if (search != null) {
-                    Set<Cell> boxCells = search.getCellsWithCandidate(i);
+    				Collection<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
                         ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);
@@ -120,7 +120,7 @@ public class LockedCandidates implements SolverStrategy
                 }
     		}
     		for (House row : rows) {
-    			Set<Cell> cells = row.getCellsWithCandidate(i);
+    			Collection<Cell> cells = row.getCellsWithCandidate(i);
     			House search = null;
     			for (Cell cell : cells) {
     				House box = cell.getBox();
@@ -132,7 +132,7 @@ public class LockedCandidates implements SolverStrategy
                     }
     			}
     			if (search != null) {
-                    Set<Cell> boxCells = search.getCellsWithCandidate(i);
+    				Collection<Cell> boxCells = search.getCellsWithCandidate(i);
                     if (boxCells.equals(cells) == false) {
                         boxCells.removeAll(cells);
                         ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cells);

@@ -1,5 +1,6 @@
 package com.google.code.jsudokusolver.strategy;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
         Map<Integer, Set<Integer>> rowMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> columnPopulation = new TreeSet<Integer>();
         for (House row : rows) {
-            Set<Cell> cells = row.getCellsWithCandidate(candidate);
+            Collection<Cell> cells = row.getCellsWithCandidate(candidate);
             Set<Integer> columnSet = new TreeSet<Integer>();
             for (Cell cell : cells) {
                 columnSet.add(cell.getColumn().getOffset());
@@ -124,7 +125,7 @@ abstract public class AbstractBasicFish implements SolverStrategy
         Map<Integer, Set<Integer>> columnMap = new TreeMap<Integer, Set<Integer>>();
         Set<Integer> rowPopulation = new TreeSet<Integer>();
         for (House column : columns) {
-            Set<Cell> cells = column.getCellsWithCandidate(candidate);
+            Collection<Cell> cells = column.getCellsWithCandidate(candidate);
             Set<Integer> rowSet = new TreeSet<Integer>();
             for (Cell cell : cells) {
                 rowSet.add(cell.getRow().getOffset());

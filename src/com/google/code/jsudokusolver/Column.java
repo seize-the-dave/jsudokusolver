@@ -1,6 +1,9 @@
 package com.google.code.jsudokusolver;
 
-public class Column extends House 
+/**
+ * @see http://www.sudopedia.org/wiki/Column
+ */
+public class Column extends Line 
 {
 	public Column(int offset)
 	{

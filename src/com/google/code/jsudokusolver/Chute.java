@@ -3,6 +3,9 @@ package com.google.code.jsudokusolver;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @see http://www.sudopedia.org/wiki/Chute
+ */
 public class Chute 
 {
 	private Set<House> houses;

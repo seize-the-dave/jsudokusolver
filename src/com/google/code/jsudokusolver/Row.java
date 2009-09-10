@@ -1,6 +1,9 @@
 package com.google.code.jsudokusolver;
 
-public class Row extends House 
+/**
+ * @see http://www.sudopedia.org/wiki/Row
+ */
+public class Row extends Line 
 {
 	public Row(int offset)
 	{

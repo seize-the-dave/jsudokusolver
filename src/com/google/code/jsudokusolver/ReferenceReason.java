@@ -1,13 +1,13 @@
 package com.google.code.jsudokusolver;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public class ReferenceReason extends Reason 
 {
-    private final Set<Cell> reference;
+    private final Collection<Cell> reference;
     
-    public ReferenceReason(String name, Set<Cell> cells) 
+    public ReferenceReason(String name, Collection<Cell> cells) 
     {
     	super(name);
     	this.reference = cells;
@@ -21,7 +21,7 @@ public class ReferenceReason extends Reason
     	reference.add(cell);
     }
     
-    public Set<Cell> getReference() 
+    public Collection<Cell> getReference() 
     {
     	return reference;
     }

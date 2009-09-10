@@ -70,7 +70,7 @@ abstract public class AbstractNakedSubset implements SolverStrategy
                 }
                 continue;
             }
-            Set<Integer> cellCandidates = cell.getCandidates();
+            Collection<Integer> cellCandidates = cell.getCandidates();
             if (cellCandidates.size() > getSetSize()) 
             {
                 // Can't possibly be a subset
