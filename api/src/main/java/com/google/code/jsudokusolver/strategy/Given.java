@@ -4,7 +4,6 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
 import com.google.code.jsudokusolver.IllegalPuzzleException;
-import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolverStrategy;
 
 public class Given implements SolverStrategy 
@@ -36,8 +35,7 @@ public class Given implements SolverStrategy
 					}
 					if (other.contains(cell.getDigit()))
 					{
-						ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), cell);
-						if (other.remove(cell.getDigit(), reason))
+						if (other.remove(cell.getDigit()))
 						{
 							changed = true;
 						}

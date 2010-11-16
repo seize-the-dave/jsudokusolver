@@ -79,11 +79,11 @@ public class House
      * @param candidate the candidate to remove
      * @throws NoCandidatesException 
      */
-    protected void removeCandidate(Integer candidate, ReferenceReason reason) throws NoCandidatesException 
+    protected void removeCandidate(Integer candidate) throws NoCandidatesException 
     {
         for (Cell cell : cells) 
         {
-            cell.remove(candidate, reason);
+            cell.remove(candidate);
         }
     }
     

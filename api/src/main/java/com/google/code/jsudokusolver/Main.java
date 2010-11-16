@@ -1,9 +1,13 @@
 package com.google.code.jsudokusolver;
 
-import com.google.code.jsudokusolver.strategy.Given;
-import com.google.code.jsudokusolver.strategy.NakedSingle;
+import java.util.ServiceLoader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+	private static Logger LOGGER = LoggerFactory.getLogger("DISCOVERY");
+	
     public static void main(String[] args) throws Exception {
         String puzzle = "801006094" +
                         "300009080" +
@@ -21,8 +25,11 @@ public class Main {
         Grid grid = Grid.fromString(puzzle);
         
         Solver solver = new Solver();
-        solver.addStrategy(new Given());
-        solver.addStrategy(new NakedSingle());
+        ServiceLoader<SolverStrategy> strategies = ServiceLoader.load(SolverStrategy.class);
+        for (SolverStrategy strategy : strategies) {
+        	LOGGER.info("DISCOVERED " + strategy.getClass().getName());
+        	solver.addStrategy(strategy);
+        }
         solver.solve(grid);
         
         System.out.println(grid);

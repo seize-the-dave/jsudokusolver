@@ -8,7 +8,6 @@ import java.util.TreeSet;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
@@ -88,11 +87,9 @@ abstract public class AbstractNakedSubset implements SolverStrategy
             Set<Cell> houseCells = new HashSet<Cell>(house.getCells());
             houseCells.removeAll(selectedCells);
             boolean changed = false;
-            ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), selectedCells);
             for (Cell cell : houseCells) {
-                if (cell.removeAll(combination, reason)) 
+                if (cell.removeAll(combination)) 
                 {
-//                    Grid.logCandidateRemoval(cell, combination, getName(), cells);
                     changed = true;
                 }
             }

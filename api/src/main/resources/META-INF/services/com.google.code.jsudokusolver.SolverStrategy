@@ -1,0 +1,9 @@
+com.google.code.jsudokusolver.strategy.Given
+com.google.code.jsudokusolver.strategy.HiddenSingle
+com.google.code.jsudokusolver.strategy.HiddenPair
+com.google.code.jsudokusolver.strategy.HiddenTriple
+com.google.code.jsudokusolver.strategy.HiddenQuad
+com.google.code.jsudokusolver.strategy.NakedSingle
+com.google.code.jsudokusolver.strategy.NakedPair
+com.google.code.jsudokusolver.strategy.NakedTriple
+com.google.code.jsudokusolver.strategy.NakedQuad

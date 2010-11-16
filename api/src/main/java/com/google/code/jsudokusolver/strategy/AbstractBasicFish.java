@@ -12,7 +12,6 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
 
@@ -93,13 +92,12 @@ abstract public class AbstractBasicFish implements SolverStrategy
                 rowMap.remove(entry.getKey());
             }
             boolean solved = false;
-            ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : rowMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House row = rows.get(entry.getKey() - 1);
                 for (Integer column : entry.getValue()) {
                     Cell cell = row.getCells().get(column - 1);
-                    cell.remove(candidate, reason);
+                    cell.remove(candidate);
                     solved = true;
                 }
             }
@@ -163,13 +161,12 @@ abstract public class AbstractBasicFish implements SolverStrategy
                 columnMap.remove(entry.getKey());
             }
             boolean solved = false;
-            ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), fish);
             for (Map.Entry<Integer, Set<Integer>> entry : columnMap.entrySet()) {
                 entry.getValue().retainAll(combination);
                 House column = columns.get(entry.getKey() - 1);
                 for (Integer row : entry.getValue()) {
                     Cell cell = column.getCells().get(row - 1);
-                    cell.remove(candidate, reason);
+                    cell.remove(candidate);
                     solved = true;
                 }
             }

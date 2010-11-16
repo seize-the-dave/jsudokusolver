@@ -3,30 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code.jsudokusolver</groupId>
   <artifactId>jsudokusolver</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Maven Quick Start Archetype</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-	<build>
-		<plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
-        <configuration>
-          <source>6</source>
-          <target>6</target>
-        </configuration>
-      </plugin>
-    </plugins>
-	</build>
+  <name>JSudokuSolver</name>
+	<modules>
+		<module>api</module>
+		<module>strategies</module>
+	</modules>
 </project>
 

@@ -10,7 +10,6 @@ import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Column;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.ReferenceReason;
 import com.google.code.jsudokusolver.Row;
 import com.google.code.jsudokusolver.SolverStrategy;
 
@@ -68,9 +67,8 @@ public class SimpleColours implements SolverStrategy
 		System.out.println(cell.getPosition());
 	    }
 	    if (hasContradiction(colour2)) {
-		ReferenceReason reason = new ReferenceReason(getClass().getSimpleName(), colour1);
 		for (Cell cell : colour2) {
-		    cell.remove(i, reason);
+		    cell.remove(i);
 		}
 		return true;
 	    }

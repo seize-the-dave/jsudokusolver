@@ -80,7 +80,7 @@ public class Cell implements Comparable<Cell>
         return candidates.contains(digit);
     }
     
-    public boolean remove(Integer candidate, ReferenceReason reason) 
+    public boolean remove(Integer candidate) 
     {
         if (candidates.remove(candidate)) 
         {
@@ -88,13 +88,12 @@ public class Cell implements Comparable<Cell>
         	{
         		throw new NoCandidatesException(getPosition() + " has no remaining candidates.");
         	}
-            Util.logCandidateRemoval(this, candidate, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-    public boolean removeAll(Collection<Integer> candidates, ReferenceReason reason)
+    public boolean removeAll(Collection<Integer> candidates)
     {
         if (this.candidates.removeAll(candidates)) 
         {
@@ -102,16 +101,14 @@ public class Cell implements Comparable<Cell>
         	{
         		throw new NoCandidatesException(getPosition() + " has no remaining candidates.");
         	}
-            Util.logCandidateRemoval(this, candidates, reason.getName(), reason.getReference());
             return true;
         }
         return false;
     }
     
-    public boolean retainAll(Set<Integer> candidates, Reason reason) 
+    public boolean retainAll(Set<Integer> candidates) 
     {
         if (this.candidates.retainAll(candidates)) {
-            Util.logCandidateRetention(this, candidates, reason.getName());
             return true;
         }
         return false;

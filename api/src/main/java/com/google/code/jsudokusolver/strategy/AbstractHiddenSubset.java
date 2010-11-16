@@ -7,7 +7,6 @@ import java.util.Set;
 import com.google.code.jsudokusolver.Cell;
 import com.google.code.jsudokusolver.Grid;
 import com.google.code.jsudokusolver.House;
-import com.google.code.jsudokusolver.Reason;
 import com.google.code.jsudokusolver.SolverStrategy;
 
 /**
@@ -78,9 +77,8 @@ abstract public class AbstractHiddenSubset implements SolverStrategy
             if (subsetCopy.size() != 0) {
                 return false;
             }
-            Reason reason = new Reason(getClass().getSimpleName());
             for (Cell cell : matchingCells) {
-                if (cell.retainAll(subset, reason)) {
+                if (cell.retainAll(subset)) {
                     changed = true;
                 }
             }
