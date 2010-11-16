@@ -170,11 +170,11 @@ public class Cell implements Comparable<Cell>
     @Override
     public String toString()
     {
-        if (digit == null)
-        {
-            return ".";
-        }
-        return digit.toString();
+    	if (isSolved()) {
+    		return digit.toString();
+    	} else {
+    		return candidates.toString();
+    	}
     }
     
     public static Set<Integer> generateCandidateSet(Integer... candidates) {
@@ -194,7 +194,7 @@ public class Cell implements Comparable<Cell>
     }
     
     public String getPosition() {
-        return "r" + row.getOffset() + "c" + column.getOffset();
+        return "[" + row.getOffset() + "," + column.getOffset() + "]";
     }
 
     public int compareTo(Cell cell)
